@@ -26,6 +26,15 @@ struct BusRoute: View {
     private var currentSessionSchedule: [(session: Int, stops: [BusSchedule])] {
         let calendar = Calendar.current
         let now = Date()
+        
+        // Just For Testing
+//        var components = calendar.dateComponents([.year, .month, .day], from: now)
+//            components.hour = 12
+//            components.minute = 0
+//            components.second = 0
+//        let constNow = calendar.date(from: components)!
+        // Just for Testing
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -141,10 +150,6 @@ struct BusRoute: View {
                                     if isHidden {
                                         if index == busIndex + 1 {
                                             HStack(alignment: .center) {
-                                                Rectangle()
-                                                    .fill(Color.gray.opacity(0.5))
-                                                    .frame(width: 2, height: 30)
-                                                    .padding(.leading, 29)
                                                 Button(action: { isExpanded = true }) {
                                                     HStack(spacing: 4) {
                                                         Image(systemName: "chevron.down")
@@ -153,6 +158,7 @@ struct BusRoute: View {
                                                     }
                                                     .font(.caption)
                                                     .foregroundColor(.gray)
+                                                    .padding(.horizontal, 25)
                                                 }
                                                 Spacer()
                                             }
@@ -162,10 +168,6 @@ struct BusRoute: View {
 
                                         if index == userIndex && isExpanded {
                                             HStack {
-                                                Rectangle()
-                                                    .fill(Color.gray.opacity(0.5))
-                                                    .frame(width: 2, height: 30)
-                                                    .padding(.leading, 29)
                                                 Button(action: { isExpanded = false }) {
                                                     HStack(spacing: 4) {
                                                         Image(systemName: "chevron.up")
@@ -174,6 +176,7 @@ struct BusRoute: View {
                                                     }
                                                     .font(.caption)
                                                     .foregroundColor(.gray)
+                                                    .padding(.horizontal, 25)
                                                 }
                                                 Spacer()
                                             }
@@ -199,8 +202,8 @@ struct StopRowView: View {
     let showConnector: Bool
 
     var body: some View {
-        HStack(alignment: .center) {
-            VStack(spacing: 0) {
+        HStack(alignment: .top) {
+            VStack() {
                 Group {
                     if isBusHere {
                         BusIcon()
@@ -211,7 +214,7 @@ struct StopRowView: View {
                             .foregroundColor(.blue)
                     } else {
                         Circle()
-                            .fill(status == .passed ? Color.gray : Color.yellow)
+                            .fill(status == .passed ? Color.gray : Color.orange)
                             .frame(width: 40, height: 40)
                     }
                 }
@@ -222,7 +225,6 @@ struct StopRowView: View {
                         .frame(width: 2, height: 30)
                 }
             }
-            .frame(width: 40)
             .padding(.horizontal, 10)
 
             Text(stop.busStopName)
@@ -233,15 +235,13 @@ struct StopRowView: View {
             Spacer()
 
             Text(stop.timeOfArrival)
-                .font(.title3)
-                .foregroundColor(.white)
+                .font(.title2.bold())
+                .foregroundColor(status == .passed ? Color.gray : Color.primary)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
-                .background(status == .passed ? Color.gray : Color.black)
                 .cornerRadius(5)
                 .frame(height: 40, alignment: .center)
         }
-        .padding(.vertical, 5)
     }
 }
 
@@ -250,12 +250,12 @@ struct BusIcon: View {
         ZStack {
             Circle()
                 .frame(width: 40, height: 40)
-                .foregroundStyle(.quaternary)
+                .foregroundStyle(.yellow)
                 .shadow(radius: 1)
-            Image(systemName: "bus.fill")
+            Image(systemName: "bus")
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(.teal)
+                .foregroundStyle(.black)
                 .frame(width: 25, height: 25)
         }
     }

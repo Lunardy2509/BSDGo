@@ -36,11 +36,9 @@ struct DefaultSheetView: View {
                                 HStack {
                                     Image(systemName: "bus")
                                         .frame(width: 30, height: 30)
-                                        .padding(.horizontal, 8)
                                     
                                     VStack(alignment: .leading) {
                                         Text(stop.name)
-                                        .padding(.horizontal, 10)
                                     }
                                     Spacer()
                                 }
@@ -281,24 +279,36 @@ struct BusRow: View {
     let etaMinutes: Int
     let onTap: (_ busNumber: Int, _ busName: String) -> Void
     var body: some View {
-        HStack {
-            Image(systemName: "bus")
-                .foregroundStyle(bus.color)
-                .font(.system(size: 40))
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(UIColor.secondarySystemBackground))
+            HStack {
+                Image(systemName: "bus")
+                    .foregroundStyle(bus.color)
+                    .font(.system(size: 40))
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(bus.name)
-                    .font(.headline)
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
+                        Text(bus.name)
+                            .font(.headline)
+                            .foregroundColor(.black)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 3)
+                    .background(Color(bus.color))
+                    .cornerRadius(20)
+                    .fixedSize()
 
-                Text("Will be arriving \(etaMinutes == 0 ? "soon" : "in \(etaMinutes) \(etaMinutes == 1 ? "minute" : "minutes" )")")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    Text("Will be arriving \(etaMinutes == 0 ? "soon" : "in \(etaMinutes) \(etaMinutes == 1 ? "minute" : "minutes" )")")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
             }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .contentShape(Rectangle())
-        .onTapGesture {
-            onTap(bus.number, bus.name)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                onTap(bus.number, bus.name)
+            }
         }
     }
 }

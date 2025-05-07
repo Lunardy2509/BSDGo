@@ -80,13 +80,13 @@
 //        }
 //    }
 //
-////    private func description(for status: StopStatus) -> String {
-////        switch status {
-////        case .passed: return "The bus has already passed this stop."
-////        case .current: return "The bus is currently at this stop."
-////        case .upcoming: return "The bus will pass this stop soon."
-////        }
-////    }
+//    private func description(for status: StopStatus) -> String {
+//        switch status {
+//        case .passed: return "The bus has already passed this stop."
+//        case .current: return "The bus is currently at this stop."
+//        case .upcoming: return "The bus will pass this stop soon."
+//        }
+//    }
 //
 //    var body: some View {
 //        VStack(spacing: 0) {
