@@ -4,7 +4,7 @@ enum StopStatus {
     case passed, current, upcoming
 }
 
-struct BusRoute: View {
+struct BusRouteView: View {
     private let buses: [Bus] = loadBuses()
     private let busSchedule: [BusSchedule] = loadBusSchedules()
 
@@ -263,7 +263,7 @@ struct BusIcon: View {
 
 
 #Preview {
-    BusRoute(
+    BusRouteView(
         name: "Intermoda - Sektor 1.3",
         busNumber: 2,
         currentStopName: "The Breeze",

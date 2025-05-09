@@ -26,11 +26,6 @@ struct StopAnnotation: View {
         }
         .compositingGroup()
         .scaleEffect(self.isSelected ? 1.5 : 1, anchor: .bottom)
-//        .onTapGesture {
-//            withAnimation(.interpolatingSpring(stiffness: 300, damping: 10)) {
-//                self.isSelected.toggle()
-//            }
-//        }
     }
 }
 

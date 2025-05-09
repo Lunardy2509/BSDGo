@@ -1,5 +1,5 @@
 import SwiftUI
-import SwiftDatagit
+import SwiftData
 import MapKit
 
 enum SheetContentType {
@@ -141,7 +141,7 @@ struct MapView: View {
                     .presentationBackgroundInteraction(.enabled)
                     
                 case .routeDetailView:
-                    BusRoute(name: selectedBusName,
+                    BusRouteView(name: selectedBusName,
                              busNumber: selectedBusNumber,
                              currentStopName: UserDefaults.standard.string(forKey: "userStopName") ?? "",
                              currentBusStop: $selectedBusStop,
