@@ -32,7 +32,8 @@ struct MapView: View {
         minimumDistance: 1,
         maximumDistance: 50 * 1000
     )
-
+    
+    @StateObject private var locationManager = LocationManager()
     
     @State var searchText: String = ""
     @State var isSheetShown: Bool = true
@@ -42,7 +43,7 @@ struct MapView: View {
     @State var showStopDetailSheet: Bool = false
     @State var showRouteDetailSheet: Bool = false
   
-    @State var presentationDetent: PresentationDetent = .fraction(0.1)
+    @State var presentationDetent: PresentationDetent = .fraction(0.40)
     @State var selectedSheet: SheetContentType = .defaultView
     
     @State var busStops: [BusStop] = loadBusStops()
@@ -91,6 +92,7 @@ struct MapView: View {
             }
             .onAppear {
                 CLLocationManager().requestWhenInUseAuthorization()
+                presentationDetent = .fraction(0.40)
             }
             .mapControls {
                 MapUserLocationButton()
@@ -117,15 +119,17 @@ struct MapView: View {
                         busStops: $busStops,
                         searchText: $searchText,
                         selectionDetent: $presentationDetent,
-                        defaultPosition: $defaultPosition, selectedSheet: $selectedSheet,
+                        defaultPosition: $defaultPosition,
+                        selectedSheet: $selectedSheet,
                         showDefaultSheet: $showDefaultSheet,
                         showStopDetailSheet: $showStopDetailSheet,
                         showRouteDetailSheet: $showRouteDetailSheet,
                         selectedBusStop: $selectedBusStop,
                         selectedBusNumber: $selectedBusNumber,
+                        userLocation: locationManager.lastLocation,
                         onCancel: resetSheet
                     )
-                    .presentationDetents([.fraction(0.1), .medium ], selection: $presentationDetent)
+                    .presentationDetents([.fraction(0.10), .fraction(0.40), .fraction(0.99)], selection: $presentationDetent)
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled)
                     .interactiveDismissDisabled()
@@ -142,14 +146,14 @@ struct MapView: View {
                     
                 case .routeDetailView:
                     BusRouteView(name: selectedBusName,
-                             busNumber: selectedBusNumber,
-                             currentStopName: UserDefaults.standard.string(forKey: "userStopName") ?? "",
-                             currentBusStop: $selectedBusStop,
-                             showRouteDetailSheet: $showRouteDetailSheet,
-                             selectedSheet: $selectedSheet)
-                        .presentationDetents([.fraction(0.99)])
-                        .presentationDragIndicator(.visible)
-                        .presentationBackgroundInteraction(.enabled)
+                                 busNumber: selectedBusNumber,
+                                 currentStopName: UserDefaults.standard.string(forKey: "userStopName") ?? "",
+                                 currentBusStop: $selectedBusStop,
+                                 showRouteDetailSheet: $showRouteDetailSheet,
+                                 selectedSheet: $selectedSheet)
+                    .presentationDetents([.fraction(0.99)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
                 }
             }
         }
@@ -161,7 +165,7 @@ struct MapView: View {
             showDefaultSheet = true
             showStopDetailSheet = false
             showRouteDetailSheet = false
-            presentationDetent = .fraction(0.1)
+            presentationDetent = .fraction(0.40)
             selectedSheet = .defaultView
         }
     }

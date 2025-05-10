@@ -6,7 +6,9 @@ struct BusStop: Identifiable, Decodable {
     let id: UUID
     var name: String
     let coordinate: CLLocationCoordinate2D
-    let color: Color? 
+    let color: Color?
+    
+    var distanceFromUser: CLLocationDistance?
     
     enum CodingKeys: String, CodingKey {
         case name
