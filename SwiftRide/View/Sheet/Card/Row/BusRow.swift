@@ -31,6 +31,7 @@ struct BusRow: View {
                         .foregroundStyle(.secondary)
                 }
             }
+            .padding(8)
             .frame(maxWidth: .infinity, alignment: .leading)
             .contentShape(Rectangle())
             .onTapGesture {

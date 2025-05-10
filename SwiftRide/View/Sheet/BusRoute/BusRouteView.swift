@@ -26,15 +26,7 @@ struct BusRouteView: View {
     private var currentSessionSchedule: [(session: Int, stops: [BusSchedule])] {
         let calendar = Calendar.current
         let now = Date()
-        
-        // Just For Testing
-//        var components = calendar.dateComponents([.year, .month, .day], from: now)
-//            components.hour = 12
-//            components.minute = 0
-//            components.second = 0
-//        let constNow = calendar.date(from: components)!
-        // Just for Testing
-        
+
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -74,18 +66,29 @@ struct BusRouteView: View {
     }
 
     private func stopStatus(for timeString: String) -> StopStatus {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH.mm"
-        let now = formatter.string(from: Date())
+        let calendar = Calendar.current
+        let now = Date()
 
-        guard let currentTime = formatter.date(from: now),
-              let stopTime = formatter.date(from: timeString.replacingOccurrences(of: ":", with: ".")) else {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+
+        guard let stopTimeOnly = formatter.date(from: timeString) else {
             return .upcoming
         }
 
-        if stopTime < currentTime {
+        var components = calendar.dateComponents([.year, .month, .day], from: now)
+        let stopTimeComponents = calendar.dateComponents([.hour, .minute], from: stopTimeOnly)
+        components.hour = stopTimeComponents.hour
+        components.minute = stopTimeComponents.minute
+
+        guard let stopDate = calendar.date(from: components) else {
+            return .upcoming
+        }
+
+        if stopDate < now {
             return .passed
-        } else if Calendar.current.isDate(stopTime, equalTo: currentTime, toGranularity: .minute) {
+        } else if calendar.isDate(stopDate, equalTo: now, toGranularity: .minute) {
             return .current
         } else {
             return .upcoming
@@ -117,9 +120,14 @@ struct BusRouteView: View {
                             .padding()
                     } else {
                         ForEach(currentSessionSchedule, id: \.session) { group in
-                            let busIndex = group.stops.firstIndex(where: { stopStatus(for: $0.timeOfArrival) == .current }) ?? 0
-                            let userIndex = group.stops.firstIndex(where: { $0.busStopName == currentStopName && stopStatus(for: $0.timeOfArrival) == .upcoming }) ?? group.stops.count - 1
+                            let stops = group.stops
+                            let busIndex = stops.lastIndex(where: { stopStatus(for: $0.timeOfArrival) != .upcoming }) ?? 0
+                            let userIndex = stops.firstIndex(where: { $0.busStopName == currentStopName && stopStatus(for: $0.timeOfArrival) == .upcoming }) ?? stops.count - 1
                             let hiddenRange = (busIndex + 1)..<userIndex
+
+                            let startIndex = max(busIndex - 3, 0)
+                            let endIndex = min(userIndex + 3, stops.count - 1)
+                            let slicedStops = Array(stops[startIndex...endIndex])
 
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
@@ -141,11 +149,13 @@ struct BusRouteView: View {
                                     }
                                 }
 
-                                ForEach(Array(group.stops.enumerated()), id: \.offset) { index, stop in
+                                ForEach(Array(slicedStops.enumerated()), id: \.offset) { localIndex, stop in
+                                    let index = startIndex + localIndex
                                     let status = stopStatus(for: stop.timeOfArrival)
                                     let isUserHere = stop.busStopName == currentStopName && status == .upcoming
                                     let isBusHere = index == busIndex
                                     let isHidden = hiddenRange.contains(index) && !isExpanded
+                                    let showConnector = index < endIndex
 
                                     if isHidden {
                                         if index == busIndex + 1 {
@@ -164,7 +174,14 @@ struct BusRouteView: View {
                                             }
                                         }
                                     } else {
-                                        StopRowView(stop: stop, index: index, isUserHere: isUserHere, isBusHere: isBusHere, status: status, showConnector: index < group.stops.count - 1)
+                                        StopRowView(
+                                            stop: stop,
+                                            index: index,
+                                            isUserHere: isUserHere,
+                                            isBusHere: isBusHere,
+                                            status: status,
+                                            showConnector: showConnector
+                                        )
 
                                         if index == userIndex && isExpanded {
                                             HStack {
@@ -203,7 +220,7 @@ struct StopRowView: View {
 
     var body: some View {
         HStack(alignment: .top) {
-            VStack() {
+            VStack {
                 Group {
                     if isBusHere {
                         BusIcon()
@@ -229,14 +246,14 @@ struct StopRowView: View {
 
             Text(stop.busStopName)
                 .font(isBusHere ? .title3.bold() : .title3)
-                .foregroundColor(status == .passed ? .gray : .primary)
+                .foregroundColor(isBusHere ? .primary : (status == .passed ? .gray : .primary))
                 .frame(height: 40, alignment: .center)
 
             Spacer()
 
             Text(stop.timeOfArrival)
                 .font(.title2.bold())
-                .foregroundColor(status == .passed ? Color.gray : Color.primary)
+                .foregroundColor(isBusHere ? .primary : (status == .passed ? .gray : .primary))
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .cornerRadius(5)
@@ -259,16 +276,4 @@ struct BusIcon: View {
                 .frame(width: 25, height: 25)
         }
     }
-}
-
-
-#Preview {
-    BusRouteView(
-        name: "Intermoda - Sektor 1.3",
-        busNumber: 2,
-        currentStopName: "The Breeze",
-        currentBusStop: .constant(BusStop()),
-        showRouteDetailSheet: .constant(false),
-        selectedSheet: .constant(.defaultView)
-    )
 }
