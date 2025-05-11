@@ -80,15 +80,28 @@ struct BusCard: View {
                     .foregroundColor(.secondary)
                     .padding(.top, 8)
             } else {
-                ForEach(upcomingBuses, id: \.bus.id) { pair in
-                    BusRow(bus: pair.bus, etaMinutes: pair.etaMinutes) { busNumber, busName in
-                        selectedBusNumber = busNumber
-                        selectedBusName = busName
-                        UserDefaults.standard.set(currentBusStop.name, forKey: "userStopName")
-                        selectedSheet = .routeDetailView
-                        showRouteDetailSheet = true
+                VStack(spacing: 0) {
+                    ForEach(Array(upcomingBuses.enumerated()), id: \.element.bus.id) { index, pair in
+                        VStack(spacing: 0) {
+                            BusRow(bus: pair.bus, etaMinutes: pair.etaMinutes) { busNumber, busName in
+                                selectedBusNumber = busNumber
+                                selectedBusName = busName
+                                UserDefaults.standard.set(currentBusStop.name, forKey: "userStopName")
+                                selectedSheet = .routeDetailView
+                                showRouteDetailSheet = true
+                            }
+                            if index < upcomingBuses.count - 1 {
+                                Divider()
+                                    .padding(.leading, 58)
+                            }
+                        }
                     }
                 }
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color(UIColor.secondarySystemBackground))
+                )
+                .padding(.horizontal)
             }
         }
         .padding(.top, 0)

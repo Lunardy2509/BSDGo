@@ -54,38 +54,52 @@ private extension DefaultSheetView {
                     .font(.title2.bold())
                     .padding(.horizontal)
                 VStack(spacing: 0) {
-                    ForEach(closestStops, id: \.stop.id) { entry in
-                        HStack(alignment: .top, spacing: 12) {
-                            Image(systemName: "mappin.circle.fill")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 30))
-                            
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(entry.stop.name)
-                                    .font(.body)
-                                Text(formatDistance(entry.distance))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+                    ForEach(Array(closestStops.enumerated()), id: \.element.stop.id) { index, entry in
+                        Button(action: {
+                            handleBusStopSelection(entry.stop)
+                        }) {
+                            HStack(alignment: .center, spacing: 12) {
+                                Image(systemName: "mappin.circle.fill")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 30))
+
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(entry.stop.name)
+                                        .font(.body)
+                                    Text(formatDistance(entry.distance))
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+
+                                Spacer()
+
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
                             }
-                            Spacer()
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 16)
+                            .contentShape(Rectangle())
                         }
-                        .padding(8)
-                        if entry.stop.id != closestStops.last?.stop.id {
+                        .buttonStyle(.plain)
+                        if index < closestStops.count - 1 {
                             Divider()
-                                .padding(.horizontal)
+                                .padding(.leading, 58)
                         }
                     }
                 }
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color(UIColor.secondarySystemBackground))
+                )
+                .overlay( // Adds the same cornerRadius for clip + shadow consistency
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(Color(UIColor.separator).opacity(0.1), lineWidth: 0) // optional thin border
                 )
                 .padding(.horizontal)
             }
             .padding(.top, 15)
         }
     }
-
 
     @ViewBuilder
     func filteredStopsSection() -> some View {
@@ -95,13 +109,26 @@ private extension DefaultSheetView {
                 .padding()
         } else {
             VStack(spacing: 10) {
-                ForEach(filteredStops, id: \.id) { stop in
-                    if stop.name.localizedCaseInsensitiveContains(searchText) || filteredStops.isEmpty {
-                        BusStopRow(stop: stop) {
-                            handleBusStopSelection(stop)
+                VStack(spacing: 0) {
+                    ForEach(Array(filteredStops.enumerated()), id: \.element.id) { index, stop in
+                        if stop.name.localizedCaseInsensitiveContains(searchText) || filteredStops.isEmpty {
+                            VStack(spacing: 0) {
+                                SearchRow(stop: stop) {
+                                    handleBusStopSelection(stop)
+                                }
+                            }
+                            if index < filteredStops.count - 1 {
+                                Divider()
+                                    .padding(.leading, 46)
+                            }
                         }
                     }
                 }
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color(UIColor.secondarySystemBackground))
+                )
+                .padding(.horizontal)
             }
             .padding(.top, 10)
         }
@@ -158,15 +185,12 @@ private extension DefaultSheetView {
         }
     }
 
-    struct BusStopRow: View {
+    struct SearchRow: View {
         let stop: BusStop
         let onTap: () -> Void
 
         var body: some View {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(UIColor.secondarySystemBackground))
-
+            Button(action: onTap) {
                 HStack {
                     Image(systemName: "mappin.circle.fill")
                         .font(.system(size: 20))
@@ -175,13 +199,18 @@ private extension DefaultSheetView {
                         Text(stop.name)
                             .font(.body)
                     }
-
                     Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
                 }
-                .padding(5)
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(UIColor.secondarySystemBackground))
+                .cornerRadius(12)
+                .contentShape(RoundedRectangle(cornerRadius: 12))
             }
+            .buttonStyle(.plain)
             .padding(.horizontal)
-            .onTapGesture(perform: onTap)
         }
     }
 }

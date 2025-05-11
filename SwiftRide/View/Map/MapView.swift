@@ -129,7 +129,7 @@ struct MapView: View {
                         userLocation: locationManager.lastLocation,
                         onCancel: resetSheet
                     )
-                    .presentationDetents([.fraction(0.10), .fraction(0.40), .fraction(0.99)], selection: $presentationDetent)
+                    .presentationDetents([.fraction(0.10), .fraction(0.40), .medium, .fraction(0.99)], selection: $presentationDetent)
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled)
                     .interactiveDismissDisabled()
@@ -140,7 +140,7 @@ struct MapView: View {
                                       selectedBusName: $selectedBusName,
                                       selectedSheet: $selectedSheet
                     )
-                    .presentationDetents([.fraction(0.35), .fraction(0.99)])
+                    .presentationDetents([.fraction(0.35), .medium, .fraction(0.99)])
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled)
                     
