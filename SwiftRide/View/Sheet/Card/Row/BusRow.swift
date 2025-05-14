@@ -10,7 +10,7 @@ struct BusRow: View {
         Button(action: {
             onTap(bus.number, bus.name)
         }) {
-            HStack(alignment: .center, spacing: 12) {
+            HStack(alignment: .center, spacing: 8) {
                 Image(systemName: "bus")
                     .foregroundStyle(bus.color)
                     .font(.system(size: 40))
@@ -18,11 +18,12 @@ struct BusRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(bus.name)
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 4)
+                        .foregroundColor(.black)
+                        .padding(8)
+//                        .lineLimit(1)
                         .background(Color(bus.color))
                         .cornerRadius(20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
                     Text("Will be arriving \(etaMinutes == 0 ? "soon" : "in \(etaMinutes) \(etaMinutes == 1 ? "minute" : "minutes")")")
                         .font(.subheadline)

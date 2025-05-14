@@ -73,7 +73,7 @@ struct BusCard: View {
 
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             if upcomingBuses.isEmpty {
                 Text("No Bus Available For Now")
                     .font(.title2)
@@ -92,7 +92,7 @@ struct BusCard: View {
                             }
                             if index < upcomingBuses.count - 1 {
                                 Divider()
-                                    .padding(.leading, 58)
+                                    .padding(.leading, 46)
                             }
                         }
                     }
@@ -101,7 +101,6 @@ struct BusCard: View {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color(UIColor.secondarySystemBackground))
                 )
-                .padding(.horizontal)
             }
         }
         .padding(.top, 0)
