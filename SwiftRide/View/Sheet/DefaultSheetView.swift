@@ -91,9 +91,9 @@ private extension DefaultSheetView {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color(UIColor.secondarySystemBackground))
                 )
-                .overlay( // Adds the same cornerRadius for clip + shadow consistency
+                .overlay(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .stroke(Color(UIColor.separator).opacity(0.1), lineWidth: 0) // optional thin border
+                        .stroke(Color(UIColor.separator).opacity(0.1), lineWidth: 0)
                 )
                 .padding(.horizontal)
             }

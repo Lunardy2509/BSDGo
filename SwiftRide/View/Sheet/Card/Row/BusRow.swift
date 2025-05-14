@@ -5,29 +5,38 @@ struct BusRow: View {
     let bus: Bus
     let etaMinutes: Int
     let onTap: (_ busNumber: Int, _ busName: String) -> Void
-
+    
+    private var backgroundColor: Color {
+        if etaMinutes <= 5 {
+            return .green.opacity(0.2)
+        }
+        else if etaMinutes <= 15 {
+            return .yellow.opacity(0.2)
+        }
+        else {
+            return .black.opacity(0.1)
+        }
+    }
+    
     var body: some View {
         Button(action: {
             onTap(bus.number, bus.name)
         }) {
-            HStack(alignment: .center, spacing: 12) {
-                Image(systemName: "bus")
-                    .foregroundStyle(bus.color)
-                    .font(.system(size: 40))
-
+            HStack(alignment: .center, spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(bus.name)
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 4)
-                        .background(Color(bus.color))
+                        .foregroundColor(.black)
+                        .padding(8)
+                        .background(backgroundColor)
                         .cornerRadius(20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
                     Text("Will be arriving \(etaMinutes == 0 ? "soon" : "in \(etaMinutes) \(etaMinutes == 1 ? "minute" : "minutes")")")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
+                .padding(.leading, 6)
 
                 Spacer()
 

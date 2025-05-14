@@ -1,25 +1,25 @@
 [
   {
     "bus_number": 1,
-    "bus_name": "Intermoda - Sektor 1.3 Rute 1",
+    "bus_name": "Intermoda - Sektor 1.3 Bus 1",
     "license_plate": "B7966PAA",
     "bus_color" : "yellow"
   },
   {
     "bus_number": 2,
-    "bus_name": "Intermoda - Sektor 1.3 Rute 2",
+    "bus_name": "Intermoda - Sektor 1.3 Bus 2",
     "license_plate": "B7666PAA",
     "bus_color" : "red"
   },
   {
     "bus_number": 3,
-    "bus_name": "Greenwich - Sektor 1.3 Rute 1",
+    "bus_name": "Greenwich - Sektor 1.3 Bus 1",
     "license_plate": "B7266JF",
     "bus_color" : "green"
   },
   {
     "bus_number": 4,
-    "bus_name": "Greenwich - Sektor 1.3 Rute 2",
+    "bus_name": "Greenwich - Sektor 1.3 Bus 2",
     "license_plate": "B7466PAA",
     "bus_color" : "orange"
   },
@@ -37,13 +37,13 @@
   },
   {
     "bus_number": 7,
-    "bus_name": "The Breeze Rute 1",
+    "bus_name": "The Breeze Bus 1",
     "license_plate": "B7166PAA",
     "bus_color" : "indigo"
   },
   {
     "bus_number": 8,
-    "bus_name": "The Breeze Rute 2",
+    "bus_name": "The Breeze Bus 2",
     "license_plate": "B7866PAA",
     "bus_color" : "cyan"
   },
