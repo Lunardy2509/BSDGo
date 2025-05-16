@@ -8,13 +8,13 @@ struct BusRow: View {
     
     private var backgroundColor: Color {
         if etaMinutes <= 5 {
-            return .green.opacity(0.2)
+            return .green.opacity(0.5)
         }
         else if etaMinutes <= 15 {
-            return .yellow.opacity(0.2)
+            return .yellow.opacity(0.5)
         }
         else {
-            return .black.opacity(0.1)
+            return .primary.opacity(0.2)
         }
     }
     
@@ -26,7 +26,7 @@ struct BusRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(bus.name)
                         .font(.headline)
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                         .padding(8)
                         .background(backgroundColor)
                         .cornerRadius(20)

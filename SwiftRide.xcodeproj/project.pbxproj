@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BD103AF22DD5EED50098F994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1038F22DD5AFC80098F994 /* WidgetKit.framework */; };
+		BD103AF32DD5EED50098F994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1038F42DD5AFC80098F994 /* SwiftUI.framework */; };
+		BD103B002DD5EED60098F994 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4A685DC72D88083E0053791C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,6 +27,13 @@
 			remoteGlobalIDString = 4A685DB32D88083C0053791C;
 			remoteInfo = SwiftRide;
 		};
+		BD103AFE2DD5EED60098F994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A685DAC2D88083C0053791C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD103AF02DD5EED50098F994;
+			remoteInfo = FeatureWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +43,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				BD103B002DD5EED60098F994 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,11 +57,45 @@
 		4A685DD02D88083E0053791C /* SwiftRideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftRideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD1038F22DD5AFC80098F994 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BD1038F42DD5AFC80098F994 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeatureWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BDC6D1902DD63BE6004209DD /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				BusStopService.swift,
+				FeatureWidget.swift,
+				FeatureWidgetBundle.swift,
+			);
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
+		};
+		BDC6D1A32DD64A95004209DD /* Exceptions for "FeatureWidget" folder in "SwiftRide" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				FeatureWidgetBundle.swift,
+				Info.plist,
+			);
+			target = 4A685DB32D88083C0053791C /* SwiftRide */;
+		};
+		BDC6D1A72DD64D86004209DD /* Exceptions for "SwiftRide" folder in "FeatureWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Model/BusStop.swift,
+				Model/WidgetBusStop.swift,
+			);
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4A685DB62D88083C0053791C /* SwiftRide */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDC6D1A72DD64D86004209DD /* Exceptions for "SwiftRide" folder in "FeatureWidgetExtension" target */,
+			);
 			path = SwiftRide;
 			sourceTree = "<group>";
 		};
@@ -59,6 +107,15 @@
 		4A685DD32D88083E0053791C /* SwiftRideUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SwiftRideUITests;
+			sourceTree = "<group>";
+		};
+		BDC6D1892DD63BE6004209DD /* FeatureWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDC6D1A32DD64A95004209DD /* Exceptions for "FeatureWidget" folder in "SwiftRide" target */,
+				BDC6D1902DD63BE6004209DD /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */,
+			);
+			path = FeatureWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -85,6 +142,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD103AEE2DD5EED50098F994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD103AF32DD5EED50098F994 /* SwiftUI.framework in Frameworks */,
+				BD103AF22DD5EED50098F994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -94,6 +160,7 @@
 				4A685DB62D88083C0053791C /* SwiftRide */,
 				4A685DC92D88083E0053791C /* SwiftRideTests */,
 				4A685DD32D88083E0053791C /* SwiftRideUITests */,
+				BDC6D1892DD63BE6004209DD /* FeatureWidget */,
 				BD1038F12DD5AFC80098F994 /* Frameworks */,
 				4A685DB52D88083C0053791C /* Products */,
 				4A479BEB2D92E4150008030E /* SRPlayground.playground */,
@@ -106,6 +173,7 @@
 				4A685DB42D88083C0053791C /* SwiftRide.app */,
 				4A685DC62D88083E0053791C /* SwiftRideTests.xctest */,
 				4A685DD02D88083E0053791C /* SwiftRideUITests.xctest */,
+				BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,9 +202,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				BD103AFF2DD5EED60098F994 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4A685DB62D88083C0053791C /* SwiftRide */,
+				BDC6D1892DD63BE6004209DD /* FeatureWidget */,
 			);
 			name = SwiftRide;
 			packageProductDependencies = (
@@ -191,6 +261,25 @@
 			productReference = 4A685DD02D88083E0053791C /* SwiftRideUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD103B042DD5EED60098F994 /* Build configuration list for PBXNativeTarget "FeatureWidgetExtension" */;
+			buildPhases = (
+				BD103AED2DD5EED50098F994 /* Sources */,
+				BD103AEE2DD5EED50098F994 /* Frameworks */,
+				BD103AEF2DD5EED50098F994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FeatureWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = FeatureWidgetExtension;
+			productReference = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -212,6 +301,9 @@
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 4A685DB32D88083C0053791C;
 					};
+					BD103AF02DD5EED50098F994 = {
+						CreatedOnToolsVersion = 16.3;
+					};
 				};
 			};
 			buildConfigurationList = 4A685DAF2D88083C0053791C /* Build configuration list for PBXProject "SwiftRide" */;
@@ -231,6 +323,7 @@
 				4A685DB32D88083C0053791C /* SwiftRide */,
 				4A685DC52D88083E0053791C /* SwiftRideTests */,
 				4A685DCF2D88083E0053791C /* SwiftRideUITests */,
+				BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -251,6 +344,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4A685DCE2D88083E0053791C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD103AEF2DD5EED50098F994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -281,6 +381,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD103AED2DD5EED50098F994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -293,6 +400,11 @@
 			isa = PBXTargetDependency;
 			target = 4A685DB32D88083C0053791C /* SwiftRide */;
 			targetProxy = 4A685DD12D88083E0053791C /* PBXContainerItemProxy */;
+		};
+		BD103AFF2DD5EED60098F994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
+			targetProxy = BD103AFE2DD5EED60098F994 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -434,7 +546,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -467,7 +579,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -552,6 +664,64 @@
 			};
 			name = Release;
 		};
+		BD103B012DD5EED60098F994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 84KMF7PD4V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeatureWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.SwiftRide.FeatureWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BD103B022DD5EED60098F994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 84KMF7PD4V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeatureWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.SwiftRide.FeatureWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -587,6 +757,15 @@
 			buildConfigurations = (
 				4A685DE12D88083E0053791C /* Debug */,
 				4A685DE22D88083E0053791C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD103B042DD5EED60098F994 /* Build configuration list for PBXNativeTarget "FeatureWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD103B012DD5EED60098F994 /* Debug */,
+				BD103B022DD5EED60098F994 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

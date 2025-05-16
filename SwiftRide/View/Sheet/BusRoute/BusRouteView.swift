@@ -1,8 +1,7 @@
 import SwiftUI
 
-enum StopStatus {
-    case passed, current, upcoming
-}
+// Enhanced BusRouteView: Picker shows next/upcoming sessions, icons only in main session, others show full route
+enum StopStatus { case passed, current, upcoming }
 
 struct BusRouteView: View {
     private let buses: [Bus] = loadBuses()
@@ -18,222 +17,232 @@ struct BusRouteView: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var isExpanded: Bool = false
+    @State private var selectedSessionIndex: Int = 0
 
-    private var selectedBus: Bus? {
-        buses.first { $0.name == name }
-    }
-
-    private var currentSessionSchedule: [(session: Int, stops: [BusSchedule])] {
+    // Precompute session details: only upcoming or ongoing sessions
+    private var sessionInfo: [(session: Int, stops: [BusSchedule], firstDate: Date, lastDate: Date)] {
         let calendar = Calendar.current
         let now = Date()
+        let formatter: DateFormatter = {
+            let f = DateFormatter()
+            f.dateFormat = "HH:mm"
+            f.locale = Locale(identifier: "en_US_POSIX")
+            return f
+        }()
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-
-        let filtered = busSchedule.filter { $0.busNumber == busNumber }
-        let grouped = Dictionary(grouping: filtered, by: { $0.session })
-
-        for (session, stops) in grouped {
-            let arrivalDates: [Date] = stops.compactMap { stop in
-                guard let timeOnly = formatter.date(from: stop.timeOfArrival) else { return nil }
-                var components = calendar.dateComponents([.year, .month, .day], from: now)
-                let timeComponents = calendar.dateComponents([.hour, .minute], from: timeOnly)
-                components.hour = timeComponents.hour
-                components.minute = timeComponents.minute
-                return calendar.date(from: components)
-            }.sorted()
-
-            guard let first = arrivalDates.first, let last = arrivalDates.last else { continue }
-
-            if now >= first && now <= last {
-                let sortedStops = stops.sorted { $0.timeOfArrival < $1.timeOfArrival }
-                var seenStops = Set<String>()
-                let uniqueUpcomingStops = sortedStops.filter { stop in
-                    let status = stopStatus(for: stop.timeOfArrival)
-                    let isUpcoming = status == .upcoming
-                    let isNew = !seenStops.contains(stop.busStopName)
-                    if isUpcoming && isNew {
-                        seenStops.insert(stop.busStopName)
-                        return true
-                    }
-                    return status != .upcoming
+        return Dictionary(grouping: busSchedule.filter { $0.busNumber == busNumber }, by: { $0.session })
+            .compactMap { session, stops in
+                let sorted = stops.sorted { $0.timeOfArrival < $1.timeOfArrival }
+                let dates = sorted.compactMap { stop -> Date? in
+                    guard let t = formatter.date(from: stop.timeOfArrival) else { return nil }
+                    var comps = calendar.dateComponents([.year, .month, .day], from: now)
+                    let timeComps = calendar.dateComponents([.hour, .minute], from: t)
+                    comps.hour = timeComps.hour; comps.minute = timeComps.minute
+                    return calendar.date(from: comps)
                 }
-                return [(session: session, stops: uniqueUpcomingStops)]
+                guard let first = dates.first, let last = dates.last, last >= now else {
+                    return nil // skip sessions that ended
+                }
+                return (session: session, stops: sorted, firstDate: first, lastDate: last)
             }
-        }
-        return []
+            .sorted { $0.firstDate < $1.firstDate }
+    }
+
+    private var upcomingSessions: [(session: Int, stops: [BusSchedule])] {
+        sessionInfo.map { ($0.session, $0.stops) }
+    }
+
+    private var mainSessionIndex: Int {
+        let now = Date()
+        return sessionInfo.firstIndex(where: { now >= $0.firstDate && now <= $0.lastDate }) ?? 0
     }
 
     private func stopStatus(for timeString: String) -> StopStatus {
         let calendar = Calendar.current
         let now = Date()
-
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         formatter.locale = Locale(identifier: "en_US_POSIX")
 
-        guard let stopTimeOnly = formatter.date(from: timeString) else {
-            return .upcoming
-        }
+        guard let t = formatter.date(from: timeString) else { return .upcoming }
+        var comps = calendar.dateComponents([.year, .month, .day], from: now)
+        let tc = calendar.dateComponents([.hour, .minute], from: t)
+        comps.hour = tc.hour; comps.minute = tc.minute
+        guard let stopDate = calendar.date(from: comps) else { return .upcoming }
 
-        var components = calendar.dateComponents([.year, .month, .day], from: now)
-        let stopTimeComponents = calendar.dateComponents([.hour, .minute], from: stopTimeOnly)
-        components.hour = stopTimeComponents.hour
-        components.minute = stopTimeComponents.minute
-
-        guard let stopDate = calendar.date(from: components) else {
-            return .upcoming
-        }
-
-        if stopDate < now {
-            return .passed
-        } else if calendar.isDate(stopDate, equalTo: now, toGranularity: .minute) {
+        if calendar.isDate(stopDate, equalTo: now, toGranularity: .minute) {
             return .current
+        } else if stopDate < now {
+            return .passed
         } else {
             return .upcoming
         }
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .center, spacing: 20) {
-                    if currentSessionSchedule.isEmpty {
-                        HStack {
-                            Spacer()
-                            Button {
-                                selectedSheet = .defaultView
-                                currentBusStop = BusStop()
-                                showRouteDetailSheet = false
-                                dismiss()
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.gray)
-                                    .padding()
-                            }
-                        }
-                        Text("There is no running session currently.")
-                            .foregroundStyle(.gray)
-                            .padding()
-                    } else {
-                        ForEach(currentSessionSchedule, id: \.session) { group in
-                            let stops = group.stops
-                            let busIndex = stops.lastIndex(where: { stopStatus(for: $0.timeOfArrival) != .upcoming }) ?? 0
-                            let userIndex = stops.firstIndex(where: { $0.busStopName == currentStopName && stopStatus(for: $0.timeOfArrival) == .upcoming }) ?? stops.count - 1
-                            let hiddenRange = (busIndex + 1)..<userIndex
+        VStack(spacing: 12) {
+            headerView
 
-                            let startIndex = max(busIndex - 3, 0)
-                            let endIndex = min(userIndex + 3, stops.count - 1)
-                            let slicedStops = Array(stops[startIndex...endIndex])
+            // Picker under the title
+            if upcomingSessions.count > 1 {
+                Picker("Session", selection: $selectedSessionIndex) {
+                    ForEach(upcomingSessions.indices, id: \.self) { idx in
+                        Text("\(upcomingSessions[idx].session)")
+                            .fontWeight(idx == mainSessionIndex ? .bold : .regular)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .tint(.orange)
+                .padding(.horizontal)
+                .onAppear { selectedSessionIndex = mainSessionIndex }
+            }
 
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Text(name)
-                                        .font(.title2.bold())
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    Spacer()
-                                    Button {
-                                        selectedSheet = .defaultView
-                                        currentBusStop = BusStop()
-                                        showRouteDetailSheet = false
-                                        dismiss()
-                                    } label: {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .resizable()
-                                            .frame(width: 24, height: 24)
+            if upcomingSessions.isEmpty {
+                VStack(spacing: 16) {
+                    Text("No upcoming or active sessions.")
+                        .foregroundColor(.gray)
+                    dismissButton
+                }
+                .padding()
+            }
+
+            let stops = upcomingSessions[selectedSessionIndex].stops
+
+            if selectedSessionIndex == mainSessionIndex {
+                let busIndex = stops.lastIndex(where: { stopStatus(for: $0.timeOfArrival) != .upcoming }) ?? 0
+                let userIndex = stops.firstIndex(where: { $0.busStopName == currentStopName && stopStatus(for: $0.timeOfArrival) == .upcoming }) ?? stops.count - 1
+                let startIndex = max(busIndex - 3, 0)
+                let endIndex = min(userIndex + 3, stops.count - 1)
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        ForEach(startIndex...endIndex, id: \.self) { idx in
+                            let stop = stops[idx]
+                            let status = stopStatus(for: stop.timeOfArrival)
+                            let isBusHere = idx == busIndex
+                            let isUserHere = stop.busStopName == currentStopName
+
+                            if idx > busIndex && idx < userIndex && !isExpanded {
+                                if idx == busIndex + 1 {
+                                    HStack {
+                                        Button(action: {
+                                            withAnimation(.interpolatingSpring(stiffness: 120, damping: 12)) {
+                                                isExpanded = true
+                                            }
+                                        }) {
+                                            HStack(spacing: 4) {
+                                                Image(systemName: "chevron.down")
+                                                Text("\(userIndex - busIndex - 1) stops remaining")
+                                            }
+                                            .font(.headline)
                                             .foregroundColor(.gray)
-                                            .padding()
+                                            .padding(.horizontal, 25)
+                                        }
+                                        Spacer()
                                     }
                                 }
+                            } else {
+                                StopRowView(
+                                    stop: stop,
+                                    status: status,
+                                    isBusHere: isBusHere,
+                                    isUserHere: isUserHere,
+                                    isUserArrived: isBusHere && isUserHere,
+                                    showConnector: idx < endIndex
+                                )
 
-                                ForEach(Array(slicedStops.enumerated()), id: \.offset) { localIndex, stop in
-                                    let index = startIndex + localIndex
-                                    let status = stopStatus(for: stop.timeOfArrival)
-                                    let isUserHere = stop.busStopName == currentStopName && status == .upcoming
-                                    let isBusHere = index == busIndex
-                                    let isHidden = hiddenRange.contains(index) && !isExpanded
-                                    let showConnector = index < endIndex
-
-                                    if isHidden {
-                                        if index == busIndex + 1 {
-                                            HStack(alignment: .center) {
-                                                Button(action: { isExpanded = true }) {
-                                                    HStack(spacing: 4) {
-                                                        Image(systemName: "chevron.down")
-                                                        Text("\(userIndex - busIndex - 1) stops remaining")
-                                                            .font(.headline)
-                                                    }
-                                                    .font(.caption)
-                                                    .foregroundColor(.gray)
-                                                    .padding(.horizontal, 25)
-                                                }
-                                                Spacer()
+                                if idx == userIndex && isExpanded {
+                                    HStack {
+                                        Button(action: {
+                                            withAnimation(.interpolatingSpring(stiffness: 120, damping: 12)) {
+                                                isExpanded = false
                                             }
-                                        }
-                                    } else {
-                                        StopRowView(
-                                            stop: stop,
-                                            index: index,
-                                            isUserHere: isUserHere,
-                                            isBusHere: isBusHere,
-                                            status: status,
-                                            showConnector: showConnector
-                                        )
-
-                                        if index == userIndex && isExpanded {
-                                            HStack {
-                                                Button(action: { isExpanded = false }) {
-                                                    HStack(spacing: 4) {
-                                                        Image(systemName: "chevron.up")
-                                                        Text("Hide stops")
-                                                            .font(.headline)
-                                                    }
-                                                    .font(.caption)
-                                                    .foregroundColor(.gray)
-                                                    .padding(.horizontal, 25)
-                                                }
-                                                Spacer()
+                                        }) {
+                                            HStack(spacing: 4) {
+                                                Image(systemName: "chevron.up")
+                                                Text("Hide stops")
                                             }
+                                            .font(.headline)
+                                            .foregroundColor(.gray)
+                                            .padding(.horizontal, 25)
                                         }
+                                        Spacer()
                                     }
                                 }
                             }
                         }
                     }
+                    .padding()
                 }
-                .padding()
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 12) {
+                        ForEach(stops, id: \.busStopName) { stop in
+                            HStack {
+                                Text(stop.busStopName)
+                                Spacer()
+                                Text(stop.timeOfArrival)
+                            }
+                            .padding(.vertical, 4)
+                        }
+                    }
+                    .padding()
+                }
             }
         }
     }
+
+    private var headerView: some View {
+        HStack {
+            Text(name)
+                .font(.title2.bold())
+            Spacer()
+            dismissButton
+        }
+        .padding(.horizontal)
+        .padding(.top, 20)
+    }
+
+    private var dismissButton: some View {
+        Button(action: closeView) {
+            Image(systemName: "xmark.circle.fill")
+                .resizable()
+                .frame(width: 24, height: 24)
+                .foregroundColor(.gray)
+        }
+    }
+
+    private func closeView() {
+        selectedSheet = .defaultView
+        currentBusStop = BusStop()
+        showRouteDetailSheet = false
+        dismiss()
+    }
 }
+
 
 struct StopRowView: View {
     let stop: BusSchedule
-    let index: Int
-    let isUserHere: Bool
-    let isBusHere: Bool
     let status: StopStatus
+    let isBusHere: Bool
+    let isUserHere: Bool
+    let isUserArrived: Bool
     let showConnector: Bool
 
     var body: some View {
         HStack(alignment: .top) {
             VStack {
-                Group {
-                    if isBusHere {
-                        BusIcon()
-                    } else if isUserHere {
-                        Image(systemName: "person.circle")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.blue)
-                    } else {
-                        Circle()
-                            .fill(status == .passed ? Color.gray : Color.orange)
-                            .frame(width: 40, height: 40)
-                    }
+                if isBusHere {
+                    BusIcon()
+                } else if isUserHere {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.blue)
+                } else {
+                    Circle()
+                        .fill(status == .passed ? Color.gray : Color.orange)
+                        .frame(width: 40, height: 40)
                 }
 
                 if showConnector {
@@ -247,7 +256,7 @@ struct StopRowView: View {
             Text(stop.busStopName)
                 .font(isBusHere ? .title3.bold() : .title3)
                 .foregroundColor(isBusHere ? .primary : (status == .passed ? .gray : .primary))
-                .frame(height: 40, alignment: .center)
+                .frame(height: 40)
 
             Spacer()
 
@@ -256,8 +265,7 @@ struct StopRowView: View {
                 .foregroundColor(isBusHere ? .primary : (status == .passed ? .gray : .primary))
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
-                .cornerRadius(5)
-                .frame(height: 40, alignment: .center)
+                .frame(height: 40)
         }
     }
 }
@@ -277,4 +285,3 @@ struct BusIcon: View {
         }
     }
 }
-
