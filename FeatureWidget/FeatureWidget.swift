@@ -46,12 +46,17 @@ struct FeatureWidgetEntryView: View {
 
             ForEach(entry.stops.prefix(3), id: \.self) { stop in
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(stop.name)
-                        .font(.caption)
-                        .foregroundColor(.primary)
-                    Text(stop.distanceText)
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Image(systemName: "mappin.circle.fill")
+                                .font(.caption)
+                                .foregroundColor(.primary)
+                        Text(stop.name)
+                            .font(.caption)
+                            .foregroundColor(.primary)
+                        Text(stop.distanceText)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
 
@@ -75,9 +80,9 @@ struct FeatureWidget: Widget {
 
 // MARK: - Preview Data
 let previewStops: [WidgetBusStop] = [
-    WidgetBusStop(name: "Central Station", distanceText: "250 m away"),
-    WidgetBusStop(name: "Green Park", distanceText: "400 m away"),
-    WidgetBusStop(name: "Museum Stop", distanceText: "700 m away")
+    WidgetBusStop(name: "Central Station", distanceText: "250 m"),
+    WidgetBusStop(name: "Green Park", distanceText: "400 m"),
+    WidgetBusStop(name: "Museum Stop", distanceText: "700 m")
 ]
 
 #Preview(as: .systemSmall) {

@@ -85,6 +85,8 @@ struct BusRouteView: View {
 
             // Picker under the title
             if upcomingSessions.count > 1 {
+                Text("Sessions")
+                    .font(.headline)
                 Picker("Session", selection: $selectedSessionIndex) {
                     ForEach(upcomingSessions.indices, id: \.self) { idx in
                         Text("\(upcomingSessions[idx].session)")
@@ -177,7 +179,7 @@ struct BusRouteView: View {
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 12) {
-                        ForEach(stops, id: \.busStopName) { stop in
+                        ForEach(Array(stops.enumerated()), id: \.offset) { index, stop in
                             HStack {
                                 Text(stop.busStopName)
                                 Spacer()
@@ -200,7 +202,8 @@ struct BusRouteView: View {
             dismissButton
         }
         .padding(.horizontal)
-        .padding(.top, 20)
+        .padding(.top, 30)
+        .padding(.bottom, 10)
     }
 
     private var dismissButton: some View {

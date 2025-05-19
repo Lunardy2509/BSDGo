@@ -29,7 +29,7 @@
     "time_of_arrival": "10.15",
     "session": "2"
   },
-  { "bus_stop_name": "ICE 2,
+  { "bus_stop_name": "ICE 2",
     "bus_number": "7",
     "time_of_arrival": "10.20",
     "session": "2"
@@ -115,7 +115,7 @@
     "time_of_arrival": "17.15",
     "session": "9"
   },
-  { "bus_stop_name": "ICE 2,
+  { "bus_stop_name": "ICE 2",
     "bus_number": "7",
     "time_of_arrival": "17.20",
     "session": "9"
