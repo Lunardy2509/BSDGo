@@ -62,30 +62,31 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BDC6D1902DD63BE6004209DD /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */ = {
+		BD037D352DDAF50500A96B43 /* Exceptions for "FeatureWidget" folder in "SwiftRide" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Assets.xcassets,
 				BusStopService.swift,
 				FeatureWidget.swift,
 				FeatureWidgetBundle.swift,
-			);
-			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
-		};
-		BDC6D1A32DD64A95004209DD /* Exceptions for "FeatureWidget" folder in "SwiftRide" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Assets.xcassets,
-				FeatureWidgetBundle.swift,
 				Info.plist,
+				WidgetBusStop.swift,
 			);
 			target = 4A685DB32D88083C0053791C /* SwiftRide */;
+		};
+		BD037D3A2DDAF5A400A96B43 /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				BusStopService.swift,
+				FeatureWidget.swift,
+				FeatureWidgetBundle.swift,
+				WidgetBusStop.swift,
+			);
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
 		BDC6D1A72DD64D86004209DD /* Exceptions for "SwiftRide" folder in "FeatureWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Model/BusStop.swift,
-				Model/WidgetBusStop.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
@@ -113,8 +114,8 @@
 		BDC6D1892DD63BE6004209DD /* FeatureWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BDC6D1A32DD64A95004209DD /* Exceptions for "FeatureWidget" folder in "SwiftRide" target */,
-				BDC6D1902DD63BE6004209DD /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */,
+				BD037D352DDAF50500A96B43 /* Exceptions for "FeatureWidget" folder in "SwiftRide" target */,
+				BD037D3A2DDAF5A400A96B43 /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */,
 			);
 			path = FeatureWidget;
 			sourceTree = "<group>";
