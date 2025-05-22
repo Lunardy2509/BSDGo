@@ -69,6 +69,7 @@
 				BusStopService.swift,
 				FeatureWidget.swift,
 				FeatureWidgetBundle.swift,
+				WidgetBusStop.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
@@ -76,8 +77,11 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Assets.xcassets,
+				BusStopService.swift,
+				FeatureWidget.swift,
 				FeatureWidgetBundle.swift,
 				Info.plist,
+				WidgetBusStop.swift,
 			);
 			target = 4A685DB32D88083C0053791C /* SwiftRide */;
 		};
@@ -85,7 +89,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Model/BusStop.swift,
-				Model/WidgetBusStop.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
