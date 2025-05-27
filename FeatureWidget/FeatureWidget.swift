@@ -40,10 +40,9 @@ struct FeatureWidgetEntryView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Closest Bus Stops")
-                .font(.caption2.bold())
+            Text("Closest Bus Stops (\(entry.stops.count))")
+                .font(.caption.bold())
                 .foregroundColor(.primary)
-
             ForEach(entry.stops.prefix(3), id: \.self) { stop in
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
