@@ -123,7 +123,7 @@ struct BusRouteView: View {
                             let status = stopStatus(for: stop.timeOfArrival)
                             let isBusHere = idx == busIndex
                             let isUserHere = stop.busStopName == currentStopName
-
+                        
                             if idx > busIndex && idx < userIndex && !isExpanded {
                                 if idx == busIndex + 1 {
                                     HStack {
@@ -143,7 +143,28 @@ struct BusRouteView: View {
                                         Spacer()
                                     }
                                 }
-                            } else {
+                            }
+                            
+                            if idx == userIndex && isExpanded {
+                                HStack {
+                                    Button(action: {
+                                        withAnimation(.interpolatingSpring(stiffness: 120, damping: 12)) {
+                                            isExpanded = false
+                                        }
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "chevron.up")
+                                            Text("Hide stops")
+                                        }
+                                        .font(.headline)
+                                        .foregroundColor(.gray)
+                                        .padding(.horizontal, 25)
+                                    }
+                                    Spacer()
+                                }
+                            }
+                            
+                            if isExpanded || !(idx > busIndex && idx < userIndex) {
                                 StopRowView(
                                     stop: stop,
                                     status: status,
@@ -152,25 +173,6 @@ struct BusRouteView: View {
                                     isUserArrived: isBusHere && isUserHere,
                                     showConnector: idx < endIndex
                                 )
-
-                                if idx == userIndex && isExpanded {
-                                    HStack {
-                                        Button(action: {
-                                            withAnimation(.interpolatingSpring(stiffness: 120, damping: 12)) {
-                                                isExpanded = false
-                                            }
-                                        }) {
-                                            HStack(spacing: 4) {
-                                                Image(systemName: "chevron.up")
-                                                Text("Hide stops")
-                                            }
-                                            .font(.headline)
-                                            .foregroundColor(.gray)
-                                            .padding(.horizontal, 25)
-                                        }
-                                        Spacer()
-                                    }
-                                }
                             }
                         }
                     }
