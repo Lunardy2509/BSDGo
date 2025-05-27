@@ -5,7 +5,7 @@ import CoreLocation
 // MARK: - Widget Provider.swift
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let stops: [WidgetBusStop]
+    let stops: [WidgetModel]
 }
 
 struct Provider: TimelineProvider {
@@ -19,11 +19,10 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
         let currentDate = Date()
-        let stops: [WidgetBusStop]
+        let stops: [WidgetModel]
         
-
         if let data = UserDefaults(suiteName: "group.com.lunardy.SwiftRide")?.data(forKey: "closestStops"),
-           let decoded = try? JSONDecoder().decode([WidgetBusStop].self, from: data) {
+           let decoded = try? JSONDecoder().decode([WidgetModel].self, from: data) {
             stops = decoded
         } else {
             stops = []
@@ -40,22 +39,22 @@ struct FeatureWidgetEntryView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Closest Bus Stops (\(entry.stops.count))")
+            Text("Closest Bus Stops")
                 .font(.caption.bold())
                 .foregroundColor(.primary)
             ForEach(entry.stops.prefix(3), id: \.self) { stop in
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading) {
                     HStack {
-                        Image(systemName: "mappin.circle.fill")
-                                .font(.caption)
-                                .foregroundColor(.primary)
                         Text(stop.name)
                             .font(.caption)
                             .foregroundColor(.primary)
-                        Text(stop.distanceText)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    Text(stop.distanceText)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
                 }
             }
 
@@ -78,10 +77,9 @@ struct FeatureWidget: Widget {
 }
 
 // MARK: - Preview Data
-let previewStops: [WidgetBusStop] = [
-    WidgetBusStop(name: "Central Station", distanceText: "250 m"),
-    WidgetBusStop(name: "Green Park", distanceText: "400 m"),
-    WidgetBusStop(name: "Museum Stop", distanceText: "700 m")
+let previewStops: [WidgetModel] = [
+    WidgetModel(name: "Polsek Serpong", distanceText: "100 m"),
+    WidgetModel(name: "Santa Ursula 2", distanceText: "300 m")
 ]
 
 #Preview(as: .systemSmall) {

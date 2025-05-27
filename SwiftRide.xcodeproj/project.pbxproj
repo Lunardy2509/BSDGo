@@ -65,8 +65,6 @@
 		BD037D352DDAF50500A96B43 /* Exceptions for "FeatureWidget" folder in "SwiftRide" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				BusStopService.swift,
-				FeatureWidget.swift,
 				FeatureWidgetBundle.swift,
 				Info.plist,
 			);
@@ -75,10 +73,9 @@
 		BD037D3A2DDAF5A400A96B43 /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				BusStopService.swift,
 				FeatureWidget.swift,
 				FeatureWidgetBundle.swift,
-				WidgetBusStop.swift,
+				WidgetModel.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
