@@ -5,14 +5,14 @@ import UIKit
 
 @MainActor
 class MapViewModel: ObservableObject {
-    func generateMapSnapshot(userLocation: CLLocation, stops: [BusStop]) {
+    func generateMapSnapshot(userLocation: CLLocation, stops: [BusStop], size: CGSize, fileName: String) {
         let options = MKMapSnapshotter.Options()
         options.region = MKCoordinateRegion(
             center: userLocation.coordinate,
-            latitudinalMeters: 1200,
-            longitudinalMeters: 1200
+            latitudinalMeters: 1000,
+            longitudinalMeters: 1000
         )
-        options.size = CGSize(width: 600, height: 400)
+        options.size = size
         options.scale = UIScreen.main.scale
 
         let snapshotter = MKMapSnapshotter(options: options)
@@ -30,7 +30,7 @@ class MapViewModel: ObservableObject {
             let userPoint = snapshot.point(for: userLocation.coordinate)
             Self.drawPin(context: context, at: userPoint, color: .systemBlue)
 
-            for stop in stops {
+            for stop in stops.prefix(2) {
                 let point = snapshot.point(for: stop.coordinate)
                 Self.drawPin(context: context, at: point, color: .black)
             }
@@ -41,11 +41,11 @@ class MapViewModel: ObservableObject {
             if let data = finalImage?.pngData() {
                 let url = FileManager.default
                     .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.SwiftRide")?
-                    .appendingPathComponent("mapSnapshot.png")
+                    .appendingPathComponent(fileName)
 
                 do {
                     try data.write(to: url!)
-                    print("✅ Snapshot saved to App Group")
+                    print("✅ Snapshot saved to App Group as \(fileName)")
                 } catch {
                     print("❌ Failed to save snapshot: \(error.localizedDescription)")
                 }
@@ -62,7 +62,9 @@ class MapViewModel: ObservableObject {
     func handleLocationUpdate(location: CLLocation, allStops: [BusStop], locationManager: LocationManager) {
         let widgetModel = locationManager.convertToWidgetModel(from: allStops, userLocation: location)
         let closestStops = getClosestStops(from: widgetModel, using: allStops)
-        generateMapSnapshot(userLocation: location, stops: closestStops)
+
+        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 300, height: 180), fileName: "mapSnapshot_medium.png") // Medium Widget
+        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 400, height: 300), fileName: "mapSnapshot_large.png") // Large Widget
     }
 
     func handleAnnotationTap(on stop: BusStop, currentSelection: BusStop) -> (BusStop, SheetContentType, Bool, PresentationDetent) {
