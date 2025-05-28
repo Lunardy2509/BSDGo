@@ -1,4 +1,5 @@
 import Foundation
+import WidgetKit
 import CoreLocation
 import Combine
 
@@ -39,9 +40,49 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         lastLocation = location
         print(#function, location)
+        
+        // Automatically update the widget with new data
+        updateWidgetWithClosestStops()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location update failed: \(error.localizedDescription)")
     }
+    
+    // MARK: - Handle WidgetModel
+    func updateWidgetWithClosestStops() {
+        // Load stops (ensure this file is in the app bundle)
+        let stops = loadBusStops()
+        
+        guard let userLocation = lastLocation else { return }
+
+        let widgetStops = convertToWidgetModel(from: stops, userLocation: userLocation)
+
+        // Save to shared UserDefaults
+        if let data = try? JSONEncoder().encode(widgetStops) {
+            let sharedDefaults = UserDefaults(suiteName: "group.com.lunardy.SwiftRide")
+            sharedDefaults?.set(data, forKey: "closestStops")
+
+            // Trigger widget reload
+            WidgetCenter.shared.reloadTimelines(ofKind: "FeatureWidget")
+        }
+    }
+    
+    func convertToWidgetModel(from stops: [BusStop], userLocation: CLLocation) -> [WidgetModel] {
+        return stops
+            .map { stop in
+                let distance = CLLocation(latitude: stop.coordinate.latitude, longitude: stop.coordinate.longitude)
+                    .distance(from: userLocation)
+                return (stop, distance)
+            }
+            .sorted { $0.1 < $1.1 }
+            .prefix(5)
+            .map { (stop, distance) in
+                WidgetModel(
+                    name: stop.name,
+                    distanceText: formatDistance(distance)
+                )
+            }
+    }
+
 }
