@@ -74,9 +74,9 @@
 		BD037D3A2DDAF5A400A96B43 /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				FeatureWidget.swift,
 				FeatureWidgetBundle.swift,
-				WidgetModel.swift,
+				Model/WidgetModel.swift,
+				View/FeatureWidget.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
