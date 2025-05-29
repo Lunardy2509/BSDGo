@@ -20,9 +20,54 @@
    "longitude": 106.64629166413174
   },
   {
+   "name": "Icon Centro",
+   "latitude": -6.31464335625065,
+   "longitude": 106.64620708074307
+  },
+  {
+   "name": "Simplicity 1",
+   "latitude": -6.312784863402183,
+   "longitude": 106.64423142592663
+  },
+  {
    "name": "Simplicity 2",
    "latitude": -6.313048540439234,
    "longitude": 106.6425585810072
+  },
+  {
+   "name": "Horizon Broadway",
+   "latitude": -6.31330490921953,
+   "longitude": 106.65047799355253
+  },
+  {
+   "name": "ICON Business Park",
+   "latitude": -6.3172086152174325,
+   "longitude": 106.64920050844142
+  },
+  {
+   "name": "Masjid Al Ukhuwah",
+   "latitude": -6.3148314884847485,
+   "longitude": 106.65432167355655
+  },
+  {
+   "name": "Chandya",
+   "latitude": -6.317241487882567,
+   "longitude": 106.6539139777969
+  },
+  {
+   "name": "Divena & Deshna",
+   "latitude": -6.319171669047851,
+   "longitude": 106.65533778495562
+  },
+  {
+   "name": "The Avani Clubhouse",
+   "latitude": -6.3172402245862465,
+   "longitude": 106.65846145203908
+  },
+  {
+   "name": "Universitas Atma Jaya",
+   "latitude": -6.317389748477193,
+   "longitude": 106.64985236639212
   },
   {
    "name": "Edutown 1",
@@ -160,7 +205,7 @@
    "longitude": 106.6812441047167
   },
   {
-   "name": "Autopart",
+   "name": "Autoparts",
    "latitude": -6.295531407562985,
    "longitude": 106.67815419672414
   },
@@ -195,19 +240,29 @@
    "longitude": 106.64205317791004
   },
   {
-   "name": "Simplicity 1",
-   "latitude": -6.312784863402183,
-   "longitude": 106.64423142592663
-  },
-  {
    "name": "Greenwich Park Office",
    "latitude": -6.276622057947269,
    "longitude": 106.63404
   },
   {
+   "name": "De Brassia",
+   "latitude": -6.281215754864984,
+   "longitude": 106.63950426310976
+  },
+  {
    "name": "De Maja",
    "latitude": -6.280957532704141,
    "longitude": 106.63961596488363
+  },
+  {
+   "name": "De Frangipani",
+   "latitude": -6.2849820621145875,
+   "longitude": 106.64356777058666
+  },
+  {
+   "name": "De Heliconia 1",
+   "latitude":-6.283538767202318,
+   "longitude": 106.64128277061803
   },
   {
    "name": "De Heliconia 2",
@@ -300,9 +355,39 @@
    "longitude": 106.64961926711759
   },
   {
+   "name": "Astra",
+   "latitude": -6.28924783569923,
+   "longitude": 106.6392797491038
+  },
+  {
+   "name": "Gramedia",
+   "latitude": -6.291099166346175,
+   "longitude": 106.63944842196385
+  },
+  {
+   "name": "Froggy",
+   "latitude": -6.297076946509987,
+   "longitude": 106.64048698701207
+  },
+  {
+    "name": "FBL 1",
+    "latitude": -6.295814859163925,
+    "longitude": 106.64058257571833
+  },
+  {
+    "name": "FBL 2",
+    "latitude": -6.291013005153759,
+    "longitude": 106.63976237392022
+  },
+  {
    "name": "FBL 5",
    "latitude": -6.28803670795394,
    "longitude": 106.64433874198559
+  },
+  {
+    "name": "BCA",
+    "latitude": -6.287213500386681,
+    "longitude": 106.63967246546872
   },
   {
    "name": "Courts Mega Store",
@@ -310,9 +395,19 @@
    "longitude": 106.63887072883601
   },
   {
-   "name": "Q BIG 1",
+   "name": "QBIG 1",
    "latitude": -6.284470858067212,
    "longitude": 106.63834676447388
+  },
+  {
+   "name": "QBIG 2",
+   "latitude": -6.280507339899185,
+   "longitude": 106.63658315400758
+  },
+  {
+   "name": "QBIG 3",
+   "latitude": -6.283087057959715,
+   "longitude": 106.63786213125908
   },
   {
    "name": "Lulu",
@@ -323,6 +418,21 @@
    "name": "Greenwich Park 1",
    "latitude": -6.27722670353427,
    "longitude": 106.63519582664144
+  },
+  {
+   "name": "Greenwich Park 2",
+   "latitude": -6.277106424172206,
+   "longitude": 106.63524682865557
+  },
+  {
+   "name": "Greenwich Park Office",
+   "latitude": -6.276897403507226,
+   "longitude": 106.63409852891468
+  },
+  {
+   "name": "Jadeite",
+   "latitude": -6.276438385550899,
+   "longitude": 106.63979548104383
   },
   {
    "name": "Prestigia",
@@ -338,6 +448,11 @@
    "name": "Vanya Park",
    "latitude": -6.295320322717712,
    "longitude": 106.62186825923906
+  },
+  {
+   "name": "Tabebuya",
+   "latitude": -6.291894477886927,
+   "longitude": 106.62298021053941
   },
   {
    "name": "Piazza Mozia",

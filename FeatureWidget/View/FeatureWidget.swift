@@ -172,7 +172,8 @@ struct FeatureWidget: Widget {
 // MARK: - Preview Data
 let previewStops: [WidgetModel] = [
     WidgetModel(name: "Polsek Serpong", distanceText: "100 m"),
-    WidgetModel(name: "Santa Ursula 2", distanceText: "300 m")
+    WidgetModel(name: "Santa Ursula 2", distanceText: "300 m"),
+    WidgetModel(name: "Sentra Onderdil", distanceText: "1 km")
 ]
 
 #Preview(as: .systemSmall) {
