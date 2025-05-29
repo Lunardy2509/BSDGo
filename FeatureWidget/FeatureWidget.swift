@@ -110,7 +110,8 @@ struct FeatureWidgetEntryView: View {
                 .padding(10)
                 .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
                 .padding(.bottom, 20)
-                .padding(.trailing, 5)
+                .padding(.trailing, 5
+                )
             }
             
         case .systemLarge:
