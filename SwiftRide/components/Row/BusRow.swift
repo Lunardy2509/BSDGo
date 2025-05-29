@@ -14,7 +14,7 @@ struct BusRow: View {
             return .yellow.opacity(0.5)
         }
         else {
-            return .primary.opacity(0.2)
+            return .purple.opacity(0.5)
         }
     }
     
