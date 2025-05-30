@@ -5,7 +5,7 @@ import MapKit
 @MainActor
 class SheetViewModel: ObservableObject {
     @Published var closestStops: [(stop: BusStop, distance: CLLocationDistance)] = []
-
+    
     func updateClosestStops(from stops: [BusStop], userLocation: CLLocation?) {
         guard let location = userLocation else {
             closestStops = []

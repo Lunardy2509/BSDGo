@@ -33,6 +33,34 @@ struct Provider: TimelineProvider {
     }
 }
 
+// MARK: - Widget Information For Mediuma and Large Widget
+struct WidgetCard: View {
+    let stops: [WidgetModel]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            ForEach(stops.prefix(2), id: \.self) { stop in
+                HStack(spacing: 6) {
+                    Image(systemName: "mappin.circle.fill")
+                        .foregroundColor(.primary)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(stop.name)
+                            .font(.caption)
+                            .lineLimit(1)
+                            .foregroundColor(.primary)
+
+                        Text(stop.distanceText)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+        }
+        .padding(10)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+    }
+}
+
 // MARK: - Widget View
 struct FeatureWidgetEntryView: View {
     var entry: Provider.Entry
@@ -60,6 +88,50 @@ struct FeatureWidgetEntryView: View {
 
     var body: some View {
         switch family {
+        case .systemMedium:
+            ZStack {
+                if let image = snapshotImage {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .offset(x: -2, y: -2)
+                        .clipped()
+                }
+
+                VStack {
+                    Spacer()
+                    HStack {
+                        WidgetCard(stops: entry.stops)
+                            .padding(.leading, 16)
+                            .padding(.bottom, 16)
+                        Spacer()
+                    }
+                }
+            }
+
+        case .systemLarge:
+            ZStack {
+                if let image = snapshotImage {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .offset(x: -2, y: -2)
+                        .clipped()
+                }
+
+                VStack {
+                    Spacer()
+                    HStack {
+                        WidgetCard(stops: entry.stops)
+                            .padding(.leading, 20)
+                            .padding(.bottom, 20)
+                        Spacer()
+                    }
+                }
+            }
+
         case .systemSmall:
             VStack(alignment: .leading, spacing: 6) {
                 Text("Closest Bus Stops")
@@ -82,75 +154,6 @@ struct FeatureWidgetEntryView: View {
             }
             .padding(8)
 
-        case .systemMedium:
-            ZStack(alignment: .bottomTrailing) {
-                if let image = snapshotImage {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .edgesIgnoringSafeArea(.all)
-                }
-                
-                VStack(alignment: .leading, spacing: 6) {
-                    ForEach(entry.stops.prefix(2), id: \.self) { stop in
-                        HStack(spacing: 6) {
-                            Image(systemName: "mappin.circle.fill")
-                                .foregroundColor(.primary)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(stop.name)
-                                    .font(.caption)
-                                    .lineLimit(1)
-                                Text(stop.distanceText)
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                    }
-                }
-                .padding(10)
-                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                .padding(.bottom, 20)
-                .padding(.trailing, 5
-                )
-            }
-            
-        case .systemLarge:
-            ZStack {
-                if let image = snapshotImage {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .edgesIgnoringSafeArea(.all)
-                }
-                
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        VStack(alignment: .leading, spacing: 6) {
-                            ForEach(entry.stops.prefix(2), id: \.self) { stop in
-                                HStack(spacing: 6) {
-                                    Image(systemName: "mappin.circle.fill")
-                                        .foregroundColor(.primary)
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(stop.name)
-                                            .font(.caption)
-                                            .lineLimit(1)
-                                        Text(stop.distanceText)
-                                            .font(.caption2)
-                                            .foregroundColor(.secondary)
-                                    }
-                                }
-                            }
-                        }
-                        .padding(10)
-                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                        .padding(.bottom, 10)
-                        .padding(.trailing, 110)
-                    }
-                }
-            }
-            
         default:
             EmptyView()
         }
