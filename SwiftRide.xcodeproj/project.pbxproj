@@ -67,7 +67,6 @@
 			membershipExceptions = (
 				FeatureWidgetBundle.swift,
 				Info.plist,
-				WidgetBusStop.swift,
 			);
 			target = 4A685DB32D88083C0053791C /* SwiftRide */;
 		};

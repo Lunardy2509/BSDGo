@@ -31,7 +31,7 @@ struct SplashView: View {
                         .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: scaleUp)
                 }
 
-                Text("SwiftRide")
+                Text("BSD Go")
                     .font(.system(size: 24, weight: .bold))
                     .padding(.top, 16)
 

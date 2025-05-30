@@ -48,7 +48,6 @@ struct WidgetCard: View {
                             .font(.caption)
                             .lineLimit(1)
                             .foregroundColor(.primary)
-
                         Text(stop.distanceText)
                             .font(.caption2)
                             .foregroundColor(.secondary)
@@ -104,7 +103,7 @@ struct FeatureWidgetEntryView: View {
                     HStack {
                         WidgetCard(stops: entry.stops)
                             .padding(.leading, 16)
-                            .padding(.bottom, 16)
+                            .padding(.bottom, 26)
                         Spacer()
                     }
                 }
@@ -125,7 +124,7 @@ struct FeatureWidgetEntryView: View {
                     Spacer()
                     HStack {
                         WidgetCard(stops: entry.stops)
-                            .padding(.leading, 20)
+                            .padding(.leading, 30)
                             .padding(.bottom, 20)
                         Spacer()
                     }
@@ -169,6 +168,7 @@ struct FeatureWidget: Widget {
             FeatureWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
+        .contentMarginsDisabled()
     }
 }
 

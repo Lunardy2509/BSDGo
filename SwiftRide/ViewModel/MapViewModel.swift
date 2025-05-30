@@ -112,20 +112,20 @@ class MapViewModel: ObservableObject {
     ) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
 
-        let pinSize: CGFloat = 30
-        let iconSize: CGFloat = 20
+        let pinSize: CGFloat = 24
+        let iconSize: CGFloat = 18
         let labelOffset: CGFloat = 6
 
         let iconRect = CGRect(
             x: point.x - iconSize / 2,
-            y: point.y - iconSize,
+            y: point.y - iconSize / 2,
             width: iconSize,
             height: iconSize
         )
 
         let pinRect = CGRect(
             x: point.x - pinSize / 2,
-            y: point.y - pinSize,
+            y: point.y - pinSize / 2,
             width: pinSize,
             height: pinSize
         )

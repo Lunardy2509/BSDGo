@@ -15,7 +15,7 @@ struct BusRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(bus.name)
                         .font(.headline)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.black)
                         .padding(8)
                         .background(bus.color.resolvedColor(for: scheme))
                         .cornerRadius(20)
