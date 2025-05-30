@@ -3,60 +3,60 @@
     "bus_number": 1,
     "bus_name": "Intermoda - Sektor 1.3 Bus 1",
     "license_plate": "B7966PAA",
-    "bus_color" : "yellow"
+    "bus_color" : "81D1FF"
   },
   {
     "bus_number": 2,
     "bus_name": "Intermoda - Sektor 1.3 Bus 2",
     "license_plate": "B7666PAA",
-    "bus_color" : "red"
+    "bus_color" : "3C8DFF"
   },
   {
     "bus_number": 3,
     "bus_name": "Greenwich - Sektor 1.3 Bus 1",
     "license_plate": "B7266JF",
-    "bus_color" : "green"
+    "bus_color" : "ABCF37"
   },
   {
     "bus_number": 4,
     "bus_name": "Greenwich - Sektor 1.3 Bus 2",
     "license_plate": "B7466PAA",
-    "bus_color" : "orange"
+    "bus_color" : "53CF37"
   },
   {
     "bus_number": 5,
     "bus_name": "De Park 1",
     "license_plate": "B7366PAA",
-    "bus_color" : "mint"
+    "bus_color" : "FF7C3F"
   },
   {
     "bus_number": 6,
     "bus_name": "De Park 2",
     "license_plate": "B7366JE",
-    "bus_color": "gray"
+    "bus_color": "FF3F51"
   },
   {
     "bus_number": 7,
     "bus_name": "The Breeze Bus 1",
     "license_plate": "B7166PAA",
-    "bus_color" : "indigo"
+    "bus_color" : "EC83FF"
   },
   {
     "bus_number": 8,
     "bus_name": "The Breeze Bus 2",
     "license_plate": "B7866PAA",
-    "bus_color" : "cyan"
+    "bus_color" : "A584FF"
   },
   {
     "bus_number": 9,
     "bus_name": "Vanya",
     "license_plate": "B7766PAA",
-    "bus_color" : "purple"
+    "bus_color" : "E9E651"
   },
   {
     "bus_number": 10,
     "bus_name": "Electric Bus",
     "license_plate": "B7002PGX",
-    "bus_color" : "pink"
+    "bus_color" : "708090"
   }
 ]
