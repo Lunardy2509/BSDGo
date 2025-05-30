@@ -15374,235 +15374,235 @@
   {
     "bus_stop_name": "Intermoda",
     "bus_number": 6,
-    "time_of_arrival": "15:20",
+    "time_of_arrival": "16:30",
     "session": 10
   },
   {
     "bus_stop_name": "Icon Centro",
     "bus_number": 6,
-    "time_of_arrival": "15:23",
+    "time_of_arrival": "16:33",
     "session": 10
   },
   {
     "bus_stop_name": "Horizon Broadway",
     "bus_number": 6,
-    "time_of_arrival": "15:24",
+    "time_of_arrival": "16:34",
     "session": 10
   },
   {
     "bus_stop_name": "Xtreme Park",
     "bus_number": 6,
-    "time_of_arrival": "15:25",
+    "time_of_arrival": "16:35",
     "session": 10
   },
   {
     "bus_stop_name": "Saveria",
     "bus_number": 6,
-    "time_of_arrival": "15:26",
+    "time_of_arrival": "16:36",
     "session": 10
   },
   {
     "bus_stop_name": "Casa de Parco 1",
     "bus_number": 6,
-    "time_of_arrival": "15:26",
+    "time_of_arrival": "16:36",
     "session": 10
   },
   {
     "bus_stop_name": "SML Plaza",
     "bus_number": 6,
-    "time_of_arrival": "15:28",
+    "time_of_arrival": "16:38",
     "session": 10
   },
   {
     "bus_stop_name": "The Breeze",
     "bus_number": 6,
-    "time_of_arrival": "15:30",
+    "time_of_arrival": "16:40",
     "session": 10
   },
   {
     "bus_stop_name": "CBD Timur 1",
     "bus_number": 6,
-    "time_of_arrival": "15:32",
+    "time_of_arrival": "16:42",
     "session": 10
   },
   {
     "bus_stop_name": "AEON Mall 1",
     "bus_number": 6,
-    "time_of_arrival": "15:33",
+    "time_of_arrival": "16:43",
     "session": 10
   },
   {
     "bus_stop_name": "AEON Mall 2",
     "bus_number": 6,
-    "time_of_arrival": "15:33",
+    "time_of_arrival": "16:43",
     "session": 10
   },
   {
     "bus_stop_name": "CBD Timur 2",
     "bus_number": 6,
-    "time_of_arrival": "15:35",
+    "time_of_arrival": "16:45",
     "session": 10
   },
   {
     "bus_stop_name": "Simpang Foresta",
     "bus_number": 6,
-    "time_of_arrival": "15:37",
+    "time_of_arrival": "16:47",
     "session": 10
   },
   {
     "bus_stop_name": "Allevare",
     "bus_number": 6,
-    "time_of_arrival": "15:38",
+    "time_of_arrival": "16:48",
     "session": 10
   },
   {
     "bus_stop_name": "Fiore",
     "bus_number": 6,
-    "time_of_arrival": "15:39",
+    "time_of_arrival": "16:49",
     "session": 10
   },
   {
     "bus_stop_name": "Studento 1",
     "bus_number": 6,
-    "time_of_arrival": "15:40",
+    "time_of_arrival": "16:50",
     "session": 10
   },
   {
     "bus_stop_name": "Naturale",
     "bus_number": 6,
-    "time_of_arrival": "15:41",
+    "time_of_arrival": "16:51",
     "session": 10
   },
   {
     "bus_stop_name": "Fresco",
     "bus_number": 6,
-    "time_of_arrival": "15:42",
+    "time_of_arrival": "16:52",
     "session": 10
   },
   {
     "bus_stop_name": "Primavera",
     "bus_number": 6,
-    "time_of_arrival": "15:43",
+    "time_of_arrival": "16:53",
     "session": 10
   },
   {
     "bus_stop_name": "Foresta 2",
     "bus_number": 6,
-    "time_of_arrival": "15:44",
+    "time_of_arrival": "16:54",
     "session": 10
   },
   {
     "bus_stop_name": "De Park 1",
     "bus_number": 6,
-    "time_of_arrival": "15:46",
+    "time_of_arrival": "16:56",
     "session": 10
   },
   {
     "bus_stop_name": "De Frangipani",
     "bus_number": 6,
-    "time_of_arrival": "15:47",
+    "time_of_arrival": "16:57",
     "session": 10
   },
   {
     "bus_stop_name": "De Heliconia 1",
     "bus_number": 6,
-    "time_of_arrival": "15:48",
+    "time_of_arrival": "16:58",
     "session": 10
   },
   {
     "bus_stop_name": "De Brassia",
     "bus_number": 6,
-    "time_of_arrival": "15:49",
+    "time_of_arrival": "16:59",
     "session": 10
   },
   {
     "bus_stop_name": "Jadeite",
     "bus_number": 6,
-    "time_of_arrival": "15:50",
+    "time_of_arrival": "17:00",
     "session": 10
   },
   {
     "bus_stop_name": "Greenwich Park 2",
     "bus_number": 6,
-    "time_of_arrival": "15:51",
+    "time_of_arrival": "17:01",
     "session": 10
   },
   {
     "bus_stop_name": "QBIG 2",
     "bus_number": 6,
-    "time_of_arrival": "15:52",
+    "time_of_arrival": "17:02",
     "session": 10
   },
   {
     "bus_stop_name": "QBIG 3",
     "bus_number": 6,
-    "time_of_arrival": "15:52",
+    "time_of_arrival": "17:02",
     "session": 10
   },
   {
     "bus_stop_name": "BCA",
     "bus_number": 6,
-    "time_of_arrival": "15:54",
+    "time_of_arrival": "17:04",
     "session": 10
   },
   {
     "bus_stop_name": "FBL 2",
     "bus_number": 6,
-    "time_of_arrival": "15:56",
+    "time_of_arrival": "17:06",
     "session": 10
   },
   {
     "bus_stop_name": "FBL 1",
     "bus_number": 6,
-    "time_of_arrival": "15:57",
+    "time_of_arrival": "17:07",
     "session": 10
   },
   {
     "bus_stop_name": "ICE 1",
     "bus_number": 6,
-    "time_of_arrival": "16:00",
+    "time_of_arrival": "17:10",
     "session": 10
   },
   {
     "bus_stop_name": "ICE 2",
     "bus_number": 6,
-    "time_of_arrival": "16:01",
+    "time_of_arrival": "17:11",
     "session": 10
   },
   {
     "bus_stop_name": "ICE 6",
     "bus_number": 6,
-    "time_of_arrival": "16:03",
+    "time_of_arrival": "17:13",
     "session": 10
   },
   {
     "bus_stop_name": "ICE 5",
     "bus_number": 6,
-    "time_of_arrival": "16:04",
+    "time_of_arrival": "17:14",
     "session": 10
   },
   {
     "bus_stop_name": "CBD Barat 1",
     "bus_number": 6,
-    "time_of_arrival": "16:07",
+    "time_of_arrival": "17:17",
     "session": 10
   },
   {
     "bus_stop_name": "CBD Barat 2",
     "bus_number": 6,
-    "time_of_arrival": "16:07",
+    "time_of_arrival": "17:17",
     "session": 10
   },
   {
     "bus_stop_name": "Simplicity 1",
     "bus_number": 6,
-    "time_of_arrival": "16:09",
+    "time_of_arrival": "17:19",
     "session": 10
   },
   {
     "bus_stop_name": "Intermoda",
     "bus_number": 6,
-    "time_of_arrival": "16:12",
+    "time_of_arrival": "17:24",
     "session": 10
   },
   {
