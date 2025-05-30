@@ -81,7 +81,7 @@ private extension DefaultSheetView {
                                 .padding(.horizontal, 16)
                                 .contentShape(Rectangle())
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(.plain) 
                             if index < viewModel.closestStops.count - 1 {
                                 Divider()
                                     .padding(.leading, 58)
