@@ -5,18 +5,7 @@ struct BusRow: View {
     let bus: Bus
     let etaMinutes: Int
     let onTap: (_ busNumber: Int, _ busName: String) -> Void
-    
-    private var backgroundColor: Color {
-        if etaMinutes <= 5 {
-            return .green.opacity(0.5)
-        }
-        else if etaMinutes <= 15 {
-            return .yellow.opacity(0.5)
-        }
-        else {
-            return .primary.opacity(0.2)
-        }
-    }
+    @Environment(\.colorScheme) var scheme
     
     var body: some View {
         Button(action: {
@@ -28,10 +17,12 @@ struct BusRow: View {
                         .font(.headline)
                         .foregroundColor(.primary)
                         .padding(8)
-                        .background(backgroundColor)
+                        .background(bus.color.resolvedColor(for: scheme))
                         .cornerRadius(20)
                         .frame(maxWidth: .infinity, alignment: .leading)
-
+                    Text(bus.licensePlate)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                     Text("Will be arriving \(etaMinutes == 0 ? "soon" : "in \(etaMinutes) \(etaMinutes == 1 ? "minute" : "minutes")")")
                         .font(.subheadline)
                         .foregroundColor(.secondary)

@@ -14,7 +14,7 @@ struct StopAnnotation: View {
                 Image(systemName: "mappin.circle.fill")
                     .resizable()
                     .scaledToFill()
-                    .foregroundStyle(.teal)
+                    .foregroundStyle(Color(red: 239/255, green: 140/255, blue: 0/255)) // SwiftRide Base Color
                     .frame(width: 25, height: 25)
                     .scaleEffect(isSelected ? 1.5 : 1.0)
                     .animation(.interpolatingSpring(stiffness: 300, damping: 10), value: isSelected)

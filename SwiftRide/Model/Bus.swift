@@ -6,7 +6,7 @@ struct Bus: Identifiable, Decodable{
     let name: String
     let number: Int
     let licensePlate: String
-    let color: Color
+    let color: AdaptiveColor
     var schedule: [BusSchedule]
     
     enum Codnames: String, CodingKey {
@@ -22,7 +22,8 @@ struct Bus: Identifiable, Decodable{
         name = try container.decode(String.self, forKey: .name)
         number = try container.decode(Int.self, forKey: .number)
         licensePlate = try container.decode(String.self, forKey: .licensePlate)
-        color = Color.fromString(try container.decode(String.self, forKey: .color))
+        let hexString = try container.decode(String.self, forKey: .color)
+        color = AdaptiveColor.fromHex(light: hexString)
         schedule = []
     }
     
@@ -31,7 +32,7 @@ struct Bus: Identifiable, Decodable{
         self.name = ""
         self.number = 0
         self.licensePlate = ""
-        self.color = .gray
+        self.color = AdaptiveColor(light: .gray, dark: .gray)
         self.schedule = []
     }
     
@@ -69,38 +70,36 @@ struct Bus: Identifiable, Decodable{
     }
 }
 
+struct AdaptiveColor {
+    let light: Color
+    let dark: Color
+    
+    func resolvedColor(for scheme: ColorScheme) -> Color {
+        scheme == .dark ? dark : light
+    }
+    
+    static func fromHex(light: String, dark: String? = nil) -> AdaptiveColor {
+        let lightColor = Color(hex: light) ?? .gray
+        let darkColor = dark != nil ? (Color(hex: dark!) ?? .gray) : lightColor.darker()
+        return AdaptiveColor(light: lightColor, dark: darkColor)
+    }
+}
+
 extension Color {
-    static func fromString(_ input: String) -> Color {
-        switch input.lowercased() {
-        case "red":
-            return .red
-        case "blue":
-            return .blue
-        case "green":
-            return .green
-        case "yellow":
-            return .yellow
-        case "orange":
-            return .orange
-        case "mint":
-            return .mint
-        case "indigo":
-            return .indigo
-        case "cyan":
-            return .cyan
-        case "purple":
-            return .purple
-        case "pink":
-            return .pink
-        case "gray":
-            return .gray
-        case "black":
-            return .black
-        case "white":
-            return .white
-        default:
-            return .teal
+    init?(hex: String) {
+        guard hex.count == 6,
+              let int = UInt64(hex, radix: 16) else {
+            return nil
         }
+        
+        let red = Double((int >> 16) & 0xFF) / 255.0
+        let green = Double((int >> 8) & 0xFF) / 255.0
+        let blue = Double(int & 0xFF) / 255.0
+        
+        self.init(red: red, green: green, blue: blue)
+    }
+    func darker(amount: Double = 0.2) -> Color {
+        return self.opacity(1.0 - amount)
     }
 }
 
