@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "BSDGo_Light.png",
+      "filename" : "BSDGo_Light_2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "BSDGo_Dark.png",
+      "filename" : "BSDGo_Dark_2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
