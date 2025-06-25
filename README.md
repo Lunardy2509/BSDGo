@@ -1,17 +1,21 @@
 <div align="center">
+  <h1>BSDGo: BSD Link Companion App</h1>
 
-# BSDGo: BSD Link Companion App
+  <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/SwiftRide/Assets.xcassets/SWRD%20Icon.imageset/SWRD%20Icon.png?raw=true" width="200" height="200" alt="BSDGo Logo">
 
-![BSDGo Logo](https://github.com/Lunardy2509/BSDGo/blob/mimi/SwiftRide/Assets.xcassets/SWRD%20Icon.imageset/SWRD%20Icon.png?raw=true)
+  <p><strong>Version 1.0.0</strong></p>
 
-**Version 1.0.0**
+  <p>Welcome to the repository for <strong>BSDGo</strong>, the iOS companion app built to improve daily commutes for BSD City residents using the BSD Link shuttle service.</p>
 
-Welcome to the repository for **BSDGo**, the iOS companion app built to improve daily commutes for BSD City residents using the BSD Link shuttle service.
-
-[📜 Privacy Policy »](https://github.com/Lunardy2509/BSDGo/blob/mimi/PRIVACY)  
-[💬 Discussion](https://github.com/Lunardy2509/BSDGo/discussions) · [🐛 Report Bug](https://github.com/Lunardy2509/BSDGo/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBug%5D) · [✨ Request Feature](https://github.com/Lunardy2509/BSDGo/issues/new?labels=enhancement&template=feature_request.md&title=%5BFeature%5D)
-
+  <p>
+    <a href="https://github.com/Lunardy2509/BSDGo/blob/mimi/PRIVACY">📜 Privacy Policy »</a><br>
+    <a href="https://github.com/Lunardy2509/BSDGo/discussions">💬 Discussion</a> ·
+    <a href="https://github.com/Lunardy2509/BSDGo/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBug%5D">🐛 Report Bug</a> ·
+    <a href="https://github.com/Lunardy2509/BSDGo/issues/new?labels=enhancement&template=feature_request.md&title=%5BFeature%5D">✨ Request Feature</a>
+  </p>
 </div>
+
+<hr>
 
 ---
 
