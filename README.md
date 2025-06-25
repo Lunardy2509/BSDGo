@@ -1,5 +1,36 @@
-BSDGo is a modern iOS application designed to enhance the daily commuting experience for BSD Link users. Inspired by the OneSmile BSD Link design, BSDGo offers thoughtful enhancements in usability, speed, and convenience—tailored specifically to meet the needs of BSD commuters.
+# BSDGo: BSD Link Companion App
 
-With a refined interface and user-friendly features, BSDGo helps users make smarter transportation decisions—whether to take the BSD Link or explore alternative options. One standout feature is the integrated Widget, which allows users to instantly view information about the nearest bus stops without even opening the app. This makes it easier than ever to assess proximity and plan commutes on the go—especially when stops are out of reach.
+![BSDGo Logo](https://yourdomain.com/logo.png)
 
-BSDGo elevates the standard commuting experience with a clean design, real-time insights, and seamless iOS integration—making daily travel in BSD smarter, faster, and more intuitive.
+**Version 1.0.0**
+
+Welcome to the repository for **BSDGo**, the iOS companion app built to improve daily commutes for BSD City residents using the BSD Link shuttle service.
+
+[📜 Privacy Policy »](https://yourdomain.com/privacy)  
+[💬 Discussion](https://github.com/youruser/bsdgo/discussions) · [🐛 Report Bug](https://github.com/youruser/bsdgo/issues) · [✨ Request Feature](https://github.com/youruser/bsdgo/issues/new?template=feature_request.md)
+
+---
+
+## 📍 About BSDGo
+
+**BSDGo** is a native iOS app that shows live schedules and nearby stops for BSD Link shuttles. Designed with a focus on speed and usability, it helps BSD City commuters make smarter, faster travel decisions—without opening the app thanks to Home Screen widgets.
+
+> ℹ️ *BSDGo is available only in BSD City and is currently in its public release phase. More updates are on the way based on user feedback and route data availability.*
+
+---
+
+## 🛠 Purpose of this Repository
+
+Use this repo to:
+
+- Report bugs or issues with BSDGo
+- Suggest new features or usability improvements
+- Ask questions about app usage or development
+- Share ideas for future releases
+
+---
+
+## 🔔 Stay Updated
+
+Follow development progress, beta updates, and release notes through this repository.  
+Thank you for supporting **BSDGo** and helping commuters move smarter in BSD City 🚍
