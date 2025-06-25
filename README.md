@@ -1,6 +1,6 @@
 # BSDGo: BSD Link Companion App
 
-![BSDGo Logo](https://github.com/Lunardy2509/BSDGo/blob/mimi/SwiftRide/Assets.xcassets/AppIcon.appiconset/BSDGo_Light_2.png)
+![BSDGo Logo](https://github.com/Lunardy2509/BSDGo/blob/mimi/SwiftRide/Assets.xcassets/SWRD%20Icon.imageset/SWRD%20Icon.png)
 
 **Version 1.0.0**
 
