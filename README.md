@@ -1,13 +1,17 @@
+<div align="center">
+
 # BSDGo: BSD Link Companion App
 
-![BSDGo Logo](https://github.com/Lunardy2509/BSDGo/blob/mimi/SwiftRide/Assets.xcassets/SWRD%20Icon.imageset/SWRD%20Icon.png)
+![BSDGo Logo](https://github.com/Lunardy2509/BSDGo/blob/mimi/SwiftRide/Assets.xcassets/SWRD%20Icon.imageset/SWRD%20Icon.png?raw=true)
 
 **Version 1.0.0**
 
 Welcome to the repository for **BSDGo**, the iOS companion app built to improve daily commutes for BSD City residents using the BSD Link shuttle service.
 
-[📜 Privacy Policy »]([https://yourdomain.com/privacy](https://github.com/Lunardy2509/BSDGo/blob/mimi/PRIVACY))  
+[📜 Privacy Policy »](https://github.com/Lunardy2509/BSDGo/blob/mimi/PRIVACY)  
 [💬 Discussion](https://github.com/Lunardy2509/BSDGo/discussions) · [🐛 Report Bug](https://github.com/Lunardy2509/BSDGo/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBug%5D) · [✨ Request Feature](https://github.com/Lunardy2509/BSDGo/issues/new?labels=enhancement&template=feature_request.md&title=%5BFeature%5D)
+
+</div>
 
 ---
 
