@@ -1,0 +1,46 @@
+# Privacy Policy for BSDGo
+
+BSDGo values and respects your privacy. This Privacy Policy explains how your data is handled when using the app.
+
+---
+
+## 1. Information Collection
+
+**BSDGo does not collect, store, or transmit** any personal information or user data to external servers.
+
+---
+
+## 2. Location Access
+
+BSDGo requests location access **solely to determine your proximity to BSD Link bus stops**. This information is processed **entirely on-device** and is never stored, transmitted, or shared.
+
+---
+
+## 3. Data Storage
+
+BSDGo does **not store any user data** outside of standard iOS system frameworks. All runtime data is handled temporarily within the app session and **remains on the user’s device**.
+
+---
+
+## 4. Third-Party Services
+
+BSDGo does **not use** any third-party analytics, advertising networks, or tracking technologies.
+
+---
+
+## 5. Changes to This Policy
+
+This Privacy Policy may be updated periodically. Any changes will be reflected by updating the **“Effective Date”** listed below.
+
+---
+
+## 6. Contact
+
+If you have any questions or concerns about this Privacy Policy, please contact the developer at:
+
+📧 **bsdgo.app [at] gmail.com**  
+or open a discussion on [GitHub Discussions](https://github.com/yourusername/bsdgo/discussions)
+
+---
+
+**Effective Date:** _June 25, 2025_
