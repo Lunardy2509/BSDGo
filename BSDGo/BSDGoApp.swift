@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct SwiftRideApp: App {
+struct BSDGoApp: App {
 
     var body: some Scene {
         WindowGroup {

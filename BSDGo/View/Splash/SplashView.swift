@@ -5,7 +5,7 @@ struct SplashView: View {
     @State private var scaleUp = false
     @State private var glow = false
     
-    let AppIcon = Image("SWRD Icon")
+    let AppIcon = Image("BSDGo Icon")
 
     var body: some View {
         if isActive {
@@ -31,7 +31,7 @@ struct SplashView: View {
                         .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: scaleUp)
                 }
 
-                Text("SwiftRide")
+                Text("BSDGo")
                     .font(.system(size: 24, weight: .bold))
                     .padding(.top, 16)
 

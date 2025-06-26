@@ -21,7 +21,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         let stops: [WidgetModel]
 
-        if let data = UserDefaults(suiteName: "group.com.lunardy.SwiftRide")?.data(forKey: "closestStops"),
+        if let data = UserDefaults(suiteName: "group.com.lunardy.BSDGo")?.data(forKey: "closestStops"),
            let decoded = try? JSONDecoder().decode([WidgetModel].self, from: data) {
             stops = decoded
         } else {

@@ -68,7 +68,7 @@ class MapViewModel: ObservableObject {
 
             if let data = finalImage?.pngData(),
                let url = FileManager.default
-                   .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.SwiftRide")?
+                   .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.BSDGo")?
                    .appendingPathComponent(fileName) {
                 do {
                     try data.write(to: url)
