@@ -3,7 +3,7 @@
 
   <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/BSDGo/Assets.xcassets/BSDGo%20Icon.imageset/SWRD%20Icon.png" width="200" height="200" alt="BSDGo Logo">
 
-  ![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)
+  ![Version](https://img.shields.io/badge/version-1.1-blue?style=for-the-badge)
 
   <p>Welcome to the repository for <strong>BSDGo</strong>, the iOS companion app built to improve daily commutes for BSD City residents using the BSD Link shuttle service.</p>
 
