@@ -41,7 +41,6 @@
 		BD2013B22E0C6283003FCDB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2013912E0C6283003FCDB4 /* Assets.xcassets */; };
 		BD9904152E0D05FC0070C495 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BD9E3CCE2E0CECC700D1EC08 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137F2E0C6283003FCDB4 /* BusStop.swift */; };
-		BD9E3CD32E0CECDD00D1EC08 /* BSDGo.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = BD9E3CD22E0CECDD00D1EC08 /* BSDGo.entitlements */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -522,7 +521,6 @@
 				BD2013AC2E0C6283003FCDB4 /* Schedule_Vanya.json in Resources */,
 				BD2013AD2E0C6283003FCDB4 /* Bus.json in Resources */,
 				BD2013AE2E0C6283003FCDB4 /* Schedule_Breeze.json in Resources */,
-				BD9E3CD32E0CECDD00D1EC08 /* BSDGo.entitlements in Resources */,
 				BD2013AF2E0C6283003FCDB4 /* Preview Assets.xcassets in Resources */,
 				BD2013B02E0C6283003FCDB4 /* stops.csv in Resources */,
 				BD2013B12E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json in Resources */,
@@ -777,7 +775,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -813,7 +811,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -913,7 +911,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -945,7 +943,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
