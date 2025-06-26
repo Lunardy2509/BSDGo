@@ -8,7 +8,7 @@
   <p>Welcome to the repository for <strong>BSDGo</strong>, the iOS companion app built to improve daily commutes for BSD City residents using the BSD Link shuttle service.</p>
 
   <p>
-    <a href="https://github.com/Lunardy2509/BSDGo/blob/mimi/PRIVACY">📜 Privacy Policy »</a><br>
+    <a href="https://lunardy2509.github.io/privacy-bsdgo">📜 Privacy Policy »</a><br>
     <a href="https://github.com/Lunardy2509/BSDGo/discussions">💬 Discussion</a> ·
     <a href="https://github.com/Lunardy2509/BSDGo/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBug%5D">🐛 Report Bug</a> ·
     <a href="https://github.com/Lunardy2509/BSDGo/issues/new?labels=enhancement&template=feature_request.md&title=%5BFeature%5D">✨ Request Feature</a>
