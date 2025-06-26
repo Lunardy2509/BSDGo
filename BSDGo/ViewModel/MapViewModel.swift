@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import MapKit
 import UIKit
+import WidgetKit
 
 @MainActor
 class MapViewModel: ObservableObject {
@@ -92,9 +93,21 @@ class MapViewModel: ObservableObject {
         let widgetModel = locationManager.convertToWidgetModel(from: allStops, userLocation: location)
         let closestStops = getClosestStops(from: widgetModel, using: allStops)
 
-        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 350, height: 210), fileName: "mapSnapshot_medium.png") // Medium Widget
-        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 430, height: 400), fileName: "mapSnapshot_large.png") // Large Widget
+        // Save closestStops (WidgetModel) to App Group
+        if let data = try? JSONEncoder().encode(widgetModel) {
+            let defaults = UserDefaults(suiteName: "group.com.lunardy.BSDGo")
+            defaults?.set(data, forKey: "closestStops")
+            print("✅ Saved closestStops to App Group")
+        }
+
+        // Save snapshot images
+        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 350, height: 210), fileName: "mapSnapshot_medium.png")
+        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 430, height: 400), fileName: "mapSnapshot_large.png")
+
+        // Trigger the widget to reload its timeline
+        WidgetCenter.shared.reloadAllTimelines()
     }
+
 
     func handleAnnotationTap(on stop: BusStop, currentSelection: BusStop) -> (BusStop, SheetContentType, Bool, PresentationDetent) {
         if currentSelection.id == stop.id {

@@ -77,7 +77,7 @@ struct FeatureWidgetEntryView: View {
         }
 
         if let url = FileManager.default
-            .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.SwiftRide")?
+            .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.BSDGo")?
             .appendingPathComponent(fileName),
            let uiImage = UIImage(contentsOfFile: url.path) {
             return Image(uiImage: uiImage)

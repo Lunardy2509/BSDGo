@@ -39,8 +39,8 @@
 		BD2013B02E0C6283003FCDB4 /* stops.csv in Resources */ = {isa = PBXBuildFile; fileRef = BD2013772E0C6283003FCDB4 /* stops.csv */; };
 		BD2013B12E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2013722E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json */; };
 		BD2013B22E0C6283003FCDB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2013912E0C6283003FCDB4 /* Assets.xcassets */; };
+		BD70EFE22E0D2ECD0081BC4A /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137F2E0C6283003FCDB4 /* BusStop.swift */; };
 		BD9904152E0D05FC0070C495 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		BD9E3CCE2E0CECC700D1EC08 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137F2E0C6283003FCDB4 /* BusStop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +124,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BD69F7E52E0CE2390011544C /* Exceptions for "FeatureWidget" folder in "BSDGo" target */ = {
+		BD70EFE12E0D2D570081BC4A /* Exceptions for "FeatureWidget" folder in "BSDGo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Model/WidgetModel.swift,
@@ -144,7 +144,7 @@
 		BDC6D1892DD63BE6004209DD /* FeatureWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BD69F7E52E0CE2390011544C /* Exceptions for "FeatureWidget" folder in "BSDGo" target */,
+				BD70EFE12E0D2D570081BC4A /* Exceptions for "FeatureWidget" folder in "BSDGo" target */,
 				BD9E3CC82E0CEA9100D1EC08 /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */,
 			);
 			path = FeatureWidget;
@@ -598,7 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD9E3CCE2E0CECC700D1EC08 /* BusStop.swift in Sources */,
+				BD70EFE22E0D2ECD0081BC4A /* BusStop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
