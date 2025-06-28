@@ -8,7 +8,7 @@
   <p><strong>BSDGo</strong> is an iOS companion navigation app built to enhance the BSD Link commuting experience by providing real-time shuttle schedules and nearby stops through a fast, widget-ready interface.</p>
 
   <p>
-    <a href="https://lunardy2509.github.io/privacy/privacy-bsdgo">📜 Privacy Policy</a><br><br>
+    <a href="https://lunardy2509.github.io/lq-docs/privacy/privacy-bsdgo">📜 Privacy Policy</a><br><br>
     <a href="https://github.com/Lunardy2509/BSDGo/discussions">💬 Discussion</a> ·
     <a href="https://github.com/Lunardy2509/BSDGo/issues/new?labels=bug&template=bug_report.yml&title=%5BBug%5D">🐛 Report Bug</a> ·
     <a href="https://github.com/Lunardy2509/BSDGo/issues/new?labels=enhancement&template=feature_request.yml&title=%5BFeature%5D">✨ Request Feature</a><br><br>
