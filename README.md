@@ -1,46 +1,77 @@
 <div align="center">
-  <h1>BSDGo: BSD Link Companion App</h1>
+  <h1>🚍 BSDGo: BSD Link Companion App</h1>
 
   <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/BSDGo/Assets.xcassets/BSDGo%20Icon.imageset/SWRD%20Icon.png" width="200" height="200" alt="BSDGo Logo">
 
-  ![Version](https://img.shields.io/badge/version-1.1-blue?style=for-the-badge)
+  ![Version](https://img.shields.io/badge/version-1.2-orange?style=for-the-badge)
 
-  <p>Welcome to the repository for <strong>BSDGo</strong>, the iOS companion app built to improve daily commutes for BSD City residents using the BSD Link shuttle service.</p>
+  <p><strong>BSDGo</strong> is an iOS companion navigation app built to enhance the BSD Link commuting experience by providing real-time shuttle schedules and nearby stops through a fast, widget-ready interface.</p>
 
-<p>
-  <a href="https://lunardy2509.github.io/privacy-bsdgo">📜 Privacy Policy »</a><br><br>
-  <a href="https://github.com/Lunardy2509/BSDGo/discussions">💬 Discussion</a> ·
-  <a href="https://github.com/Lunardy2509/BSDGo/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBug%5D">🐛 Report Bug</a> ·
-  <a href="https://github.com/Lunardy2509/BSDGo/issues/new?labels=enhancement&template=feature_request.md&title=%5BFeature%5D">✨ Request Feature</a><br><br>
-  <a href="https://apps.apple.com/id/app/bsdgo/id6747796706"><strong>📲 Download Here</strong></a>
-</p>
-
+  <p>
+    <a href="https://lunardy2509.github.io/lq-docs/privacy/privacy-bsdgo">📜 Privacy Policy</a><br><br>
+    <a href="https://github.com/Lunardy2509/BSDGo/discussions">💬 Discussion</a> ·
+    <a href="https://github.com/Lunardy2509/BSDGo/issues/new?labels=bug&template=bug_report.yml&title=%5BBug%5D">🐛 Report Bug</a> ·
+    <a href="https://github.com/Lunardy2509/BSDGo/issues/new?labels=enhancement&template=feature_request.yml&title=%5BFeature%5D">✨ Request Feature</a><br><br>
+    <a href="https://apps.apple.com/id/app/bsdgo/id6747796706"><strong>📲 Download on App Store</strong></a>
+  </p>
 </div>
 
-<hr>
+---
+
+## 🎯 Objective
+
+**Improving the BSD Link commuter’s experience on the iOS platform will help them decide whether to wait for the bus.**  
+BSDGo simplifies access to shuttle schedules and stop information—allowing commuters to plan their trips smarter and more efficiently.
 
 ---
 
-## 📍 About BSDGo
+## ✨ Features
 
-**BSDGo** is a native iOS app that shows live schedules and nearby stops for BSD Link shuttles. Designed with a focus on speed and usability, it helps BSD City commuters make smarter, faster travel decisions—without opening the app thanks to Home Screen widgets.
-
-> ℹ️ *BSDGo is available only in BSD City and is currently in its public release phase. More updates are on the way based on user feedback and route data availability.*
-
----
-
-## 🛠 Purpose of this Repository
-
-Use this repo to:
-
-- Report bugs or issues with BSDGo
-- Suggest new features or usability improvements
-- Ask questions about app usage or development
-- Share ideas for future releases
+- 📍 Locate BSD Link stops closest to you with distance info  
+- 🚌 View live schedules for upcoming buses  
+- 📱 Use Home Screen widgets to check buses without opening the app  
+- ⚡ Optimized for fast access and low data usage  
+- 🧭 Seamless native iOS experience with MapKit and WidgetKit  
 
 ---
 
-## 🔔 Stay Updated
+## ⚙️ Tech Stack
 
-Follow development progress, beta updates, and release notes through this repository.  
-Thank you for supporting **BSDGo** and helping commuters move smarter in BSD City 🚍
+| Layer       | Tools                                  |
+|-------------|----------------------------------------|
+| Language    | Swift                                  |
+| Frameworks  | UIKit, MapKit, WidgetKit, CoreLocation |
+| IDE         | Xcode                                  |
+| Platform    | iOS 15+                                |
+
+---
+
+## 🧰 Prerequisites
+
+- macOS with **Xcode 14** or newer  
+- iPhone or iOS Simulator (**iOS 17+**)  
+- Location Services enabled to show nearby stops  
+- Internet connection for fetching live schedule data  
+
+---
+
+## 🤝 Collaborator
+
+Built as part of Apple Developer Academy @BINUS  
+Special thanks to:
+
+- [@achrip](https://github.com/achrip) — Core collaboration and contributions
+
+---
+
+## 📄 License
+
+© 2025 BSDGo. All rights reserved.
+This repository is part of an educational project at Apple Developer Academy @BINUS. For non-commercial and learning purposes only.
+
+---
+
+## ✨ Want to Learn More?
+
+Browse the **Discussions** tab to learn more about how we trained the model, implemented CoreML, and integrated Vision.  
+You can also **fork this project** and retrain your own model for bananas, oranges, or anything else!

@@ -762,7 +762,7 @@
 				CODE_SIGN_ENTITLEMENTS = BSDGo/Base.lproj/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -780,7 +780,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -798,7 +798,7 @@
 				CODE_SIGN_ENTITLEMENTS = BSDGo/Base.lproj/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -816,7 +816,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
