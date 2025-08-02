@@ -4,6 +4,9 @@ import Foundation
 class BusRouteViewModel: ObservableObject {
     @Published var isExpanded: Bool = false
     @Published var selectedSessionIndex: Int = 0
+    
+    @Published var animationProgress: CGFloat = 0.0
+    private var timer: Timer?
 
     let name: String
     let busNumber: Int
@@ -75,5 +78,31 @@ class BusRouteViewModel: ObservableObject {
         } else {
             return .upcoming
         }
+    }
+    
+    func startBusAnimation(from startTime: String, to endTime: String) {
+        guard let start = parseTime(startTime),
+              let end = parseTime(endTime) else { return }
+
+        let totalDuration = end.timeIntervalSince(start)
+        let startTimeStamp = Date()
+
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { [weak self] _ in
+            let elapsed = Date().timeIntervalSince(startTimeStamp)
+            let progress = min(CGFloat(elapsed / totalDuration), 1.0)
+            DispatchQueue.main.async {
+                self?.animationProgress = progress
+            }
+            if progress >= 1.0 {
+                self?.timer?.invalidate()
+            }
+        }
+    }
+
+    private func parseTime(_ time: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.date(from: time)
     }
 }

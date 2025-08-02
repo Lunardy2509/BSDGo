@@ -53,9 +53,8 @@ struct MapView: View {
         ZStack {
             MapUIViewRepresentable(
                 userLocation: $userLocation,
-                userHeading: $userHeading
+                userHeading: .constant(0.0)
             )
-            .animation(nil)
             .edgesIgnoringSafeArea(.all)
             
             mapView
@@ -175,21 +174,21 @@ struct MapView: View {
     }
     
     private func handleStopSelection(_ stop: BusStop) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            let (newRegion, showDetailSheet, newDefaultSheet, newSheet, newDetent) = viewModel.handleTapGesture(
-                on: stop,
-                currentSelection: selectedBusStop
-            )
+        let (newRegion, showDetailSheet, newDefaultSheet, newSheet, newDetent) = viewModel.handleTapGesture(
+            on: stop,
+            currentSelection: selectedBusStop
+        )
 
-            selectedBusStop = stop
-            selectedSheet = newSheet
-            showDefaultSheet = newDefaultSheet
-            presentationDetent = newDetent
+        // Update selection state
+        selectedBusStop = stop
+        selectedSheet = newSheet
+        showDefaultSheet = newDefaultSheet
+        presentationDetent = newDetent
 
-            region = newRegion
-            withAnimation(.interpolatingSpring(stiffness: 300, damping: 10)) {
-                showStopDetailSheet = showDetailSheet
-            }
+        // Animate map to center on the tapped annotation
+        withAnimation(.easeInOut(duration: 0.5)) {
+            defaultPosition = .region(newRegion)
+            showStopDetailSheet = showDetailSheet
         }
     }
     

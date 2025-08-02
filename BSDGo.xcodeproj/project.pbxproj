@@ -113,6 +113,7 @@
 			membershipExceptions = (
 				Components/Annotation/UserAnnotation.swift,
 				Enums/SheetType.swift,
+				Enums/StopStatus.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
