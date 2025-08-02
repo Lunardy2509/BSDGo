@@ -1,7 +1,7 @@
 <div align="center">
   <h1>🚍 BSDGo: BSD Link Companion App</h1>
 
-  <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/BSDGo/Assets.xcassets/BSDGo%20Icon.imageset/SWRD%20Icon.png" width="200" height="200" alt="BSDGo Logo">
+  <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/BSDGo/Resources/Assets.xcassets/BSDGo%20Icon.imageset/SWRD%20Icon.png" width="200" height="200" alt="BSDGo Logo">
 
   ![Version](https://img.shields.io/badge/version-1.2-orange?style=for-the-badge)
 
@@ -20,14 +20,14 @@
 
 ## 🎯 Objective
 
-**Improving the BSD Link commuter’s experience on the iOS platform will help them decide whether to wait for the bus.**  
-BSDGo simplifies access to shuttle schedules and stop information—allowing commuters to plan their trips smarter and more efficiently.
+**Improving the BSD Link commuters’ experience on the iOS platform will help them decide whether to wait for the bus.**  
+BSDGo simplifies access to shuttle schedules and stop information, allowing commuters to plan their trips smarter and more efficiently.
 
 ---
 
 ## ✨ Features
 
-- 📍 Locate BSD Link stops closest to you with distance info  
+- 📍 Locate the BSD Link stops closest to you with distance info  
 - 🚌 View live schedules for upcoming buses  
 - 📱 Use Home Screen widgets to check buses without opening the app  
 - ⚡ Optimized for fast access and low data usage  
