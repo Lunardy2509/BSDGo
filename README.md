@@ -41,9 +41,9 @@ BSDGo simplifies access to shuttle schedules and stop information, allowing comm
 | Layer       | Tools                                  |
 |-------------|----------------------------------------|
 | Language    | Swift                                  |
-| Frameworks  | UIKit, MapKit, WidgetKit, CoreLocation |
+| Frameworks  | UIKit, MapKit, WidgetKit, CoreLocation, SwiftData |
 | IDE         | Xcode                                  |
-| Platform    | iOS 15+                                |
+| Platform    | iOS 17+                                |
 
 ---
 
