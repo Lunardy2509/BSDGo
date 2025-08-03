@@ -5,11 +5,14 @@ struct SplashView: View {
     @State private var scaleUp = false
     @State private var glow = false
     
+    @StateObject private var locationManager = LocationManager()
+    
     let AppIcon = Image("BSDGo Icon")
 
     var body: some View {
         if isActive {
             MapView()
+                .environmentObject(locationManager)
         } else {
             VStack {
                 Spacer()

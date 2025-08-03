@@ -7,7 +7,7 @@ struct StopRowView: View {
     let isUserHere: Bool
     let isUserArrived: Bool
     let showConnector: Bool
-    let progress: CGFloat // NEW
+    let progress: CGFloat
 
     var body: some View {
         HStack(alignment: .top) {
@@ -17,7 +17,7 @@ struct StopRowView: View {
                         Color.clear.frame(width: 40, height: 40)
                         BusIcon()
                             .offset(y: 30 * progress)
-                            .animation(.easeInOut(duration: 0.3), value: progress)
+                            .animation(.easeInOut(duration: 0.1), value: progress)
                     }
                 } else if isUserHere {
                     Image(systemName: "person.circle")

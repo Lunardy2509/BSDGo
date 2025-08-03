@@ -49,3 +49,13 @@ func loadBusStops() -> [BusStop] {
             return []
     }
 }
+
+extension BusStop {
+    init(id: UUID, name: String, coordinate: CLLocationCoordinate2D, color: Color? = nil, distanceFromUser: CLLocationDistance? = nil) {
+        self.id = id
+        self.name = name
+        self.coordinate = coordinate
+        self.color = color
+        self.distanceFromUser = distanceFromUser
+    }
+}

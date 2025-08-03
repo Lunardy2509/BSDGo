@@ -7,19 +7,24 @@ struct BusRouteView: View {
     @Binding var showRouteDetailSheet: Bool
     @Binding var selectedSheet: SheetType
     
+    @State private var showAllSessions: Bool = false
+    
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: 12) {
             headerView
             
-            if viewModel.upcomingSessions.count > 1 {
+            let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
+            let isMainSession = sessionsToShow[viewModel.selectedSessionIndex].session == viewModel.sessionInfo[viewModel.mainSessionIndex].session
+            
+            if sessionsToShow.count > 1 {
                 HStack {
                     Spacer()
                     
                     Picker("Select Session", selection: $viewModel.selectedSessionIndex) {
-                        ForEach(viewModel.upcomingSessions.indices, id: \.self) { idx in
-                            Text("Session \(viewModel.upcomingSessions[idx].session)")
+                        ForEach(sessionsToShow.indices, id: \.self) { idx in
+                            Text("Session \(sessionsToShow[idx].session)")
                                 .tag(idx)
                         }
                     }
@@ -38,19 +43,24 @@ struct BusRouteView: View {
                     
                     Spacer()
                 }
+                .padding(.top, 4)
+                
+                Toggle("Show All Sessions", isOn: $showAllSessions)
+                    .toggleStyle(SwitchToggleStyle(tint: .orange))
+                    .padding(.horizontal)
             }
             
-            if viewModel.upcomingSessions.isEmpty {
+            if sessionsToShow.isEmpty {
                 VStack(spacing: 16) {
-                    Text("No upcoming or active sessions.")
+                    Text("No sessions found.")
                         .foregroundColor(.gray)
                     dismissButton
                 }
                 .padding()
             } else {
-                let stops = viewModel.upcomingSessions[viewModel.selectedSessionIndex].stops
+                let stops = sessionsToShow[viewModel.selectedSessionIndex].stops
                 
-                if viewModel.selectedSessionIndex == viewModel.mainSessionIndex {
+                if isMainSession {
                     let busIndex = stops.lastIndex(where: {
                         viewModel.stopStatus(for: $0.timeOfArrival) != .upcoming
                     }) ?? 0
@@ -76,7 +86,6 @@ struct BusRouteView: View {
                             .padding()
                         }
                     }
-                    
                 } else {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 12) {
@@ -93,6 +102,9 @@ struct BusRouteView: View {
                     }
                 }
             }
+        }
+        .onChange(of: showAllSessions) {
+            viewModel.selectedSessionIndex = 0
         }
     }
     

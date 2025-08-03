@@ -48,6 +48,14 @@ class BusRouteViewModel: ObservableObject {
             .sorted { $0.firstDate < $1.firstDate }
     }
 
+    var allSessions: [(session: Int, stops: [BusSchedule])] {
+        Dictionary(grouping: busSchedule.filter { $0.busNumber == busNumber }, by: { $0.session })
+            .map { (session, stops) in
+                (session, stops.sorted { $0.timeOfArrival < $1.timeOfArrival })
+            }
+            .sorted { $0.0 < $1.0 }
+    }
+    
     var upcomingSessions: [(session: Int, stops: [BusSchedule])] {
         sessionInfo.map { ($0.session, $0.stops) }
     }
