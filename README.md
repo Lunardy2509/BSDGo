@@ -3,7 +3,7 @@
 
   <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/BSDGo/Resources/Assets.xcassets/BSDGo%20Icon.imageset/SWRD%20Icon.png" width="200" height="200" alt="BSDGo Logo">
 
-  ![Version](https://img.shields.io/badge/version-1.2-orange?style=for-the-badge)
+  ![Version](https://img.shields.io/badge/version-2.0-orange?style=for-the-badge)
   ![iOS](https://img.shields.io/badge/iOS-17%2B-lightgrey?style=for-the-badge)
 
   <p><strong>BSDGo</strong> is an iOS companion navigation app built to enhance the BSD Link commuting experience by providing real-time shuttle schedules and nearby stops through a fast, widget-ready interface.</p>
