@@ -21,12 +21,11 @@ class BusRouteViewModel: ObservableObject {
     func updateSessionIndexForArrayChange(newArrayCount: Int, showingAllSessions: Bool) {
         let maxValidIndex = max(newArrayCount - 1, 0)
         if _selectedSessionIndex >= newArrayCount {
-            if showingAllSessions {
-                // When switching to all sessions, just use the last valid index
-                _selectedSessionIndex = maxValidIndex
-            } else {
-                // When switching back to upcoming sessions, use the current ongoing session
-                _selectedSessionIndex = min(mainSessionIndex, maxValidIndex)
+                if newArrayCount == 0 {
+                    _selectedSessionIndex = 0
+                } else {
+                    _selectedSessionIndex = min(max(mainSessionIndex, 0), maxValidIndex)
+                }
             }
         }
     }
