@@ -9,39 +9,8 @@
 /* Begin PBXBuildFile section */
 		BD103AF22DD5EED50098F994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1038F22DD5AFC80098F994 /* WidgetKit.framework */; };
 		BD103AF32DD5EED50098F994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1038F42DD5AFC80098F994 /* SwiftUI.framework */; };
-		BD2013952E0C6283003FCDB4 /* BusSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137E2E0C6283003FCDB4 /* BusSchedule.swift */; };
-		BD2013962E0C6283003FCDB4 /* BusCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013692E0C6283003FCDB4 /* BusCard.swift */; };
-		BD2013972E0C6283003FCDB4 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20138E2E0C6283003FCDB4 /* MapViewModel.swift */; };
-		BD2013982E0C6283003FCDB4 /* BusRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013852E0C6283003FCDB4 /* BusRouteView.swift */; };
-		BD2013992E0C6283003FCDB4 /* StopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013662E0C6283003FCDB4 /* StopAnnotation.swift */; };
-		BD20139A2E0C6283003FCDB4 /* BusRouteDump.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137A2E0C6283003FCDB4 /* BusRouteDump.swift */; };
-		BD20139B2E0C6283003FCDB4 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013832E0C6283003FCDB4 /* MapView.swift */; };
-		BD20139C2E0C6283003FCDB4 /* DefaultSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013872E0C6283003FCDB4 /* DefaultSheetView.swift */; };
-		BD20139D2E0C6283003FCDB4 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137F2E0C6283003FCDB4 /* BusStop.swift */; };
-		BD20139E2E0C6283003FCDB4 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20136E2E0C6283003FCDB4 /* SearchBar.swift */; };
-		BD20139F2E0C6283003FCDB4 /* TitleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20136A2E0C6283003FCDB4 /* TitleCard.swift */; };
-		BD2013A02E0C6283003FCDB4 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013892E0C6283003FCDB4 /* SplashView.swift */; };
-		BD2013A12E0C6283003FCDB4 /* UserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013672E0C6283003FCDB4 /* UserAnnotation.swift */; };
-		BD2013A22E0C6283003FCDB4 /* BusRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20138C2E0C6283003FCDB4 /* BusRouteViewModel.swift */; };
-		BD2013A32E0C6283003FCDB4 /* SheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20138F2E0C6283003FCDB4 /* SheetViewModel.swift */; };
-		BD2013A42E0C6283003FCDB4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20138D2E0C6283003FCDB4 /* LocationManager.swift */; };
-		BD2013A52E0C6283003FCDB4 /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137D2E0C6283003FCDB4 /* Bus.swift */; };
-		BD2013A62E0C6283003FCDB4 /* BusRouteDump2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137B2E0C6283003FCDB4 /* BusRouteDump2.swift */; };
-		BD2013A72E0C6283003FCDB4 /* BusRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20136C2E0C6283003FCDB4 /* BusRow.swift */; };
-		BD2013A82E0C6283003FCDB4 /* BSDGoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013932E0C6283003FCDB4 /* BSDGoApp.swift */; };
-		BD2013A92E0C6283003FCDB4 /* BusStopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2013862E0C6283003FCDB4 /* BusStopDetailView.swift */; };
-		BD2013AA2E0C6283003FCDB4 /* Schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2013762E0C6283003FCDB4 /* Schedule.json */; };
-		BD2013AB2E0C6283003FCDB4 /* Stops.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2013782E0C6283003FCDB4 /* Stops.json */; };
-		BD2013AC2E0C6283003FCDB4 /* Schedule_Vanya.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2013732E0C6283003FCDB4 /* Schedule_Vanya.json */; };
-		BD2013AD2E0C6283003FCDB4 /* Bus.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2013752E0C6283003FCDB4 /* Bus.json */; };
-		BD2013AE2E0C6283003FCDB4 /* Schedule_Breeze.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2013712E0C6283003FCDB4 /* Schedule_Breeze.json */; };
-		BD2013AF2E0C6283003FCDB4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2013812E0C6283003FCDB4 /* Preview Assets.xcassets */; };
-		BD2013B02E0C6283003FCDB4 /* stops.csv in Resources */ = {isa = PBXBuildFile; fileRef = BD2013772E0C6283003FCDB4 /* stops.csv */; };
-		BD2013B12E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2013722E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json */; };
-		BD2013B22E0C6283003FCDB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2013912E0C6283003FCDB4 /* Assets.xcassets */; };
+		BD39ACC82E3D59BF00FF518C /* BSDGoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */; };
 		BD9904152E0D05FC0070C495 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		BD9E3CCE2E0CECC700D1EC08 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD20137F2E0C6283003FCDB4 /* BusStop.swift */; };
-		BD9E3CD32E0CECDD00D1EC08 /* BSDGo.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = BD9E3CD22E0CECDD00D1EC08 /* BSDGo.entitlements */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,72 +52,126 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4A479BEB2D92E4150008030E /* SRPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SRPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4A685DB42D88083C0053791C /* BSDGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSDGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A685DC62D88083E0053791C /* BSDGoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSDGoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A685DD02D88083E0053791C /* BSDGoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSDGoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD1038F22DD5AFC80098F994 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BD1038F42DD5AFC80098F994 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeatureWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD2013662E0C6283003FCDB4 /* StopAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAnnotation.swift; sourceTree = "<group>"; };
-		BD2013672E0C6283003FCDB4 /* UserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotation.swift; sourceTree = "<group>"; };
-		BD2013692E0C6283003FCDB4 /* BusCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusCard.swift; sourceTree = "<group>"; };
-		BD20136A2E0C6283003FCDB4 /* TitleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCard.swift; sourceTree = "<group>"; };
-		BD20136C2E0C6283003FCDB4 /* BusRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRow.swift; sourceTree = "<group>"; };
-		BD20136E2E0C6283003FCDB4 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		BD2013712E0C6283003FCDB4 /* Schedule_Breeze.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Schedule_Breeze.json; sourceTree = "<group>"; };
-		BD2013722E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Schedule_Intermoda_Sektor1.3.json; sourceTree = "<group>"; };
-		BD2013732E0C6283003FCDB4 /* Schedule_Vanya.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Schedule_Vanya.json; sourceTree = "<group>"; };
-		BD2013752E0C6283003FCDB4 /* Bus.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Bus.json; sourceTree = "<group>"; };
-		BD2013762E0C6283003FCDB4 /* Schedule.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Schedule.json; sourceTree = "<group>"; };
-		BD2013772E0C6283003FCDB4 /* stops.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = stops.csv; sourceTree = "<group>"; };
-		BD2013782E0C6283003FCDB4 /* Stops.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Stops.json; sourceTree = "<group>"; };
-		BD20137A2E0C6283003FCDB4 /* BusRouteDump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteDump.swift; sourceTree = "<group>"; };
-		BD20137B2E0C6283003FCDB4 /* BusRouteDump2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteDump2.swift; sourceTree = "<group>"; };
-		BD20137D2E0C6283003FCDB4 /* Bus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
-		BD20137E2E0C6283003FCDB4 /* BusSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusSchedule.swift; sourceTree = "<group>"; };
-		BD20137F2E0C6283003FCDB4 /* BusStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
-		BD2013812E0C6283003FCDB4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BD2013832E0C6283003FCDB4 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		BD2013852E0C6283003FCDB4 /* BusRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteView.swift; sourceTree = "<group>"; };
-		BD2013862E0C6283003FCDB4 /* BusStopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopDetailView.swift; sourceTree = "<group>"; };
-		BD2013872E0C6283003FCDB4 /* DefaultSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSheetView.swift; sourceTree = "<group>"; };
-		BD2013892E0C6283003FCDB4 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		BD20138C2E0C6283003FCDB4 /* BusRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteViewModel.swift; sourceTree = "<group>"; };
-		BD20138D2E0C6283003FCDB4 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		BD20138E2E0C6283003FCDB4 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		BD20138F2E0C6283003FCDB4 /* SheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewModel.swift; sourceTree = "<group>"; };
-		BD2013912E0C6283003FCDB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BD2013932E0C6283003FCDB4 /* BSDGoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSDGoApp.swift; sourceTree = "<group>"; };
-		BD5373212DD9C22D00CCC681 /* FeatureWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FeatureWidgetExtension.entitlements; sourceTree = "<group>"; };
-		BD9E3CD12E0CECDD00D1EC08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Base; path = Base.lproj/BSDGo.entitlements; sourceTree = "<group>"; };
+		BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BSDGoApp.swift; path = BSDGo/BSDGoApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BD69F7E52E0CE2390011544C /* Exceptions for "FeatureWidget" folder in "BSDGo" target */ = {
+		BDBE52322E3E72EE00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "FeatureWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				Info.plist,
+			);
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
+		};
+		BDBE52382E3E739000C5FD10 /* Exceptions for "Features" folder in "FeatureWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Map/ViewModels/MapViewModel.swift,
+			);
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
+		};
+		BDBE523C2E3E746D00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "BSDGo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Model/WidgetModel.swift,
 			);
 			target = 4A685DB32D88083C0053791C /* BSDGo */;
 		};
-		BD9E3CC82E0CEA9100D1EC08 /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */ = {
+		BDBE523E2E3E748400C5FD10 /* Exceptions for "Core" folder in "FeatureWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Models/BusStop.swift,
+			);
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
+		};
+		BDBE523F2E3E759900C5FD10 /* Exceptions for "Resources" folder in "BSDGo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/Schedule/Schedule_Breeze.json,
+				Data/Schedule/Schedule_Intermoda_Sektor1.3.json,
+				Data/Schedule/Schedule_Vanya.json,
+				Data/stops.csv,
+			);
+			target = 4A685DB32D88083C0053791C /* BSDGo */;
+		};
+		BDBE52452E3E772600C5FD10 /* Exceptions for "Managers" folder in "FeatureWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				LocationManager.swift,
+			);
+			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
+		};
+		BDBE52472E3E773C00C5FD10 /* Exceptions for "Shared" folder in "FeatureWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components/Annotation/UserAnnotation.swift,
+				Enums/SheetType.swift,
+				Enums/StopStatus.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		BDC6D1892DD63BE6004209DD /* FeatureWidget */ = {
+		BD39ACDA2E3D5D4B00FF518C /* Features */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BD69F7E52E0CE2390011544C /* Exceptions for "FeatureWidget" folder in "BSDGo" target */,
-				BD9E3CC82E0CEA9100D1EC08 /* Exceptions for "FeatureWidget" folder in "FeatureWidgetExtension" target */,
+				BDBE52382E3E739000C5FD10 /* Exceptions for "Features" folder in "FeatureWidgetExtension" target */,
 			);
-			path = FeatureWidget;
+			name = Features;
+			path = BSDGo/Features;
+			sourceTree = "<group>";
+		};
+		BD39ACE52E3D5D5300FF518C /* Core */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDBE523E2E3E748400C5FD10 /* Exceptions for "Core" folder in "FeatureWidgetExtension" target */,
+			);
+			name = Core;
+			path = BSDGo/Core;
+			sourceTree = "<group>";
+		};
+		BD39ACE82E3D5D5600FF518C /* Managers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDBE52452E3E772600C5FD10 /* Exceptions for "Managers" folder in "FeatureWidgetExtension" target */,
+			);
+			name = Managers;
+			path = BSDGo/Managers;
+			sourceTree = "<group>";
+		};
+		BD39AD002E3D5D5C00FF518C /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDBE523F2E3E759900C5FD10 /* Exceptions for "Resources" folder in "BSDGo" target */,
+			);
+			name = Resources;
+			path = BSDGo/Resources;
+			sourceTree = "<group>";
+		};
+		BD39AD4E2E3D619700FF518C /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDBE52472E3E773C00C5FD10 /* Exceptions for "Shared" folder in "FeatureWidgetExtension" target */,
+			);
+			name = Shared;
+			path = BSDGo/Shared;
+			sourceTree = "<group>";
+		};
+		BDC6D1892DD63BE6004209DD /* FeatureWidgetExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDBE523C2E3E746D00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "BSDGo" target */,
+				BDBE52322E3E72EE00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "FeatureWidgetExtension" target */,
+			);
+			path = FeatureWidgetExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -190,13 +213,15 @@
 		4A685DAB2D88083C0053791C = {
 			isa = PBXGroup;
 			children = (
-				BD9E3CD22E0CECDD00D1EC08 /* BSDGo.entitlements */,
-				BD2013942E0C6283003FCDB4 /* BSDGo */,
-				BD5373212DD9C22D00CCC681 /* FeatureWidgetExtension.entitlements */,
-				BDC6D1892DD63BE6004209DD /* FeatureWidget */,
+				BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */,
+				BD39ACE52E3D5D5300FF518C /* Core */,
+				BD39ACDA2E3D5D4B00FF518C /* Features */,
+				BD39ACE82E3D5D5600FF518C /* Managers */,
+				BD39AD002E3D5D5C00FF518C /* Resources */,
+				BD39AD4E2E3D619700FF518C /* Shared */,
+				BDC6D1892DD63BE6004209DD /* FeatureWidgetExtension */,
 				BD1038F12DD5AFC80098F994 /* Frameworks */,
 				4A685DB52D88083C0053791C /* Products */,
-				4A479BEB2D92E4150008030E /* SRPlayground.playground */,
 			);
 			sourceTree = "<group>";
 		};
@@ -220,164 +245,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BD2013682E0C6283003FCDB4 /* Annotation */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013662E0C6283003FCDB4 /* StopAnnotation.swift */,
-				BD2013672E0C6283003FCDB4 /* UserAnnotation.swift */,
-			);
-			path = Annotation;
-			sourceTree = "<group>";
-		};
-		BD20136B2E0C6283003FCDB4 /* Card */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013692E0C6283003FCDB4 /* BusCard.swift */,
-				BD20136A2E0C6283003FCDB4 /* TitleCard.swift */,
-			);
-			path = Card;
-			sourceTree = "<group>";
-		};
-		BD20136D2E0C6283003FCDB4 /* Row */ = {
-			isa = PBXGroup;
-			children = (
-				BD20136C2E0C6283003FCDB4 /* BusRow.swift */,
-			);
-			path = Row;
-			sourceTree = "<group>";
-		};
-		BD20136F2E0C6283003FCDB4 /* SearchBar */ = {
-			isa = PBXGroup;
-			children = (
-				BD20136E2E0C6283003FCDB4 /* SearchBar.swift */,
-			);
-			path = SearchBar;
-			sourceTree = "<group>";
-		};
-		BD2013702E0C6283003FCDB4 /* components */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013682E0C6283003FCDB4 /* Annotation */,
-				BD20136B2E0C6283003FCDB4 /* Card */,
-				BD20136D2E0C6283003FCDB4 /* Row */,
-				BD20136F2E0C6283003FCDB4 /* SearchBar */,
-			);
-			path = components;
-			sourceTree = "<group>";
-		};
-		BD2013742E0C6283003FCDB4 /* Schedule */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013712E0C6283003FCDB4 /* Schedule_Breeze.json */,
-				BD2013722E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json */,
-				BD2013732E0C6283003FCDB4 /* Schedule_Vanya.json */,
-			);
-			path = Schedule;
-			sourceTree = "<group>";
-		};
-		BD2013792E0C6283003FCDB4 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013742E0C6283003FCDB4 /* Schedule */,
-				BD2013752E0C6283003FCDB4 /* Bus.json */,
-				BD2013762E0C6283003FCDB4 /* Schedule.json */,
-				BD2013772E0C6283003FCDB4 /* stops.csv */,
-				BD2013782E0C6283003FCDB4 /* Stops.json */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-			usesTabs = 0;
-		};
-		BD20137C2E0C6283003FCDB4 /* Dump */ = {
-			isa = PBXGroup;
-			children = (
-				BD20137A2E0C6283003FCDB4 /* BusRouteDump.swift */,
-				BD20137B2E0C6283003FCDB4 /* BusRouteDump2.swift */,
-			);
-			path = Dump;
-			sourceTree = "<group>";
-		};
-		BD2013802E0C6283003FCDB4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				BD20137D2E0C6283003FCDB4 /* Bus.swift */,
-				BD20137E2E0C6283003FCDB4 /* BusSchedule.swift */,
-				BD20137F2E0C6283003FCDB4 /* BusStop.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		BD2013822E0C6283003FCDB4 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013812E0C6283003FCDB4 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		BD2013842E0C6283003FCDB4 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013832E0C6283003FCDB4 /* MapView.swift */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		BD2013882E0C6283003FCDB4 /* Sheet */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013852E0C6283003FCDB4 /* BusRouteView.swift */,
-				BD2013862E0C6283003FCDB4 /* BusStopDetailView.swift */,
-				BD2013872E0C6283003FCDB4 /* DefaultSheetView.swift */,
-			);
-			path = Sheet;
-			sourceTree = "<group>";
-		};
-		BD20138A2E0C6283003FCDB4 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013892E0C6283003FCDB4 /* SplashView.swift */,
-			);
-			path = Splash;
-			sourceTree = "<group>";
-		};
-		BD20138B2E0C6283003FCDB4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013842E0C6283003FCDB4 /* Map */,
-				BD2013882E0C6283003FCDB4 /* Sheet */,
-				BD20138A2E0C6283003FCDB4 /* Splash */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BD2013902E0C6283003FCDB4 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BD20138C2E0C6283003FCDB4 /* BusRouteViewModel.swift */,
-				BD20138D2E0C6283003FCDB4 /* LocationManager.swift */,
-				BD20138E2E0C6283003FCDB4 /* MapViewModel.swift */,
-				BD20138F2E0C6283003FCDB4 /* SheetViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BD2013942E0C6283003FCDB4 /* BSDGo */ = {
-			isa = PBXGroup;
-			children = (
-				BD2013702E0C6283003FCDB4 /* components */,
-				BD2013792E0C6283003FCDB4 /* Data */,
-				BD20137C2E0C6283003FCDB4 /* Dump */,
-				BD2013802E0C6283003FCDB4 /* Model */,
-				BD2013822E0C6283003FCDB4 /* Preview Content */,
-				BD20138B2E0C6283003FCDB4 /* View */,
-				BD2013902E0C6283003FCDB4 /* ViewModel */,
-				BD2013912E0C6283003FCDB4 /* Assets.xcassets */,
-				BD2013932E0C6283003FCDB4 /* BSDGoApp.swift */,
-			);
-			path = BSDGo;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -394,6 +261,13 @@
 			);
 			dependencies = (
 				BD103AFF2DD5EED60098F994 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BD39ACDA2E3D5D4B00FF518C /* Features */,
+				BD39ACE52E3D5D5300FF518C /* Core */,
+				BD39ACE82E3D5D5600FF518C /* Managers */,
+				BD39AD002E3D5D5C00FF518C /* Resources */,
+				BD39AD4E2E3D619700FF518C /* Shared */,
 			);
 			name = BSDGo;
 			packageProductDependencies = (
@@ -455,7 +329,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				BDC6D1892DD63BE6004209DD /* FeatureWidget */,
+				BDC6D1892DD63BE6004209DD /* FeatureWidgetExtension */,
 			);
 			name = FeatureWidgetExtension;
 			packageProductDependencies = (
@@ -517,16 +391,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD2013AA2E0C6283003FCDB4 /* Schedule.json in Resources */,
-				BD2013AB2E0C6283003FCDB4 /* Stops.json in Resources */,
-				BD2013AC2E0C6283003FCDB4 /* Schedule_Vanya.json in Resources */,
-				BD2013AD2E0C6283003FCDB4 /* Bus.json in Resources */,
-				BD2013AE2E0C6283003FCDB4 /* Schedule_Breeze.json in Resources */,
-				BD9E3CD32E0CECDD00D1EC08 /* BSDGo.entitlements in Resources */,
-				BD2013AF2E0C6283003FCDB4 /* Preview Assets.xcassets in Resources */,
-				BD2013B02E0C6283003FCDB4 /* stops.csv in Resources */,
-				BD2013B12E0C6283003FCDB4 /* Schedule_Intermoda_Sektor1.3.json in Resources */,
-				BD2013B22E0C6283003FCDB4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,27 +422,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD2013952E0C6283003FCDB4 /* BusSchedule.swift in Sources */,
-				BD2013962E0C6283003FCDB4 /* BusCard.swift in Sources */,
-				BD2013972E0C6283003FCDB4 /* MapViewModel.swift in Sources */,
-				BD2013982E0C6283003FCDB4 /* BusRouteView.swift in Sources */,
-				BD2013992E0C6283003FCDB4 /* StopAnnotation.swift in Sources */,
-				BD20139A2E0C6283003FCDB4 /* BusRouteDump.swift in Sources */,
-				BD20139B2E0C6283003FCDB4 /* MapView.swift in Sources */,
-				BD20139C2E0C6283003FCDB4 /* DefaultSheetView.swift in Sources */,
-				BD20139D2E0C6283003FCDB4 /* BusStop.swift in Sources */,
-				BD20139E2E0C6283003FCDB4 /* SearchBar.swift in Sources */,
-				BD20139F2E0C6283003FCDB4 /* TitleCard.swift in Sources */,
-				BD2013A02E0C6283003FCDB4 /* SplashView.swift in Sources */,
-				BD2013A12E0C6283003FCDB4 /* UserAnnotation.swift in Sources */,
-				BD2013A22E0C6283003FCDB4 /* BusRouteViewModel.swift in Sources */,
-				BD2013A32E0C6283003FCDB4 /* SheetViewModel.swift in Sources */,
-				BD2013A42E0C6283003FCDB4 /* LocationManager.swift in Sources */,
-				BD2013A52E0C6283003FCDB4 /* Bus.swift in Sources */,
-				BD2013A62E0C6283003FCDB4 /* BusRouteDump2.swift in Sources */,
-				BD2013A72E0C6283003FCDB4 /* BusRow.swift in Sources */,
-				BD2013A82E0C6283003FCDB4 /* BSDGoApp.swift in Sources */,
-				BD2013A92E0C6283003FCDB4 /* BusStopDetailView.swift in Sources */,
+				BD39ACC82E3D59BF00FF518C /* BSDGoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,7 +444,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD9E3CCE2E0CECC700D1EC08 /* BusStop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,18 +466,6 @@
 			targetProxy = BD103AFE2DD5EED60098F994 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		BD9E3CD22E0CECDD00D1EC08 /* BSDGo.entitlements */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BD9E3CD12E0CECDD00D1EC08 /* Base */,
-			);
-			name = BSDGo.entitlements;
-			path = BSDGo;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4A685DD82D88083E0053791C /* Debug */ = {
@@ -761,10 +592,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BSDGo/Base.lproj/BSDGo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BSDGo/Core/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -775,17 +606,23 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -797,10 +634,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BSDGo/Base.lproj/BSDGo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BSDGo/Core/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -811,17 +648,23 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -835,7 +678,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ccone-seven.SwiftRideTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -853,7 +696,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ccone-seven.SwiftRideTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -870,7 +713,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ccone-seven.SwiftRideUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -887,7 +730,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ccone-seven.SwiftRideUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -903,27 +746,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension/FeatureWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FeatureWidget/Info.plist;
+				INFOPLIST_FILE = FeatureWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -935,27 +782,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension/FeatureWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FeatureWidget/Info.plist;
+				INFOPLIST_FILE = FeatureWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

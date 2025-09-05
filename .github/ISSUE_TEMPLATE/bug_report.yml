@@ -1,0 +1,57 @@
+name: 🐞 Bug Report
+description: Report a problem or unexpected behavior in BSDGo
+title: "[Bug]"
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐞 Bug Report for BSDGo
+        Please fill out the information below to help us reproduce and fix the issue.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of the problem.
+      placeholder: e.g., App crashes when tapping on "Nearest Stop"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List all necessary steps to trigger the bug.
+      placeholder: |
+        1. Open the BSDGo app
+        2. Go to the Home screen
+        3. Tap on "Nearest Stop"
+        4. App crashes
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshots / Video (if available)
+      description: Drag and drop any screenshots or screen recordings showing the issue.
+
+  - type: input
+    id: device-info
+    attributes:
+      label: Device & Environment
+      description: Provide device and app version info.
+      placeholder: e.g., iPhone 15, iOS 18.3.1, BSDGo 1.2
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Any extra info that may help us understand or resolve the issue.

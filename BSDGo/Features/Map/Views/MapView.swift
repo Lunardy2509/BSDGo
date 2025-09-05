@@ -1,0 +1,306 @@
+import SwiftUI
+import MapKit
+import SwiftData
+
+struct MapView: View {
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: -6.302793115915458, longitude: 106.65204508592274),
+        latitudinalMeters: 1000,
+        longitudinalMeters: 1000
+    )
+
+    @State private var defaultPosition: MapCameraPosition = .region(
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: -6.302793115915458, longitude: 106.65204508592274),
+            latitudinalMeters: 1000,
+            longitudinalMeters: 1000
+        )
+    )
+
+    @State private var mapBounds = MapCameraBounds(
+        centerCoordinateBounds: MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: -6.302793115915458, longitude: 106.65204508592274),
+            latitudinalMeters: 10000,
+            longitudinalMeters: 10000
+        ),
+        minimumDistance: 1,
+        maximumDistance: 50000
+    )
+
+    @EnvironmentObject var locationManager: LocationManager
+    @StateObject var viewModel = MapViewModel()
+    @StateObject private var busStopsManager = BusStopsManager()
+    
+    private var isIpad: Bool {
+        #if os(iOS)
+        return UIDevice.current.userInterfaceIdiom == .pad
+        #else
+        return false
+        #endif
+    }
+
+    @State private var userLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: -6.3027, longitude: 106.6520)
+    @State private var userHeading: CLLocationDirection = 0.0
+    
+    @State private var searchText: String = ""
+    @State private var isSheetShown: Bool = true
+    @State private var showDefaultSheet: Bool = true
+    @State private var showStopDetailSheet: Bool = false
+    @State private var showRouteDetailSheet: Bool = false
+    @State private var shouldRecenter = false
+
+    @State private var presentationDetent: PresentationDetent = .fraction(0.40)
+    @State private var selectedSheet: SheetType = .defaultView
+
+    @State private var selectedBusStop: BusStop = BusStop()
+    @State private var selectedBus: Bus = Bus()
+    @State private var selectedBusName: String = ""
+    @State private var selectedBusNumber: Int = 0
+
+    @Query(sort: \RecentBusStop.timestamp, order: .reverse) private var recentSearches: [RecentBusStop]
+
+    var body: some View {
+        if isIpad {
+            // iPad layout with sidebar
+            HStack(spacing: 0) {
+                // Sidebar for iPad
+                if isSheetShown {
+                    VStack {
+                        sheetContentView
+                    }
+                    .frame(width: 375)
+                    .background(Color(.systemBackground))
+                    .transition(.move(edge: .leading))
+                }
+                
+                // Map view
+                ZStack {
+                    MapUIViewRepresentable(
+                        userLocation: $userLocation,
+                        userHeading: $userHeading,
+                        shouldRecenter: $shouldRecenter
+                    )
+                    .edgesIgnoringSafeArea(.all)
+
+                    mapView
+                        .onAppear {
+                            if let location = locationManager.lastLocation {
+                                userLocation = location.coordinate
+                            }
+                            userHeading = locationManager.userHeading
+                        }
+                        .onChange(of: locationManager.lastLocation) {
+                            if let location = locationManager.lastLocation {
+                                userLocation = location.coordinate
+                                handleLocationUpdate()
+                            }
+                            userHeading = locationManager.userHeading
+                        }
+                        .onChange(of: locationManager.userHeading) {
+                            userHeading = locationManager.userHeading
+                        }
+                        .highPriorityGesture(
+                            TapGesture().onEnded {
+                                resetSelection()
+                            }
+                        )
+                        .toolbar(.hidden, for: .navigationBar)
+                }
+            }
+            .animation(.easeInOut(duration: 0.3), value: isSheetShown)
+        } else {
+            // iPhone layout with bottom sheet
+            ZStack {
+                MapUIViewRepresentable(
+                    userLocation: $userLocation,
+                    userHeading: $userHeading,
+                    shouldRecenter: $shouldRecenter
+                )
+                .edgesIgnoringSafeArea(.all)
+
+                mapView
+                    .onAppear {
+                        if let location = locationManager.lastLocation {
+                            userLocation = location.coordinate
+                        }
+                        userHeading = locationManager.userHeading
+                    }
+                    .onChange(of: locationManager.lastLocation) {
+                        if let location = locationManager.lastLocation {
+                            userLocation = location.coordinate
+                            handleLocationUpdate()
+                        }
+                        userHeading = locationManager.userHeading
+                    }
+                    .onChange(of: locationManager.userHeading) {
+                        userHeading = locationManager.userHeading
+                    }
+                    .highPriorityGesture(
+                        TapGesture().onEnded {
+                            resetSelection()
+                        }
+                    )
+                    .toolbar(.hidden, for: .navigationBar)
+                    .sheet(isPresented: $isSheetShown, onDismiss: resetSheet) {
+                        sheetContentView
+                    }
+            }
+        }
+    }
+
+    private var mapView: some View {
+        Map(position: $defaultPosition, bounds: mapBounds) {
+            UserAnnotation()
+
+            ForEach(busStopsManager.busStops) { stop in
+                Annotation(stop.name, coordinate: stop.coordinate) {
+                    StopAnnotation(isSelected: selectedBusStop.id == stop.id)
+                        .contentShape(Rectangle())
+                        .highPriorityGesture(
+                            TapGesture().onEnded {
+                                handleStopSelection(stop)
+                            }
+                        )
+                }
+            }
+        }
+        .mapControls {
+            MapUserLocationButton()
+            MapCompass()
+            MapScaleView()
+        }
+    }
+
+    @ViewBuilder
+    private var sheetContentView: some View {
+        switch selectedSheet {
+        case .defaultView:
+            DefaultSheetView(
+                busStops: $busStopsManager.busStops,
+                searchText: $searchText,
+                selectionDetent: $presentationDetent,
+                defaultPosition: $defaultPosition,
+                selectedSheet: $selectedSheet,
+                showDefaultSheet: $showDefaultSheet,
+                showStopDetailSheet: $showStopDetailSheet,
+                showRouteDetailSheet: $showRouteDetailSheet,
+                selectedBusStop: $selectedBusStop,
+                selectedBusNumber: $selectedBusNumber,
+                onCancel: resetSheet
+            )
+            .environmentObject(locationManager)
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents(
+                        [.fraction(0.10), .fraction(0.40), .medium, .fraction(0.99)],
+                        selection: $presentationDetent
+                    )
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+                    .interactiveDismissDisabled()
+            }
+
+        case .busStopDetailView:
+            BusStopDetailView(
+                currentBusStop: $selectedBusStop,
+                showRouteDetailSheet: $showRouteDetailSheet,
+                showStopDetailSheet: $showStopDetailSheet,
+                selectedBusNumber: $selectedBusNumber,
+                selectedBusName: $selectedBusName,
+                selectedSheet: $selectedSheet
+            )
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents([.fraction(0.35), .medium, .fraction(0.99)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+            }
+
+        case .routeDetailView:
+            BusRouteView(
+                viewModel: BusRouteViewModel(
+                    name: selectedBusName,
+                    busNumber: selectedBusNumber,
+                    currentStopName: UserDefaults.standard.string(forKey: "userStopName") ?? ""
+                ),
+                currentBusStop: $selectedBusStop,
+                showRouteDetailSheet: $showRouteDetailSheet,
+                selectedSheet: $selectedSheet
+            )
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents([.fraction(0.99)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+            }
+        }
+    }
+
+    private func updateUserLocationIfNeeded(_ newLocation: CLLocation) {
+        let distance = newLocation.distance(from: CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude))
+        if distance > 5 {
+            userLocation = newLocation.coordinate
+        }
+    }
+
+    private func handleStopSelection(_ stop: BusStop) {
+        let (newRegion, showDetailSheet, newDefaultSheet, newSheet, newDetent) = viewModel.handleTapGesture(
+            on: stop,
+            currentSelection: selectedBusStop
+        )
+
+        selectedBusStop = stop
+        selectedSheet = newSheet
+        showDefaultSheet = newDefaultSheet
+        presentationDetent = newDetent
+
+        withAnimation(.easeInOut(duration: 0.5)) {
+            defaultPosition = .region(newRegion)
+            showStopDetailSheet = showDetailSheet
+        }
+    }
+
+    private func handleLocationUpdate() {
+        guard let location = locationManager.lastLocation else { return }
+        viewModel.handleLocationUpdate(location: location, allStops: busStopsManager.busStops, locationManager: locationManager)
+    }
+
+    private func resetSelection() {
+        if selectedBusStop.id != UUID() {
+            selectedBusStop = BusStop()
+            selectedSheet = .defaultView
+            showStopDetailSheet = false
+            
+            if isIpad {
+                // On iPad, keep the sidebar open and show default view
+                showDefaultSheet = true
+            } else {
+                // On iPhone, collapse the sheet to minimum
+                presentationDetent = .fraction(0.10)
+                showDefaultSheet = true
+            }
+        }
+    }
+
+    private func resetSheet() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            isSheetShown = true
+            showDefaultSheet = true
+            showStopDetailSheet = false
+            showRouteDetailSheet = false
+            presentationDetent = .fraction(0.40)
+            selectedSheet = .defaultView
+        }
+    }
+}
+
+// Helper extension for conditional view modifier
+extension View {
+    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+}

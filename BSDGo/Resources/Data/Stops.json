@@ -1,0 +1,492 @@
+[
+  {
+   "name": "Intermoda",
+   "latitude": -6.319902912486388,
+   "longitude": 106.64371452384238
+  },
+  {
+   "name": "Cosmo",
+   "latitude": -6.312098624472068,
+   "longitude": 106.64866097703134
+  },
+  {
+   "name": "Verdant View",
+   "latitude": -6.3135382058171885,
+   "longitude": 106.64862335719445
+  },
+  {
+   "name": "Eternity",
+   "latitude": -6.314804674128097,
+   "longitude": 106.64629166413174
+  },
+  {
+   "name": "Icon Centro",
+   "latitude": -6.31464335625065,
+   "longitude": 106.64620708074307
+  },
+  {
+   "name": "Simplicity 1",
+   "latitude": -6.312784863402183,
+   "longitude": 106.64423142592663
+  },
+  {
+   "name": "Simplicity 2",
+   "latitude": -6.313048540439234,
+   "longitude": 106.6425585810072
+  },
+  {
+   "name": "Horizon Broadway",
+   "latitude": -6.31330490921953,
+   "longitude": 106.65047799355253
+  },
+  {
+   "name": "ICON Business Park",
+   "latitude": -6.3172086152174325,
+   "longitude": 106.64920050844142
+  },
+  {
+   "name": "Masjid Al Ukhuwah",
+   "latitude": -6.3148314884847485,
+   "longitude": 106.65432167355655
+  },
+  {
+   "name": "Chandya",
+   "latitude": -6.317241487882567,
+   "longitude": 106.6539139777969
+  },
+  {
+   "name": "Divena & Deshna",
+   "latitude": -6.319171669047851,
+   "longitude": 106.65533778495562
+  },
+  {
+   "name": "The Avani Clubhouse",
+   "latitude": -6.3172402245862465,
+   "longitude": 106.65846145203908
+  },
+  {
+   "name": "Universitas Atma Jaya",
+   "latitude": -6.317389748477193,
+   "longitude": 106.64985236639212
+  },
+  {
+   "name": "Edutown 1",
+   "latitude": -6.3024419386956625,
+   "longitude": 106.64175422053961
+  },
+  {
+   "name": "Edutown 2",
+   "latitude": -6.301401045958158,
+   "longitude": 106.64161410520205
+  },
+  {
+   "name": "ICE 1",
+   "latitude": -6.297305991629695,
+   "longitude": 106.63663993540509
+  },
+  {
+   "name": "ICE 2",
+   "latitude": -6.301798026906297,
+   "longitude": 106.63537576609392
+  },
+  {
+   "name": "ICE Business Park",
+   "latitude": -6.303322716671507,
+   "longitude": 106.63447285075002
+  },
+  {
+   "name": "ICE 6",
+   "latitude": -6.299214743448269,
+   "longitude": 106.63501661265211
+  },
+  {
+   "name": "ICE 5",
+   "latitude": -6.296908022160658,
+   "longitude": 106.63614993540504
+  },
+  {
+   "name": "GOP 1",
+   "latitude": -6.301333338511644,
+   "longitude": 106.6491341047173
+  },
+  {
+   "name": "SML Plaza",
+   "latitude": -6.3018206829147045,
+   "longitude": 106.65107827402896
+  },
+  {
+   "name": "The Breeze",
+   "latitude": -6.301369321397565,
+   "longitude": 106.65315717850528
+  },
+  {
+   "name": "CBD Timur 1",
+   "latitude": -6.302837404339348,
+   "longitude": 106.65015285074993
+  },
+  {
+   "name": "CBD Timur 2",
+   "latitude": -6.301030700563775,
+   "longitude": 106.64876966575737
+  },
+  {
+   "name": "GOP 2",
+   "latitude": -6.301030700563775,
+   "longitude": 106.64876966575737
+  },
+  {
+   "name": "Nava Park 1",
+   "latitude": -6.299573087873732,
+   "longitude": 106.64984707200264
+  },
+  {
+   "name": "SWA 2",
+   "latitude": -6.299630155562472,
+   "longitude": 106.66243293720618
+  },
+  {
+   "name": "Giant",
+   "latitude": -6.299347597253314,
+   "longitude": 106.6666351301771
+  },
+  {
+   "name": "Eka Hospital 1",
+   "latitude": -6.299065485207059,
+   "longitude": 106.67031394722062
+  },
+  {
+   "name": "Puspita Loka",
+   "latitude": -6.295377145696457,
+   "longitude": 106.67766489040433
+  },
+  {
+   "name": "Polsek Serpong",
+   "latitude": -6.29603586772109,
+   "longitude": 106.68131227661276
+  },
+  {
+   "name": "Ruko Madrid",
+   "latitude": -6.30196884684132,
+   "longitude": 106.6843857194694
+  },
+  {
+   "name": "Pasar Modern Timur",
+   "latitude": -6.305348912751656,
+   "longitude": 106.68582347971999
+  },
+  {
+   "name": "Griya Loka 1",
+   "latitude": -6.304835825560039,
+   "longitude": 106.68239886809873
+  },
+  {
+   "name": "Sektor 1.3",
+   "latitude": -6.3057778200200305,
+   "longitude": 106.67991191028288
+  },
+  {
+   "name": "Griya Loka 2",
+   "latitude": -6.304961931657671,
+   "longitude": 106.68151702006185
+  },
+  {
+   "name": "Santa Ursula 1",
+   "latitude": -6.302771931151865,
+   "longitude": 106.6846528507499
+  },
+  {
+   "name": "Santa Ursula 2",
+   "latitude": -6.300150681430886,
+   "longitude": 106.68316410471716
+  },
+  {
+   "name": "Sentra Onderdil",
+   "latitude": -6.296683334763473,
+   "longitude": 106.6812441047167
+  },
+  {
+   "name": "Autoparts",
+   "latitude": -6.295531407562985,
+   "longitude": 106.67815419672414
+  },
+  {
+   "name": "Eka Hospital 2",
+   "latitude": -6.299377523498342,
+   "longitude": 106.67009430185223
+  },
+  {
+   "name": "East Business District",
+   "latitude": -6.299293336866941,
+   "longitude": 106.6669586814378
+  },
+  {
+   "name": "SWA 1",
+   "latitude": -6.299345368339194,
+   "longitude": 106.6627761735028
+  },
+  {
+   "name": "Green Cove",
+   "latitude": -6.2993814628841855,
+   "longitude": 106.65987993540543
+  },
+  {
+   "name": "AEON Mall 1",
+   "latitude": -6.303120040327548,
+   "longitude": 106.64347755092595
+  },
+  {
+   "name": "Greenwich Park Office",
+   "latitude": -6.276622057947269,
+   "longitude": 106.63404
+  },
+  {
+   "name": "De Brassia",
+   "latitude": -6.281215754864984,
+   "longitude": 106.63950426310976
+  },
+  {
+   "name": "De Maja",
+   "latitude": -6.280957532704141,
+   "longitude": 106.63961596488363
+  },
+  {
+   "name": "De Frangipani",
+   "latitude": -6.2849820621145875,
+   "longitude": 106.64356777058666
+  },
+  {
+   "name": "De Heliconia 1",
+   "latitude":-6.283538767202318,
+   "longitude": 106.64128277061803
+  },
+  {
+   "name": "De Heliconia 2",
+   "latitude": -6.283308041078943,
+   "longitude": 106.64115927116399
+  },
+  {
+   "name": "De Nara",
+   "latitude": -6.285010028454532,
+   "longitude": 106.64400801314942
+  },
+  {
+   "name": "De Park 2",
+   "latitude": -6.286975378906274,
+   "longitude": 106.64901655547753
+  },
+  {
+   "name": "Nava Park 2",
+   "latitude": -6.290774052160064,
+   "longitude": 106.64982436896942
+  },
+  {
+   "name": "Giardina",
+   "latitude": -6.291448715328519,
+   "longitude": 106.64828215809898
+  },
+  {
+   "name": "Collinare",
+   "latitude": -6.2906680437956,
+   "longitude": 106.64538437301604
+  },
+  {
+   "name": "Foglio",
+   "latitude": -6.293770702497992,
+   "longitude": 106.64307050539043
+  },
+  {
+   "name": "Studento 2",
+   "latitude": -6.295336698270585,
+   "longitude": 106.642156093254
+  },
+  {
+   "name": "Albera",
+   "latitude": -6.296627753866824,
+   "longitude": 106.64468911954826
+  },
+  {
+   "name": "Foresta 1",
+   "latitude": -6.296720702463259,
+   "longitude": 106.647792186508
+  },
+  {
+   "name": "Simpang Foresta",
+   "latitude": -6.299027376515015,
+   "longitude": 106.6479729112976
+  },
+  {
+   "name": "Allevare",
+   "latitude": -6.297092109712094,
+   "longitude": 106.64701553315535
+  },
+  {
+   "name": "Fiore",
+   "latitude": -6.296699551490208,
+   "longitude": 106.64459637983225
+  },
+  {
+   "name": "Studento 1",
+   "latitude": -6.29562483743795,
+   "longitude": 106.64207466523365
+  },
+  {
+   "name": "Naturale",
+   "latitude": -6.293753267157416,
+   "longitude": 106.64283525450247
+  },
+  {
+   "name": "Fresco",
+   "latitude": -6.290917364823557,
+   "longitude": 106.64513283298477
+  },
+  {
+   "name": "Primavera",
+   "latitude": -6.291167379758763,
+   "longitude": 106.64836291534402
+  },
+  {
+   "name": "Foresta 2",
+   "latitude": -6.290166708825742,
+   "longitude": 106.64961926711759
+  },
+  {
+   "name": "Astra",
+   "latitude": -6.28924783569923,
+   "longitude": 106.6392797491038
+  },
+  {
+   "name": "Gramedia",
+   "latitude": -6.291099166346175,
+   "longitude": 106.63944842196385
+  },
+  {
+   "name": "Froggy",
+   "latitude": -6.297076946509987,
+   "longitude": 106.64048698701207
+  },
+  {
+    "name": "FBL 1",
+    "latitude": -6.295814859163925,
+    "longitude": 106.64058257571833
+  },
+  {
+    "name": "FBL 2",
+    "latitude": -6.291013005153759,
+    "longitude": 106.63976237392022
+  },
+  {
+   "name": "FBL 5",
+   "latitude": -6.28803670795394,
+   "longitude": 106.64433874198559
+  },
+  {
+    "name": "BCA",
+    "latitude": -6.287213500386681,
+    "longitude": 106.63967246546872
+  },
+  {
+   "name": "Courts Mega Store",
+   "latitude": -6.286230035126002,
+   "longitude": 106.63887072883601
+  },
+  {
+   "name": "QBIG 1",
+   "latitude": -6.284470858067212,
+   "longitude": 106.63834676447388
+  },
+  {
+   "name": "QBIG 2",
+   "latitude": -6.280507339899185,
+   "longitude": 106.63658315400758
+  },
+  {
+   "name": "QBIG 3",
+   "latitude": -6.283087057959715,
+   "longitude": 106.63786213125908
+  },
+  {
+   "name": "Lulu",
+   "latitude": -6.2806509823429675,
+   "longitude": 106.6363809368485
+  },
+  {
+   "name": "Greenwich Park 1",
+   "latitude": -6.27722670353427,
+   "longitude": 106.63519582664144
+  },
+  {
+   "name": "Greenwich Park 2",
+   "latitude": -6.277106424172206,
+   "longitude": 106.63524682865557
+  },
+  {
+   "name": "Greenwich Park Office",
+   "latitude": -6.276897403507226,
+   "longitude": 106.63409852891468
+  },
+  {
+   "name": "Jadeite",
+   "latitude": -6.276438385550899,
+   "longitude": 106.63979548104383
+  },
+  {
+   "name": "Prestigia",
+   "latitude": -6.294574704864883,
+   "longitude": 106.63434147612814
+  },
+  {
+   "name": "The Mozia 1",
+   "latitude": -6.291653845052858,
+   "longitude": 106.62850019474901
+  },
+  {
+   "name": "Vanya Park",
+   "latitude": -6.295320322717712,
+   "longitude": 106.62186825923906
+  },
+  {
+   "name": "Tabebuya",
+   "latitude": -6.291894477886927,
+   "longitude": 106.62298021053941
+  },
+  {
+   "name": "Piazza Mozia",
+   "latitude": -6.290512106223089,
+   "longitude": 106.62767242455752
+  },
+  {
+   "name": "The Mozia 2",
+   "latitude": -6.291595339802968,
+   "longitude": 106.62865576632026
+  },
+  {
+   "name": "Illustria",
+   "latitude": -6.294029293630429,
+   "longitude": 106.63433876241467
+  },
+  {
+   "name": "CBD Barat 2",
+   "latitude": -6.3023066800188365,
+   "longitude": 106.64210145762934
+  },
+  {
+   "name": "Lobby AEON Mall",
+   "latitude": -6.303683149161957,
+   "longitude": 106.64356012276883
+  },
+  {
+   "name": "CBD Utara 3",
+   "latitude": -6.2987607030499175,
+   "longitude": 106.6433604073996
+  },
+  {
+   "name": "CBD Barat 1",
+   "latitude": -6.299449375144083,
+   "longitude": 106.64191227244648
+  },
+  {
+   "name": "AEON Mall 2",
+   "latitude": -6.302851368209015,
+   "longitude": 106.64431300128254
+  },
+]
