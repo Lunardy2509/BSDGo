@@ -3,7 +3,33 @@ import Foundation
 
 class BusRouteViewModel: ObservableObject {
     @Published var isExpanded: Bool = false
-    @Published var selectedSessionIndex: Int = 0
+    @Published private var _selectedSessionIndex: Int = 0
+    
+    // Safe access to selectedSessionIndex with bounds checking
+    var selectedSessionIndex: Int {
+        get {
+            return _selectedSessionIndex
+        }
+        set {
+            // Ensure the new value is always within valid bounds
+            let maxIndex = max(allSessions.count - 1, 0)
+            _selectedSessionIndex = min(max(newValue, 0), maxIndex)
+        }
+    }
+    
+    // Method to safely update session index when switching between all/upcoming sessions
+    func updateSessionIndexForArrayChange(newArrayCount: Int, showingAllSessions: Bool) {
+        let maxValidIndex = max(newArrayCount - 1, 0)
+        if _selectedSessionIndex >= newArrayCount {
+            if showingAllSessions {
+                // When switching to all sessions, just use the last valid index
+                _selectedSessionIndex = maxValidIndex
+            } else {
+                // When switching back to upcoming sessions, use the current ongoing session
+                _selectedSessionIndex = min(mainSessionIndex, maxValidIndex)
+            }
+        }
+    }
     
     @Published var animationProgress: CGFloat = 0.0
     private var timer: Timer?

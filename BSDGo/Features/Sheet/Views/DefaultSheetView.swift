@@ -66,7 +66,7 @@ struct DefaultSheetView: View {
             VStack(alignment: .leading, spacing: 8) {
                 if !searchText.isEmpty {}
                 else {
-                    Text("Bus Stop Lists")
+                    Text("Bus Stops List")
                         .font(.title2.bold())
                         .padding(.horizontal)
                 }
