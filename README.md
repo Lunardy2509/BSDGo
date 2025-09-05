@@ -1,7 +1,7 @@
 <div align="center">
   <h1>🚍 BSDGo: BSD Link Companion App</h1>
 
-  <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/BSDGo/Resources/Assets.xcassets/BSDGo%20Icon.imageset/SWRD%20Icon.png" width="200" height="200" alt="BSDGo Logo">
+  <img src="https://github.com/Lunardy2509/BSDGo/blob/mimi/BSDGo/Resources/Assets.xcassets/BSDGo-App-Icon.imageset/BSDGo-App-Icon.png" width="200" height="200" alt="BSDGo Logo">
 
   ![Version](https://img.shields.io/badge/version-2.0-orange?style=for-the-badge)
   ![iOS](https://img.shields.io/badge/iOS-17%2B-lightgrey?style=for-the-badge)
