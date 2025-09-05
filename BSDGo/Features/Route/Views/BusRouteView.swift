@@ -22,8 +22,10 @@ struct BusRouteView: View {
             let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
             
             // Ensure selectedSessionIndex is within bounds
-            let safeSessionIndex = min(max(viewModel.selectedSessionIndex, 0), max(sessionsToShow.count - 1, 0))
-            let isMainSession = sessionsToShow.isEmpty ? false : sessionsToShow[safeSessionIndex].session == viewModel.sessionInfo[viewModel.mainSessionIndex].session
+            let safeMainSessionIndex = min(max(viewModel.mainSessionIndex, 0), max(viewModel.sessionInfo.count - 1, 0))
+            let isMainSession = sessionsToShow.isEmpty || viewModel.sessionInfo.isEmpty
+                ? false
+                : sessionsToShow[safeSessionIndex].session == viewModel.sessionInfo[safeMainSessionIndex].session
             
             if sessionsToShow.count > 1 {
                 HStack {
