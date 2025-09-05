@@ -11,12 +11,19 @@ struct BusRouteView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    private var isIpad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
     var body: some View {
         VStack(spacing: 12) {
             headerView
             
             let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
-            let isMainSession = sessionsToShow[viewModel.selectedSessionIndex].session == viewModel.sessionInfo[viewModel.mainSessionIndex].session
+            
+            // Ensure selectedSessionIndex is within bounds
+            let safeSessionIndex = min(max(viewModel.selectedSessionIndex, 0), max(sessionsToShow.count - 1, 0))
+            let isMainSession = sessionsToShow.isEmpty ? false : sessionsToShow[safeSessionIndex].session == viewModel.sessionInfo[viewModel.mainSessionIndex].session
             
             if sessionsToShow.count > 1 {
                 HStack {
@@ -58,7 +65,7 @@ struct BusRouteView: View {
                 }
                 .padding()
             } else {
-                let stops = sessionsToShow[viewModel.selectedSessionIndex].stops
+                let stops = sessionsToShow.isEmpty ? [] : sessionsToShow[safeSessionIndex].stops
                 
                 if isMainSession {
                     let busIndex = stops.lastIndex(where: {
@@ -104,7 +111,9 @@ struct BusRouteView: View {
             }
         }
         .onChange(of: showAllSessions) {
-            viewModel.selectedSessionIndex = 0
+            // Use the ViewModel's safe method to update session index
+            let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
+            viewModel.updateSessionIndexForArrayChange(newArrayCount: sessionsToShow.count, showingAllSessions: showAllSessions)
         }
     }
     
@@ -125,7 +134,10 @@ struct BusRouteView: View {
             selectedSheet = .defaultView
             currentBusStop = BusStop()
             showRouteDetailSheet = false
-            dismiss()
+            // Only dismiss on iPhone, on iPad this will just update the sidebar content
+            if !isIpad {
+                dismiss()
+            }
         }) {
             Image(systemName: "xmark.circle.fill")
                 .resizable()

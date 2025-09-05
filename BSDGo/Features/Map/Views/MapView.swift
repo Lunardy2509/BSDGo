@@ -1,5 +1,4 @@
 import SwiftUI
-import UIKit
 import MapKit
 import SwiftData
 
@@ -30,6 +29,15 @@ struct MapView: View {
 
     @EnvironmentObject var locationManager: LocationManager
     @StateObject var viewModel = MapViewModel()
+    @StateObject private var busStopsManager = BusStopsManager()
+    
+    private var isIpad: Bool {
+        #if os(iOS)
+        return UIDevice.current.userInterfaceIdiom == .pad
+        #else
+        return false
+        #endif
+    }
 
     @State private var userLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: -6.3027, longitude: 106.6520)
     @State private var userHeading: CLLocationDirection = 0.0
@@ -44,7 +52,6 @@ struct MapView: View {
     @State private var presentationDetent: PresentationDetent = .fraction(0.40)
     @State private var selectedSheet: SheetType = .defaultView
 
-    @State private var busStops: [BusStop] = loadBusStops()
     @State private var selectedBusStop: BusStop = BusStop()
     @State private var selectedBus: Bus = Bus()
     @State private var selectedBusName: String = ""
@@ -53,40 +60,91 @@ struct MapView: View {
     @Query(sort: \RecentBusStop.timestamp, order: .reverse) private var recentSearches: [RecentBusStop]
 
     var body: some View {
-        ZStack {
-            MapUIViewRepresentable(
-                userLocation: $userLocation,
-                userHeading: $userHeading,
-                shouldRecenter: $shouldRecenter
-            )
-            .edgesIgnoringSafeArea(.all)
+        if isIpad {
+            // iPad layout with sidebar
+            HStack(spacing: 0) {
+                // Sidebar for iPad
+                if isSheetShown {
+                    VStack {
+                        sheetContentView
+                    }
+                    .frame(width: 375)
+                    .background(Color(.systemBackground))
+                    .transition(.move(edge: .leading))
+                }
+                
+                // Map view
+                ZStack {
+                    MapUIViewRepresentable(
+                        userLocation: $userLocation,
+                        userHeading: $userHeading,
+                        shouldRecenter: $shouldRecenter
+                    )
+                    .edgesIgnoringSafeArea(.all)
 
-            mapView
-                .onAppear {
-                    if let location = locationManager.lastLocation {
-                        userLocation = location.coordinate
-                    }
-                    userHeading = locationManager.userHeading
+                    mapView
+                        .onAppear {
+                            if let location = locationManager.lastLocation {
+                                userLocation = location.coordinate
+                            }
+                            userHeading = locationManager.userHeading
+                        }
+                        .onChange(of: locationManager.lastLocation) {
+                            if let location = locationManager.lastLocation {
+                                userLocation = location.coordinate
+                                handleLocationUpdate()
+                            }
+                            userHeading = locationManager.userHeading
+                        }
+                        .onChange(of: locationManager.userHeading) {
+                            userHeading = locationManager.userHeading
+                        }
+                        .highPriorityGesture(
+                            TapGesture().onEnded {
+                                resetSelection()
+                            }
+                        )
+                        .toolbar(.hidden, for: .navigationBar)
                 }
-                .onChange(of: locationManager.lastLocation) {
-                    if let location = locationManager.lastLocation {
-                        userLocation = location.coordinate
-                        handleLocationUpdate()
-                    }
-                    userHeading = locationManager.userHeading
-                }
-                .onChange(of: locationManager.userHeading) {
-                    userHeading = locationManager.userHeading
-                }
-                .highPriorityGesture(
-                    TapGesture().onEnded {
-                        resetSelection()
-                    }
+            }
+            .animation(.easeInOut(duration: 0.3), value: isSheetShown)
+        } else {
+            // iPhone layout with bottom sheet
+            ZStack {
+                MapUIViewRepresentable(
+                    userLocation: $userLocation,
+                    userHeading: $userHeading,
+                    shouldRecenter: $shouldRecenter
                 )
-                .toolbar(.hidden, for: .navigationBar)
-                .sheet(isPresented: $isSheetShown, onDismiss: resetSheet) {
-                    sheetContentView
-                }
+                .edgesIgnoringSafeArea(.all)
+
+                mapView
+                    .onAppear {
+                        if let location = locationManager.lastLocation {
+                            userLocation = location.coordinate
+                        }
+                        userHeading = locationManager.userHeading
+                    }
+                    .onChange(of: locationManager.lastLocation) {
+                        if let location = locationManager.lastLocation {
+                            userLocation = location.coordinate
+                            handleLocationUpdate()
+                        }
+                        userHeading = locationManager.userHeading
+                    }
+                    .onChange(of: locationManager.userHeading) {
+                        userHeading = locationManager.userHeading
+                    }
+                    .highPriorityGesture(
+                        TapGesture().onEnded {
+                            resetSelection()
+                        }
+                    )
+                    .toolbar(.hidden, for: .navigationBar)
+                    .sheet(isPresented: $isSheetShown, onDismiss: resetSheet) {
+                        sheetContentView
+                    }
+            }
         }
     }
 
@@ -94,7 +152,7 @@ struct MapView: View {
         Map(position: $defaultPosition, bounds: mapBounds) {
             UserAnnotation()
 
-            ForEach(busStops) { stop in
+            ForEach(busStopsManager.busStops) { stop in
                 Annotation(stop.name, coordinate: stop.coordinate) {
                     StopAnnotation(isSelected: selectedBusStop.id == stop.id)
                         .contentShape(Rectangle())
@@ -118,7 +176,7 @@ struct MapView: View {
         switch selectedSheet {
         case .defaultView:
             DefaultSheetView(
-                busStops: $busStops,
+                busStops: $busStopsManager.busStops,
                 searchText: $searchText,
                 selectionDetent: $presentationDetent,
                 defaultPosition: $defaultPosition,
@@ -131,13 +189,16 @@ struct MapView: View {
                 onCancel: resetSheet
             )
             .environmentObject(locationManager)
-            .presentationDetents(
-                [.fraction(0.10), .fraction(0.40), .medium, .fraction(0.99)],
-                selection: $presentationDetent
-            )
-            .presentationDragIndicator(.visible)
-            .presentationBackgroundInteraction(.enabled)
-            .interactiveDismissDisabled()
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents(
+                        [.fraction(0.10), .fraction(0.40), .medium, .fraction(0.99)],
+                        selection: $presentationDetent
+                    )
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+                    .interactiveDismissDisabled()
+            }
 
         case .busStopDetailView:
             BusStopDetailView(
@@ -148,9 +209,12 @@ struct MapView: View {
                 selectedBusName: $selectedBusName,
                 selectedSheet: $selectedSheet
             )
-            .presentationDetents([.fraction(0.35), .medium, .fraction(0.99)])
-            .presentationDragIndicator(.visible)
-            .presentationBackgroundInteraction(.enabled)
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents([.fraction(0.35), .medium, .fraction(0.99)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+            }
 
         case .routeDetailView:
             BusRouteView(
@@ -163,9 +227,12 @@ struct MapView: View {
                 showRouteDetailSheet: $showRouteDetailSheet,
                 selectedSheet: $selectedSheet
             )
-            .presentationDetents([.fraction(0.99)])
-            .presentationDragIndicator(.visible)
-            .presentationBackgroundInteraction(.enabled)
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents([.fraction(0.99)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+            }
         }
     }
 
@@ -195,7 +262,7 @@ struct MapView: View {
 
     private func handleLocationUpdate() {
         guard let location = locationManager.lastLocation else { return }
-        viewModel.handleLocationUpdate(location: location, allStops: busStops, locationManager: locationManager)
+        viewModel.handleLocationUpdate(location: location, allStops: busStopsManager.busStops, locationManager: locationManager)
     }
 
     private func resetSelection() {
@@ -203,8 +270,15 @@ struct MapView: View {
             selectedBusStop = BusStop()
             selectedSheet = .defaultView
             showStopDetailSheet = false
-            presentationDetent = .fraction(0.10)
-            showDefaultSheet = true
+            
+            if isIpad {
+                // On iPad, keep the sidebar open and show default view
+                showDefaultSheet = true
+            } else {
+                // On iPhone, collapse the sheet to minimum
+                presentationDetent = .fraction(0.10)
+                showDefaultSheet = true
+            }
         }
     }
 
@@ -216,6 +290,17 @@ struct MapView: View {
             showRouteDetailSheet = false
             presentationDetent = .fraction(0.40)
             selectedSheet = .defaultView
+        }
+    }
+}
+
+// Helper extension for conditional view modifier
+extension View {
+    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
         }
     }
 }
