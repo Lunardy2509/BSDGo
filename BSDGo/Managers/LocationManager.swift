@@ -3,7 +3,7 @@ import WidgetKit
 import CoreLocation
 import Combine
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     @Published var locationStatus: CLAuthorizationStatus?

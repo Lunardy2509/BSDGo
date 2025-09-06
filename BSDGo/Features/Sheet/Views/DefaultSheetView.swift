@@ -50,29 +50,25 @@ struct DefaultSheetView: View {
     
     private var defaultSection: some View {
         Group {
-            VStack(alignment: .leading, spacing: 8){
-                if !searchText.isEmpty {}
-                else {
+            VStack(alignment: .leading, spacing: 8) {
+                if searchText.isEmpty, !viewModel.closestStops.isEmpty {
+                    viewModel.closestStopsList { handleBusStopSelection($0) }
+                } else {
                     Text("Closest Bus Stops")
                         .font(.title2.bold())
                         .padding(.horizontal)
-                }
-                if searchText.isEmpty, !viewModel.closestStops.isEmpty {
-                    viewModel.closestStopsList { handleBusStopSelection($0) }
                 }
             }
             .padding(.top, 15)
             
             VStack(alignment: .leading, spacing: 8) {
-                if !searchText.isEmpty {}
-                else {
-                    Text("Bus Stops List")
-                        .font(.title2.bold())
-                        .padding(.horizontal)
-                }
                 if searchText.isEmpty && !viewModel.recentSearches.isEmpty {
                     viewModel.recentSearchList(recentSearches: viewModel.recentSearches) { handleBusStopSelection($0)
                     }
+                } else {
+                    Text("Bus Stops List")
+                        .font(.title2.bold())
+                        .padding(.horizontal)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -164,8 +160,8 @@ struct SearchRow: View {
             .cornerRadius(12)
             .contentShape(RoundedRectangle(cornerRadius: 12))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(DefaultButtonStyle())
+        .tint(.primary)
         .padding(.horizontal)
     }
 }
-

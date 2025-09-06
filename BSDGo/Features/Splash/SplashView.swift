@@ -7,7 +7,7 @@ struct SplashView: View {
     
     @StateObject private var locationManager = LocationManager()
     
-    let AppIcon = Image("BSDGo Icon")
+    let appIcon = Image("BSDGo Icon")
 
     var body: some View {
         if isActive {
@@ -26,7 +26,7 @@ struct SplashView: View {
                         .scaleEffect(glow ? 1.2 : 0.8)
                         .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: glow)
 
-                    AppIcon
+                    appIcon
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
@@ -54,7 +54,6 @@ struct SplashView: View {
         }
     }
 }
-
 
 #Preview {
     SplashView()

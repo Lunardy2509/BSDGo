@@ -12,7 +12,13 @@ struct BusCard: View {
 
     private let buses: [Bus]
 
-    init(currentBusStop: Binding<BusStop>, showRouteDetailSheet: Binding<Bool>, selectedBusNumber: Binding<Int>, selectedBusName: Binding<String>, selectedSheet: Binding<SheetType>) {
+    init(
+        currentBusStop: Binding<BusStop>,
+        showRouteDetailSheet: Binding<Bool>,
+        selectedBusNumber: Binding<Int>,
+        selectedBusName: Binding<String>,
+        selectedSheet: Binding<SheetType>
+    ) {
         self._currentBusStop = currentBusStop
         self._showRouteDetailSheet = showRouteDetailSheet
         self._selectedBusNumber = selectedBusNumber
@@ -71,7 +77,6 @@ struct BusCard: View {
         }
     }
 
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             if upcomingBuses.isEmpty {

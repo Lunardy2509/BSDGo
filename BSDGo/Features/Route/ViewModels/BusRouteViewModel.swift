@@ -1,7 +1,7 @@
 import SwiftUI
 import Foundation
 
-class BusRouteViewModel: ObservableObject {
+final class BusRouteViewModel: ObservableObject {
     @Published var isExpanded: Bool = false
     @Published private var _selectedSessionIndex: Int = 0
     
@@ -48,7 +48,14 @@ class BusRouteViewModel: ObservableObject {
         self.buses = loadBuses()
     }
 
-    var sessionInfo: [(session: Int, stops: [BusSchedule], firstDate: Date, lastDate: Date)] {
+    struct SessionInfo {
+        let session: Int
+        let stops: [BusSchedule]
+        let firstDate: Date
+        let lastDate: Date
+    }
+
+    var sessionInfo: [SessionInfo] {
         let calendar = Calendar.current
         let now = Date()
         let formatter = DateFormatter()
@@ -59,9 +66,9 @@ class BusRouteViewModel: ObservableObject {
             .compactMap { session, stops in
                 let sorted = stops.sorted { $0.timeOfArrival < $1.timeOfArrival }
                 let dates = sorted.compactMap { stop -> Date? in
-                    guard let t = formatter.date(from: stop.timeOfArrival) else { return nil }
+                    guard let timer = formatter.date(from: stop.timeOfArrival) else { return nil }
                     var comps = calendar.dateComponents([.year, .month, .day], from: now)
-                    let timeComps = calendar.dateComponents([.hour, .minute], from: t)
+                    let timeComps = calendar.dateComponents([.hour, .minute], from: timer)
                     comps.hour = timeComps.hour
                     comps.minute = timeComps.minute
                     return calendar.date(from: comps)
@@ -69,7 +76,7 @@ class BusRouteViewModel: ObservableObject {
                 guard let first = dates.first, let last = dates.last, last >= now else {
                     return nil
                 }
-                return (session, sorted, first, last)
+                return SessionInfo(session: session, stops: sorted, firstDate: first, lastDate: last)
             }
             .sorted { $0.firstDate < $1.firstDate }
     }
@@ -98,11 +105,11 @@ class BusRouteViewModel: ObservableObject {
         formatter.dateFormat = "HH:mm"
         formatter.locale = Locale(identifier: "en_US_POSIX")
 
-        guard let t = formatter.date(from: timeString) else { return .upcoming }
+        guard let timer = formatter.date(from: timeString) else { return .upcoming }
         var comps = calendar.dateComponents([.year, .month, .day], from: now)
-        let tc = calendar.dateComponents([.hour, .minute], from: t)
-        comps.hour = tc.hour
-        comps.minute = tc.minute
+        let timeComps = calendar.dateComponents([.hour, .minute], from: timer)
+        comps.hour = timeComps.hour
+        comps.minute = timeComps.minute
         guard let stopDate = calendar.date(from: comps) else { return .upcoming }
 
         if calendar.isDate(stopDate, equalTo: now, toGranularity: .minute) {

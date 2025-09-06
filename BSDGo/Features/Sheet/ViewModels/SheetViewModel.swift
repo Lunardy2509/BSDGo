@@ -5,7 +5,7 @@ import SwiftUI
 import SwiftData
 
 @MainActor
-class SheetViewModel: ObservableObject {
+final class SheetViewModel: ObservableObject {
     @Published var closestStops: [(stop: BusStop, distance: CLLocationDistance)] = []
     @Published var recentSearches: [RecentBusStop] = []
 
@@ -46,14 +46,16 @@ class SheetViewModel: ObservableObject {
     func closestStopsList(action: @escaping (BusStop) -> Void) -> some View {
         VStack(spacing: 0) {
             ForEach(Array(closestStops.enumerated()), id: \.offset) { index, entry in
-                Button(action: { action(entry.stop) }) {
+                Button(action: { action(entry.stop) }, label: {
                     HStack(alignment: .center, spacing: 12) {
                         Image(systemName: "mappin.circle.fill")
                             .foregroundColor(.primary)
                             .font(.system(size: 30))
 
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(entry.stop.name).font(.body)
+                            Text(entry.stop.name)
+                                .font(.body)
+                                .foregroundColor(.primary)
                             Text(self.formatDistance(entry.distance))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
@@ -65,8 +67,9 @@ class SheetViewModel: ObservableObject {
                     .padding(.vertical, 12)
                     .padding(.horizontal, 16)
                     .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
+                })
+                .buttonStyle(DefaultButtonStyle())
+                .tint(.primary)
 
                 if index < self.closestStops.count - 1 {
                     Divider().padding(.leading, 58)
@@ -126,7 +129,7 @@ class SheetViewModel: ObservableObject {
         VStack(spacing: 0) {
             ForEach(Array(filtered.enumerated()), id: \.1.id) { index, stop in
                 VStack(spacing: 0) {
-                    Button(action: { action(stop) }) {
+                    Button(action: { action(stop) }, label: {
                         HStack {
                             Image(systemName: "mappin.circle.fill").font(.system(size: 20))
                             VStack(alignment: .leading) { Text(stop.name).font(.body) }
@@ -138,8 +141,9 @@ class SheetViewModel: ObservableObject {
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(12)
                         .contentShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                    .buttonStyle(.plain)
+                    })
+                    .buttonStyle(DefaultButtonStyle())
+                    .tint(.primary)
                     .padding(.horizontal)
                 }
                 if index < filtered.count - 1 {

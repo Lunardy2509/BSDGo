@@ -256,6 +256,7 @@
 				4A685DB12D88083C0053791C /* Frameworks */,
 				4A685DB22D88083C0053791C /* Resources */,
 				BD1039032DD5AFC90098F994 /* Embed Foundation Extensions */,
+				BD93A0CA2E6C10D800C71E86 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -373,6 +374,9 @@
 			);
 			mainGroup = 4A685DAB2D88083C0053791C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BD93A0C92E6C10BF00C71E86 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4A685DB52D88083C0053791C /* Products */;
 			projectDirPath = "";
@@ -416,6 +420,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BD93A0CA2E6C10D800C71E86 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint t installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4A685DB02D88083C0053791C /* Sources */ = {
@@ -505,7 +532,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -568,7 +595,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -595,7 +622,7 @@
 				CODE_SIGN_ENTITLEMENTS = BSDGo/Core/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -615,7 +642,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -637,7 +664,7 @@
 				CODE_SIGN_ENTITLEMENTS = BSDGo/Core/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -657,7 +684,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -749,7 +776,7 @@
 				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension/FeatureWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeatureWidgetExtension/Info.plist;
@@ -762,7 +789,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -785,7 +812,7 @@
 				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension/FeatureWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeatureWidgetExtension/Info.plist;
@@ -798,7 +825,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -862,6 +889,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD93A0C92E6C10BF00C71E86 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.60.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 4A685DAC2D88083C0053791C /* Project object */;
 }

@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class SwiftRideUITestsLaunchTests: XCTestCase {
+internal class SwiftRideUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
