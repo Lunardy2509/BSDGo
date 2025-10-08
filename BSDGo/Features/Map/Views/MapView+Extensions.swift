@@ -38,14 +38,9 @@ extension MapView {
                 .onChange(of: locationManager.lastLocation) {
                     handleLocationChange()
                 }
-                .onChange(of: locationManager.userHeading) {
-                    userHeading = locationManager.userHeading
+                .onChange(of: locationManager.debouncedHeading) {
+                    userHeading = locationManager.debouncedHeading
                 }
-                .highPriorityGesture(
-                    TapGesture().onEnded {
-                        resetSelection()
-                    }
-                )
                 .toolbar(.hidden, for: .navigationBar)
                 .sheet(isPresented: $isSheetShown, onDismiss: resetSheet) {
                     sheetContentView
@@ -68,8 +63,8 @@ extension MapView {
                 .onChange(of: locationManager.lastLocation) {
                     handleLocationChange()
                 }
-                .onChange(of: locationManager.userHeading) {
-                    userHeading = locationManager.userHeading
+                .onChange(of: locationManager.debouncedHeading) {
+                    userHeading = locationManager.debouncedHeading
                 }
                 .highPriorityGesture(
                     TapGesture().onEnded {
@@ -85,17 +80,18 @@ extension MapView {
         Map(position: $defaultPosition, bounds: mapBounds) {
             UserAnnotation()
 
-            ForEach(busStopsManager.busStops) { stop in
+            ForEach(busStopsManager.busStops, id: \.id) { stop in
                 Annotation(stop.name, coordinate: stop.coordinate) {
                     StopAnnotation(isSelected: selectedBusStop.id == stop.id)
                         .contentShape(Rectangle())
-                        .highPriorityGesture(
-                            TapGesture().onEnded {
-                                handleStopSelection(stop)
-                            }
-                        )
+                        .onTapGesture {
+                            handleStopSelection(stop)
+                        }
                 }
             }
+        }
+        .onTapGesture {
+            resetSelection()
         }
         .mapControls {
             MapUserLocationButton()
@@ -187,7 +183,7 @@ extension MapView {
         if let location = locationManager.lastLocation {
             userLocation = location.coordinate
         }
-        userHeading = locationManager.userHeading
+        userHeading = locationManager.debouncedHeading
     }
     
     func handleLocationChange() {
@@ -195,7 +191,7 @@ extension MapView {
             userLocation = location.coordinate
             handleLocationUpdate()
         }
-        userHeading = locationManager.userHeading
+        userHeading = locationManager.debouncedHeading
     }
 
     func handleStopSelection(_ stop: BusStop) {

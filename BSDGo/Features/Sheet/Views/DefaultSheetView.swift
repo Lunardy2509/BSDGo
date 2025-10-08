@@ -37,13 +37,11 @@ struct DefaultSheetView: View {
         }
         .onAppear {
             viewModel.refreshStops(from: busStops, userLocation: locationManager.lastLocation)
-            busStops = viewModel.updateDistances(for: busStops, from: locationManager.lastLocation)
             viewModel.fetchRecentSearches(context)
         }
         .onChange(of: locationManager.lastLocation) {
             guard let newLocation = locationManager.lastLocation else { return }
             viewModel.refreshStops(from: busStops, userLocation: newLocation)
-            busStops = viewModel.updateDistances(for: busStops, from: newLocation)
             locationManager.updateWidgetWithClosestStops()
         }
     }
