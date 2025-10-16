@@ -8,9 +8,16 @@
 import WidgetKit
 import SwiftUI
 
-@main
+#if canImport(ActivityKit)
+import ActivityKit
+#endif
+
 struct FeatureWidgetBundle: WidgetBundle {
     var body: some Widget {
-        FeatureWidget()
+        #if canImport(ActivityKit)
+        if #available(iOS 16.0, *) {
+            BusTrackingLiveActivity()
+        }
+        #endif
     }
 }

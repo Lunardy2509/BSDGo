@@ -1,6 +1,5 @@
 import SwiftUI
 import MapKit
-import SwiftData
 
 // MARK: - MapView Layout Extensions
 extension MapView {
@@ -13,7 +12,14 @@ extension MapView {
                     sheetContentView
                 }
                 .frame(width: 375)
-                .background(Color(.systemBackground))
+                .background(
+                    Color(.systemBackground)
+                        .if(isIpad) { view in
+                            view.onTapGesture {
+                                resetSelection()
+                            }
+                        }
+                )
                 .transition(.move(edge: .leading))
             }
             
@@ -41,8 +47,15 @@ extension MapView {
                 .onChange(of: locationManager.debouncedHeading) {
                     userHeading = locationManager.debouncedHeading
                 }
+                .if(isIpad) { view in
+                    view.highPriorityGesture(
+                        TapGesture().onEnded {
+                            resetSelection()
+                        }
+                    )
+                }
                 .toolbar(.hidden, for: .navigationBar)
-                .sheet(isPresented: $isSheetShown, onDismiss: resetSheet) {
+                .sheet(isPresented: $isSheetShown) {
                     sheetContentView
                 }
         }
@@ -66,11 +79,6 @@ extension MapView {
                 .onChange(of: locationManager.debouncedHeading) {
                     userHeading = locationManager.debouncedHeading
                 }
-                .highPriorityGesture(
-                    TapGesture().onEnded {
-                        resetSelection()
-                    }
-                )
                 .toolbar(.hidden, for: .navigationBar)
         }
     }
@@ -90,14 +98,45 @@ extension MapView {
                 }
             }
         }
+        .mapStyle(mapStyle)
         .onTapGesture {
             resetSelection()
         }
         .mapControls {
-            MapUserLocationButton()
-            MapCompass()
             MapScaleView()
+            MapUserLocationButton()
+            MapPitchToggle()
+            MapCompass()
         }
+        .safeAreaInset(edge: .leading, spacing: 0) {
+            VStack(spacing: 8) {
+                mapStyleButton
+                Spacer()
+            }
+            .padding(.leading, 12)
+            .padding(.top, 5)
+        }
+    }
+    
+    @ViewBuilder
+    var mapStyleButton: some View {
+        Button(action: {
+            // Simple toggle between Standard and Satellite for testing
+            // Use the showMapStyleOptions as a toggle state
+            showMapStyleOptions.toggle()
+            if showMapStyleOptions {
+                mapStyle = .imagery(elevation: .realistic)
+            } else {
+                mapStyle = .standard(elevation: .automatic)
+            }
+        }, label: {
+            Image(systemName: "map")
+                .font(.title2)
+                .foregroundColor(.orange)
+                .frame(width: 45, height: 45)
+                .background(Color(.systemGray5))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+        })
     }
 }
 

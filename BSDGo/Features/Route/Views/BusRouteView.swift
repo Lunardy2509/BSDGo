@@ -1,6 +1,10 @@
 import SwiftUI
 import Foundation
+import UserNotifications
+
+#if os(iOS)
 import UIKit
+#endif
 
 // MARK: - Helper Structures
 struct StopRowContext {
@@ -21,12 +25,18 @@ struct BusRouteView: View {
     @Environment(\.dismiss) private var dismiss
     
     private var isIpad: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad
+        #if os(iOS)
+        return UIDevice.current.userInterfaceIdiom == .pad
+        #else
+        return false
+        #endif
     }
     
     var body: some View {
         VStack(spacing: 12) {
             headerView
+            
+            alertSection
             
             let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
             
@@ -47,7 +57,7 @@ struct BusRouteView: View {
                     .pickerStyle(MenuPickerStyle())
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(Color(UIColor.secondarySystemBackground))
+                    .background(Color(.secondarySystemBackground))
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
@@ -88,18 +98,18 @@ struct BusRouteView: View {
                     ScrollViewReader { proxy in
                         ScrollView {
                             VStack(alignment: .leading, spacing: 16) {
-                                ForEach(Array(stops.enumerated()), id: \.offset) { idx, stop in
-                                    buildStopRow(
-                                        index: idx,
-                                        stop: stop,
-                                        context: StopRowContext(
-                                            busIndex: busIndex,
-                                            userIndex: userIndex,
-                                            totalCount: stops.count
-                                        ),
-                                        scrollProxy: proxy
-                                    )
-                                }
+                            ForEach(Array(stops.enumerated()), id: \.offset) { idx, stop in
+                                buildStopRow(
+                                    index: idx,
+                                    stop: stop,
+                                    context: StopRowContext(
+                                        busIndex: busIndex,
+                                        userIndex: userIndex,
+                                        totalCount: stops.count
+                                    ),
+                                    scrollProxy: proxy
+                                )
+                            }
                             }
                             .padding()
                         }
@@ -125,136 +135,6 @@ struct BusRouteView: View {
             // Use the ViewModel's safe method to update session index
             let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
             viewModel.updateSessionIndexForArrayChange(newArrayCount: sessionsToShow.count, showingAllSessions: showAllSessions)
-        }
-    }
-    
-    private var headerView: some View {
-        HStack {
-            Text(viewModel.name)
-                .font(.title2.bold())
-            Spacer()
-            dismissButton
-        }
-        .padding(.horizontal)
-        .padding(.top, 30)
-        .padding(.bottom, 10)
-    }
-    
-    private var dismissButton: some View {
-        Button(action: {
-            selectedSheet = .defaultView
-            currentBusStop = BusStop()
-            showRouteDetailSheet = false
-            // Only dismiss on iPhone, on iPad this will just update the sidebar content
-            if !isIpad {
-                dismiss()
-            }
-        }, label: {
-            Image(systemName: "xmark.circle.fill")
-                .resizable()
-                .frame(width: 24, height: 24)
-                .foregroundColor(.gray)
-        })
-    }
-    
-    @ViewBuilder
-    private func buildStopRow(
-        index idx: Int,
-        stop: BusSchedule,
-        context: StopRowContext,
-        scrollProxy: ScrollViewProxy
-    ) -> some View {
-        let status = viewModel.stopStatus(for: stop.timeOfArrival)
-        let isBusHere = idx == context.busIndex
-        let isUserHere = stop.busStopName == viewModel.currentStopName
-        let isUserArrived = isBusHere && isUserHere
-        
-        buildExpandCollapseButtons(idx: idx, context: context, scrollProxy: scrollProxy)
-        
-        if viewModel.isExpanded || !(idx > context.busIndex && idx < context.userIndex) {
-            StopRowView(
-                stop: stop,
-                status: status,
-                isBusHere: isBusHere,
-                isUserHere: isUserHere,
-                isUserArrived: isUserArrived,
-                showConnector: idx < context.totalCount - 1,
-                progress: isBusHere ? viewModel.animationProgress : 0
-            )
-            .id(idx)
-        }
-    }
-    
-    @ViewBuilder
-    private func buildExpandCollapseButtons(
-        idx: Int,
-        context: StopRowContext,
-        scrollProxy: ScrollViewProxy
-    ) -> some View {
-        if idx > context.busIndex && idx < context.userIndex && !viewModel.isExpanded {
-            if idx == context.busIndex + 1 {
-                buildExpandButton(context: context, scrollProxy: scrollProxy)
-            }
-        }
-        
-        if idx == context.userIndex && viewModel.isExpanded {
-            buildCollapseButton(busIndex: context.busIndex, scrollProxy: scrollProxy)
-        }
-    }
-    
-    @ViewBuilder
-    private func buildExpandButton(
-        context: StopRowContext,
-        scrollProxy: ScrollViewProxy
-    ) -> some View {
-        HStack {
-            Button(action: {
-                withAnimation(.interpolatingSpring(stiffness: 300, damping: 10)) {
-                    viewModel.isExpanded = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation {
-                        scrollProxy.scrollTo(context.busIndex, anchor: .top)
-                    }
-                }
-            }, label: {
-                HStack(spacing: 4) {
-                    Image(systemName: "chevron.down")
-                    Text("\(context.userIndex - context.busIndex - 1) stops remaining")
-                }
-                .font(.headline)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 25)
-            })
-            Spacer()
-        }
-    }
-    
-    @ViewBuilder
-    private func buildCollapseButton(
-        busIndex: Int,
-        scrollProxy: ScrollViewProxy
-    ) -> some View {
-        HStack {
-            Button(action: {
-                withAnimation(.interpolatingSpring(stiffness: 300, damping: 10)) {
-                    viewModel.isExpanded = false
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation {
-                        scrollProxy.scrollTo(busIndex, anchor: .top)
-                    }
-                }
-            }, label: {
-                HStack(spacing: 4) {
-                    Image(systemName: "chevron.up")
-                    Text("Hide stops")
-                }
-                .font(.headline)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 25)
-            })
-            Spacer()
         }
     }
 }

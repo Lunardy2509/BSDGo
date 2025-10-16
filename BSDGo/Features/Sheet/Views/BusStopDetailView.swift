@@ -20,7 +20,7 @@ struct BusStopDetailView: View {
                     selectedSheet = .defaultView
                     currentBusStop = BusStop()
                     showStopDetailSheet = false
-                    dismiss()
+                    // Don't call dismiss() - let state management handle the sheet content
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .resizable()

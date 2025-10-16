@@ -51,10 +51,6 @@ struct DefaultSheetView: View {
             VStack(alignment: .leading, spacing: 8) {
                 if searchText.isEmpty, !viewModel.closestStops.isEmpty {
                     viewModel.closestStopsList { handleBusStopSelection($0) }
-                } else {
-                    Text("Closest Bus Stops")
-                        .font(.title2.bold())
-                        .padding(.horizontal)
                 }
             }
             .padding(.top, 15)

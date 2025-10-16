@@ -48,6 +48,8 @@ struct MapView: View {
     @State var showStopDetailSheet: Bool = false
     @State var showRouteDetailSheet: Bool = false
     @State var shouldRecenter = false
+    @State var mapStyle: MapStyle = .standard(elevation: .flat)
+    @State var showMapStyleOptions = false
 
     @State var presentationDetent: PresentationDetent = .fraction(0.40)
     @State var selectedSheet: SheetType = .defaultView
