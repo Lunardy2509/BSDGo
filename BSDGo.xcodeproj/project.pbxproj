@@ -97,7 +97,6 @@
 		BDBE523C2E3E746D00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "BSDGo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				FeatureWidgetBundle.swift,
 				Model/WidgetModel.swift,
 			);
 			target = 4A685DB32D88083C0053791C /* BSDGo */;
@@ -200,6 +199,11 @@
 			path = FeatureWidgetExtension;
 			sourceTree = "<group>";
 		};
+		BDC7E86D2EA29797009DF245 /* BSDGoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BSDGoTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +250,7 @@
 		4A685DAB2D88083C0053791C = {
 			isa = PBXGroup;
 			children = (
+				BDC7E86D2EA29797009DF245 /* BSDGoTests */,
 				BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */,
 				BD39ACE52E3D5D5300FF518C /* Core */,
 				BD39ACDA2E3D5D4B00FF518C /* Features */,
@@ -326,6 +331,9 @@
 			dependencies = (
 				4A685DC82D88083E0053791C /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				BDC7E86D2EA29797009DF245 /* BSDGoTests */,
+			);
 			name = BSDGoTests;
 			packageProductDependencies = (
 			);
@@ -405,7 +413,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					4A685DB32D88083C0053791C = {
 						CreatedOnToolsVersion = 16.2;
@@ -432,6 +440,7 @@
 			knownRegions = (
 				en,
 				Base,
+				id,
 			);
 			mainGroup = 4A685DAB2D88083C0053791C;
 			minimizedProjectReferenceProxies = 1;
@@ -634,6 +643,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -690,6 +700,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};

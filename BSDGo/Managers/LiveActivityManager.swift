@@ -1,9 +1,7 @@
 import Foundation
 import SwiftUI
-
-#if canImport(ActivityKit)
+import CoreLocation
 import ActivityKit
-#endif
 
 // MARK: - Bus Tracking Configuration
 struct BusTrackingConfig {
@@ -20,27 +18,24 @@ struct BusTrackingConfig {
 final class LiveActivityManager: ObservableObject {
     static let shared = LiveActivityManager()
     
-    @Published var currentActivity: Activity<BusTrackingAttributes>?
+    @Published var currentActivity: Activity<BusTrackingModel>?
     @Published var isLiveActivitySupported = false
+    
+    private let notificationManager = NotificationManager.shared
     
     private init() {
         checkLiveActivitySupport()
     }
     
     private func checkLiveActivitySupport() {
-        #if canImport(ActivityKit)
-        if #available(iOS 16.1, *) {
-            isLiveActivitySupported = ActivityAuthorizationInfo().areActivitiesEnabled
-        }
-        #endif
+        isLiveActivitySupported = ActivityAuthorizationInfo().areActivitiesEnabled
     }
     
     func startBusTracking(config: BusTrackingConfig) {
         #if canImport(ActivityKit)
-        guard #available(iOS 16.1, *) else { return }
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
         
-        let attributes = BusTrackingAttributes(
+        let attributes = BusTrackingModel(
             busName: config.busName,
             busNumber: config.busNumber,
             licensePlate: config.licensePlate,
@@ -49,7 +44,7 @@ final class LiveActivityManager: ObservableObject {
             startTime: Date()
         )
         
-        let initialState = BusTrackingAttributes.ContentState(
+        let initialState = BusTrackingModel.ContentState(
             estimatedArrival: config.estimatedArrival,
             currentProgress: 0.0,
             remainingTime: config.totalDuration,
@@ -63,7 +58,16 @@ final class LiveActivityManager: ObservableObject {
                 content: .init(state: initialState, staleDate: nil),
                 pushType: nil
             )
-            print("🚌 Live Activity started for Bus \(config.busNumber)")
+            
+            // Schedule coordinated notifications
+            notificationManager.scheduleBusArrivalNotifications(
+                busName: config.busName,
+                stopName: config.destinationStop,
+                estimatedArrival: config.estimatedArrival,
+                busNumber: config.busNumber
+            )
+            
+            print("🚌 Live Activity and notifications started for Bus \(config.busNumber)")
         } catch {
             print("❌ Failed to start Live Activity: \(error)")
         }
@@ -73,13 +77,11 @@ final class LiveActivityManager: ObservableObject {
     func updateBusProgress(
         progress: Double,
         remainingTime: TimeInterval,
-        status: BusTrackingAttributes.ContentState.BusStatus = .onTheWay
+        status: BusTrackingModel.ContentState.BusStatus = .onTheWay
     ) {
-        #if canImport(ActivityKit)
-        guard #available(iOS 16.1, *) else { return }
         guard let activity = currentActivity else { return }
         
-        let updatedState = BusTrackingAttributes.ContentState(
+        let updatedState = BusTrackingModel.ContentState(
             estimatedArrival: activity.content.state.estimatedArrival,
             currentProgress: min(max(progress, 0.0), 1.0), // Clamp between 0 and 1
             remainingTime: max(remainingTime, 0),
@@ -90,15 +92,12 @@ final class LiveActivityManager: ObservableObject {
         Task {
             await activity.update(.init(state: updatedState, staleDate: nil))
         }
-        #endif
     }
     
     func endBusTracking() {
-        #if canImport(ActivityKit)
-        guard #available(iOS 16.1, *) else { return }
         guard let activity = currentActivity else { return }
         
-        let finalState = BusTrackingAttributes.ContentState(
+        let finalState = BusTrackingModel.ContentState(
             estimatedArrival: activity.content.state.estimatedArrival,
             currentProgress: 1.0,
             remainingTime: 0,
@@ -111,25 +110,66 @@ final class LiveActivityManager: ObservableObject {
             currentActivity = nil
             print("🏁 Live Activity ended")
         }
-        #endif
     }
-    
+
     func endAllActivities() {
-        #if canImport(ActivityKit)
-        guard #available(iOS 16.1, *) else { return }
-        
         Task {
-            for activity in Activity<BusTrackingAttributes>.activities {
+            for activity in Activity<BusTrackingModel>.activities {
                 await activity.end(nil, dismissalPolicy: .immediate)
             }
             currentActivity = nil
             print("🛑 All Live Activities ended")
         }
-        #endif
     }
     
     var hasActiveActivity: Bool {
         return currentActivity != nil
+    }
+    
+    // MARK: - Location-Based Integration
+    
+    /// Update live activity based on user location relative to destination
+    func updateLocationBasedProgress(userLocation: CLLocation, destinationCoordinate: CLLocationCoordinate2D) {
+        guard hasActiveActivity else { return }
+        
+        let destinationLocation = CLLocation(
+            latitude: destinationCoordinate.latitude,
+            longitude: destinationCoordinate.longitude
+        )
+        let distance = userLocation.distance(from: destinationLocation)
+        
+        // Calculate progress based on proximity (closer = higher progress)
+        let maxDistance: CLLocationDistance = 2000 // 2km max distance for progress calculation
+        let progress = max(0.0, min(1.0, (maxDistance - distance) / maxDistance))
+        
+        // Calculate remaining time based on distance (rough estimation)
+        let estimatedSpeed: CLLocationDistance = 10 // 10 m/s average bus speed
+        let remainingTime = max(0, distance / estimatedSpeed)
+        
+        updateBusProgress(progress: progress, remainingTime: remainingTime)
+        
+        // Check for arrival
+        if distance <= 50 { // Within 50 meters = arrived
+            endBusTracking()
+        }
+    }
+    
+    /// Check proximity to bus stops and trigger notifications
+    func checkProximityNotifications(
+        userLocation: CLLocation,
+        busStops: [BusStopCoordinate]
+    ) {
+        notificationManager.checkProximityNotifications(
+            userLocation: userLocation,
+            stopCoordinates: busStops
+        )
+    }
+    
+    /// Clean up all tracking and notifications
+    func cleanup() {
+        endBusTracking()
+        endAllActivities()
+        notificationManager.cancelAllNotifications()
     }
 }
 

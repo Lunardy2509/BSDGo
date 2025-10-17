@@ -1,12 +1,8 @@
-#if canImport(ActivityKit)
 import ActivityKit
-#endif
 import Foundation
 
 // MARK: - Live Activity Attributes
-#if canImport(ActivityKit)
-@available(iOS 16.1, *)
-struct BusTrackingAttributes: ActivityAttributes {
+struct BusTrackingModel: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic content that updates
         var estimatedArrival: Date
@@ -40,8 +36,6 @@ struct BusTrackingAttributes: ActivityAttributes {
             }
         }
     }
-    
-    // Static content (doesn't change during the activity)
     var busName: String
     var busNumber: Int
     var licensePlate: String
@@ -50,8 +44,7 @@ struct BusTrackingAttributes: ActivityAttributes {
     var startTime: Date
 }
 
-@available(iOS 16.1, *)
-extension BusTrackingAttributes.ContentState {
+extension BusTrackingModel.ContentState {
     var formattedRemainingTime: String {
         let hours = Int(remainingTime) / 3600
         let minutes = (Int(remainingTime) % 3600) / 60
@@ -79,4 +72,3 @@ extension BusTrackingAttributes.ContentState {
         return formatter.string(from: estimatedArrival)
     }
 }
-#endif

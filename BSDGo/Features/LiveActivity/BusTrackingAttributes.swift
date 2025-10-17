@@ -2,7 +2,7 @@ import ActivityKit
 import Foundation
 
 // MARK: - Live Activity Attributes
-struct BusTrackingAttributes: ActivityAttributes {
+struct BusTrackingModel: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic content that updates
         var estimatedArrival: Date
@@ -46,7 +46,7 @@ struct BusTrackingAttributes: ActivityAttributes {
     var startTime: Date
 }
 
-extension BusTrackingAttributes.ContentState {
+extension BusTrackingModel.ContentState {
     var formattedRemainingTime: String {
         let hours = Int(remainingTime) / 3600
         let minutes = (Int(remainingTime) % 3600) / 60

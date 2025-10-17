@@ -273,7 +273,7 @@ final class BusRouteViewModel: ObservableObject {
                 self.liveActivityProgress = progress
                 
                 // Determine status based on progress
-                let status: BusTrackingAttributes.ContentState.BusStatus = {
+                let status: BusTrackingModel.ContentState.BusStatus = {
                     if progress >= 0.95 {
                         return .arriving
                     } else if progress >= 0.8 {

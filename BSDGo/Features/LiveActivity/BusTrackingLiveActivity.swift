@@ -1,16 +1,11 @@
 import SwiftUI
 import WidgetKit
-
-#if canImport(ActivityKit)
 import ActivityKit
-#endif
 
 // MARK: - Live Activity Widget
-@available(iOS 16.0, *)
 struct BusTrackingLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        #if canImport(ActivityKit)
-        ActivityConfiguration(for: BusTrackingAttributes.self) { context in
+        ActivityConfiguration(for: BusTrackingModel.self) { context in
             // Lock screen/banner UI
             BusTrackingLockScreenView(context: context)
         } dynamicIsland: { context in
@@ -78,21 +73,14 @@ struct BusTrackingLiveActivity: Widget {
                     .font(.system(size: 14))
             }
         }
-        #else
-        EmptyWidgetConfiguration()
-        #endif
     }
 }
 
 // MARK: - Lock Screen View
-@available(iOS 16.1, *)
 struct BusTrackingLockScreenView: View {
-    #if canImport(ActivityKit)
-    let context: ActivityViewContext<BusTrackingAttributes>
-    #endif
+    let context: ActivityViewContext<BusTrackingModel>
     
     var body: some View {
-        #if canImport(ActivityKit)
         VStack(spacing: 0) {
             // Header with app branding
             HStack {
@@ -197,9 +185,6 @@ struct BusTrackingLockScreenView: View {
                 .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 2)
         )
         .padding(.horizontal, 16)
-        #else
-        EmptyView()
-        #endif
     }
 }
 

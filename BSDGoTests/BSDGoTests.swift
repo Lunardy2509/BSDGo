@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import SwiftRide
+@testable import BSDGo
 
 struct SwiftRideTests {
 
