@@ -134,8 +134,7 @@ extension MapView {
                 .font(.title2)
                 .foregroundColor(.orange)
                 .frame(width: 45, height: 45)
-                .background(Color(.systemGray5))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .modifier(GlassEffectModifier())
         })
     }
 }
@@ -262,10 +261,8 @@ extension MapView {
             showStopDetailSheet = false
             
             if isIpad {
-                // On iPad, keep the sidebar open and show default view
                 showDefaultSheet = true
             } else {
-                // On iPhone, collapse the sheet to minimum
                 presentationDetent = .fraction(0.10)
                 showDefaultSheet = true
             }
@@ -291,6 +288,18 @@ extension View {
             transform(self)
         } else {
             self
+        }
+    }
+}
+
+// MARK: - Glass Effect Modifier for iOS 26.0+
+struct GlassEffectModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.glassEffect()
+        } else {
+            content.background(Color(.systemGray5))
+            content.clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
 }
