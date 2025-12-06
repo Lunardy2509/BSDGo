@@ -114,7 +114,7 @@ extension MapView {
                 Spacer()
             }
             .padding(.leading, 12)
-            .padding(.top, 5)
+            .padding(.top, 16)
         }
     }
     
