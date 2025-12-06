@@ -37,26 +37,18 @@ struct DefaultSheetView: View {
         }
         .onAppear {
             viewModel.refreshStops(from: busStops, userLocation: locationManager.lastLocation)
-            busStops = viewModel.updateDistances(for: busStops, from: locationManager.lastLocation)
             viewModel.fetchRecentSearches(context)
         }
         .onChange(of: locationManager.lastLocation) {
             guard let newLocation = locationManager.lastLocation else { return }
             viewModel.refreshStops(from: busStops, userLocation: newLocation)
-            busStops = viewModel.updateDistances(for: busStops, from: newLocation)
             locationManager.updateWidgetWithClosestStops()
         }
     }
     
     private var defaultSection: some View {
         Group {
-            VStack(alignment: .leading, spacing: 8){
-                if !searchText.isEmpty {}
-                else {
-                    Text("Closest Bus Stops")
-                        .font(.title2.bold())
-                        .padding(.horizontal)
-                }
+            VStack(alignment: .leading, spacing: 8) {
                 if searchText.isEmpty, !viewModel.closestStops.isEmpty {
                     viewModel.closestStopsList { handleBusStopSelection($0) }
                 }
@@ -64,15 +56,13 @@ struct DefaultSheetView: View {
             .padding(.top, 15)
             
             VStack(alignment: .leading, spacing: 8) {
-                if !searchText.isEmpty {}
-                else {
-                    Text("Bus Stops List")
-                        .font(.title2.bold())
-                        .padding(.horizontal)
-                }
                 if searchText.isEmpty && !viewModel.recentSearches.isEmpty {
                     viewModel.recentSearchList(recentSearches: viewModel.recentSearches) { handleBusStopSelection($0)
                     }
+                } else {
+                    Text("Bus Stops List")
+                        .font(.title2.bold())
+                        .padding(.horizontal)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -164,8 +154,8 @@ struct SearchRow: View {
             .cornerRadius(12)
             .contentShape(RoundedRectangle(cornerRadius: 12))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(DefaultButtonStyle())
+        .tint(.primary)
         .padding(.horizontal)
     }
 }
-

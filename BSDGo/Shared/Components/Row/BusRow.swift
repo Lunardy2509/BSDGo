@@ -10,7 +10,7 @@ struct BusRow: View {
     var body: some View {
         Button(action: {
             onTap(bus.number, bus.name)
-        }) {
+        }, label: {
             HStack(alignment: .center, spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(bus.name)
@@ -39,7 +39,8 @@ struct BusRow: View {
             .background(Color(UIColor.secondarySystemBackground))
             .cornerRadius(12)
             .contentShape(RoundedRectangle(cornerRadius: 12))
-        }
-        .buttonStyle(.plain)
+        })
+        .buttonStyle(DefaultButtonStyle())
+        .tint(.primary)
     }
 }

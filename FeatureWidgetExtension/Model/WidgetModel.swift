@@ -11,10 +11,9 @@ struct WidgetModel: Codable, Hashable {
 
 func formatDistance(_ meters: CLLocationDistance) -> String {
     if meters >= 1000 {
-        let km = meters / 1000
-        return String(format: "%.1f km", km)
+        let kilometers = meters / 1000
+        return String(format: "%.1f km", kilometers)
     } else {
         return "\(Int(meters)) m"
     }
 }
-

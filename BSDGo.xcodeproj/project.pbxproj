@@ -10,6 +10,7 @@
 		BD103AF22DD5EED50098F994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1038F22DD5AFC80098F994 /* WidgetKit.framework */; };
 		BD103AF32DD5EED50098F994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1038F42DD5AFC80098F994 /* SwiftUI.framework */; };
 		BD39ACC82E3D59BF00FF518C /* BSDGoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */; };
+		BD4419FF2EA015CD00563891 /* BSDGoPushNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD4419F82EA015CD00563891 /* BSDGoPushNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BD9904152E0D05FC0070C495 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,13 @@
 			remoteGlobalIDString = BD103AF02DD5EED50098F994;
 			remoteInfo = FeatureWidgetExtension;
 		};
+		BD4419FD2EA015CD00563891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A685DAC2D88083C0053791C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD4419F72EA015CD00563891;
+			remoteInfo = BSDGoPushNotification;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +53,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				BD9904152E0D05FC0070C495 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */,
+				BD4419FF2EA015CD00563891 /* BSDGoPushNotification.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,9 +68,17 @@
 		BD1038F42DD5AFC80098F994 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeatureWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BSDGoApp.swift; path = BSDGo/BSDGoApp.swift; sourceTree = "<group>"; };
+		BD4419F82EA015CD00563891 /* BSDGoPushNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BSDGoPushNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BD441A032EA015CD00563891 /* Exceptions for "BSDGoPushNotification" folder in "BSDGoPushNotification" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BD4419F72EA015CD00563891 /* BSDGoPushNotification */;
+		};
 		BDBE52322E3E72EE00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "FeatureWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -165,6 +182,14 @@
 			path = BSDGo/Shared;
 			sourceTree = "<group>";
 		};
+		BD4419F92EA015CD00563891 /* BSDGoPushNotification */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BD441A032EA015CD00563891 /* Exceptions for "BSDGoPushNotification" folder in "BSDGoPushNotification" target */,
+			);
+			path = BSDGoPushNotification;
+			sourceTree = "<group>";
+		};
 		BDC6D1892DD63BE6004209DD /* FeatureWidgetExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -172,6 +197,11 @@
 				BDBE52322E3E72EE00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "FeatureWidgetExtension" target */,
 			);
 			path = FeatureWidgetExtension;
+			sourceTree = "<group>";
+		};
+		BDC7E86D2EA29797009DF245 /* BSDGoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BSDGoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -207,12 +237,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD4419F52EA015CD00563891 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		4A685DAB2D88083C0053791C = {
 			isa = PBXGroup;
 			children = (
+				BDC7E86D2EA29797009DF245 /* BSDGoTests */,
 				BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */,
 				BD39ACE52E3D5D5300FF518C /* Core */,
 				BD39ACDA2E3D5D4B00FF518C /* Features */,
@@ -220,6 +258,7 @@
 				BD39AD002E3D5D5C00FF518C /* Resources */,
 				BD39AD4E2E3D619700FF518C /* Shared */,
 				BDC6D1892DD63BE6004209DD /* FeatureWidgetExtension */,
+				BD4419F92EA015CD00563891 /* BSDGoPushNotification */,
 				BD1038F12DD5AFC80098F994 /* Frameworks */,
 				4A685DB52D88083C0053791C /* Products */,
 			);
@@ -232,6 +271,7 @@
 				4A685DC62D88083E0053791C /* BSDGoTests.xctest */,
 				4A685DD02D88083E0053791C /* BSDGoUITests.xctest */,
 				BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */,
+				BD4419F82EA015CD00563891 /* BSDGoPushNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,11 +296,13 @@
 				4A685DB12D88083C0053791C /* Frameworks */,
 				4A685DB22D88083C0053791C /* Resources */,
 				BD1039032DD5AFC90098F994 /* Embed Foundation Extensions */,
+				BD93A0CA2E6C10D800C71E86 /* Run Script */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				BD103AFF2DD5EED60098F994 /* PBXTargetDependency */,
+				BD4419FE2EA015CD00563891 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				BD39ACDA2E3D5D4B00FF518C /* Features */,
@@ -288,6 +330,9 @@
 			);
 			dependencies = (
 				4A685DC82D88083E0053791C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BDC7E86D2EA29797009DF245 /* BSDGoTests */,
 			);
 			name = BSDGoTests;
 			packageProductDependencies = (
@@ -338,6 +383,28 @@
 			productReference = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		BD4419F72EA015CD00563891 /* BSDGoPushNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD441A002EA015CD00563891 /* Build configuration list for PBXNativeTarget "BSDGoPushNotification" */;
+			buildPhases = (
+				BD4419F42EA015CD00563891 /* Sources */,
+				BD4419F52EA015CD00563891 /* Frameworks */,
+				BD4419F62EA015CD00563891 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BD4419F92EA015CD00563891 /* BSDGoPushNotification */,
+			);
+			name = BSDGoPushNotification;
+			packageProductDependencies = (
+			);
+			productName = BSDGoPushNotification;
+			productReference = BD4419F82EA015CD00563891 /* BSDGoPushNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -345,8 +412,8 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1640;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					4A685DB32D88083C0053791C = {
 						CreatedOnToolsVersion = 16.2;
@@ -362,6 +429,9 @@
 					BD103AF02DD5EED50098F994 = {
 						CreatedOnToolsVersion = 16.3;
 					};
+					BD4419F72EA015CD00563891 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = 4A685DAF2D88083C0053791C /* Build configuration list for PBXProject "BSDGo" */;
@@ -370,9 +440,13 @@
 			knownRegions = (
 				en,
 				Base,
+				id,
 			);
 			mainGroup = 4A685DAB2D88083C0053791C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BD93A0C92E6C10BF00C71E86 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4A685DB52D88083C0053791C /* Products */;
 			projectDirPath = "";
@@ -382,6 +456,7 @@
 				4A685DC52D88083E0053791C /* BSDGoTests */,
 				4A685DCF2D88083E0053791C /* BSDGoUITests */,
 				BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */,
+				BD4419F72EA015CD00563891 /* BSDGoPushNotification */,
 			);
 		};
 /* End PBXProject section */
@@ -415,7 +490,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD4419F62EA015CD00563891 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BD93A0CA2E6C10D800C71E86 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint t installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4A685DB02D88083C0053791C /* Sources */ = {
@@ -447,6 +552,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD4419F42EA015CD00563891 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -464,6 +576,11 @@
 			isa = PBXTargetDependency;
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 			targetProxy = BD103AFE2DD5EED60098F994 /* PBXContainerItemProxy */;
+		};
+		BD4419FE2EA015CD00563891 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD4419F72EA015CD00563891 /* BSDGoPushNotification */;
+			targetProxy = BD4419FD2EA015CD00563891 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -505,7 +622,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -526,6 +643,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -568,7 +686,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -582,6 +700,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -595,7 +714,7 @@
 				CODE_SIGN_ENTITLEMENTS = BSDGo/Core/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -615,7 +734,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -637,7 +756,7 @@
 				CODE_SIGN_ENTITLEMENTS = BSDGo/Core/BSDGo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"BSDGo/Preview Content\"";
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
@@ -657,7 +776,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo";
 				PRODUCT_NAME = BSDGo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -749,20 +868,21 @@
 				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension/FeatureWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeatureWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -785,20 +905,21 @@
 				CODE_SIGN_ENTITLEMENTS = FeatureWidgetExtension/FeatureWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeatureWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FeatureWidget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -807,6 +928,64 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BD441A012EA015CD00563891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BSDGoPushNotification/BSDGoPushNotification.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = 84KMF7PD4V;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BSDGoPushNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BSDGoPushNotification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.BSDGoPushNotification";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BD441A022EA015CD00563891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BSDGoPushNotification/BSDGoPushNotification.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = 84KMF7PD4V;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BSDGoPushNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BSDGoPushNotification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.origin-lun.BSDGo.BSDGoPushNotification";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -861,7 +1040,27 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		BD441A002EA015CD00563891 /* Build configuration list for PBXNativeTarget "BSDGoPushNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD441A012EA015CD00563891 /* Debug */,
+				BD441A022EA015CD00563891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD93A0C92E6C10BF00C71E86 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.60.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 4A685DAC2D88083C0053791C /* Project object */;
 }

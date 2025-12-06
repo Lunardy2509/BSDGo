@@ -1,0 +1,305 @@
+import SwiftUI
+import MapKit
+
+// MARK: - MapView Layout Extensions
+extension MapView {
+    @ViewBuilder
+    var iPadLayoutView: some View {
+        HStack(spacing: 0) {
+            // Sidebar for iPad
+            if isSheetShown {
+                VStack {
+                    sheetContentView
+                }
+                .frame(width: 375)
+                .background(
+                    Color(.systemBackground)
+                        .if(isIpad) { view in
+                            view.onTapGesture {
+                                resetSelection()
+                            }
+                        }
+                )
+                .transition(.move(edge: .leading))
+            }
+            
+            // Map view
+            mapContainerView
+        }
+        .animation(.easeInOut(duration: 0.3), value: isSheetShown)
+    }
+    
+    @ViewBuilder
+    var iPhoneLayoutView: some View {
+        ZStack {
+            MapUIViewRepresentable(
+                userLocation: $userLocation,
+                userHeading: $userHeading,
+                shouldRecenter: $shouldRecenter
+            )
+            .edgesIgnoringSafeArea(.all)
+
+            mapView
+                .onAppear(perform: setupInitialLocation)
+                .onChange(of: locationManager.lastLocation) {
+                    handleLocationChange()
+                }
+                .onChange(of: locationManager.debouncedHeading) {
+                    userHeading = locationManager.debouncedHeading
+                }
+                .if(isIpad) { view in
+                    view.highPriorityGesture(
+                        TapGesture().onEnded {
+                            resetSelection()
+                        }
+                    )
+                }
+                .toolbar(.hidden, for: .navigationBar)
+                .sheet(isPresented: $isSheetShown) {
+                    sheetContentView
+                }
+        }
+    }
+    
+    @ViewBuilder
+    var mapContainerView: some View {
+        ZStack {
+            MapUIViewRepresentable(
+                userLocation: $userLocation,
+                userHeading: $userHeading,
+                shouldRecenter: $shouldRecenter
+            )
+            .edgesIgnoringSafeArea(.all)
+
+            mapView
+                .onAppear(perform: setupInitialLocation)
+                .onChange(of: locationManager.lastLocation) {
+                    handleLocationChange()
+                }
+                .onChange(of: locationManager.debouncedHeading) {
+                    userHeading = locationManager.debouncedHeading
+                }
+                .toolbar(.hidden, for: .navigationBar)
+        }
+    }
+
+    @ViewBuilder
+    var mapView: some View {
+        Map(position: $defaultPosition, bounds: mapBounds) {
+            UserAnnotation()
+
+            ForEach(busStopsManager.busStops, id: \.id) { stop in
+                Annotation(stop.name, coordinate: stop.coordinate) {
+                    StopAnnotation(isSelected: selectedBusStop.id == stop.id)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            handleStopSelection(stop)
+                        }
+                }
+            }
+        }
+        .mapStyle(mapStyle)
+        .onTapGesture {
+            resetSelection()
+        }
+        .mapControls {
+            MapScaleView()
+            MapUserLocationButton()
+            MapPitchToggle()
+            MapCompass()
+        }
+        .safeAreaInset(edge: .leading, spacing: 0) {
+            VStack(spacing: 8) {
+                mapStyleButton
+                Spacer()
+            }
+            .padding(.leading, 12)
+            .padding(.top, 16)
+        }
+    }
+    
+    @ViewBuilder
+    var mapStyleButton: some View {
+        Button(action: {
+            // Simple toggle between Standard and Satellite for testing
+            // Use the showMapStyleOptions as a toggle state
+            showMapStyleOptions.toggle()
+            if showMapStyleOptions {
+                mapStyle = .imagery(elevation: .realistic)
+            } else {
+                mapStyle = .standard(elevation: .automatic)
+            }
+        }, label: {
+            Image(systemName: "map")
+                .font(.title2)
+                .foregroundColor(.orange)
+                .frame(width: 45, height: 45)
+                .modifier(GlassEffectModifier())
+        })
+    }
+}
+
+// MARK: - Sheet Content Extension
+extension MapView {
+    
+    @ViewBuilder
+    var sheetContentView: some View {
+        switch selectedSheet {
+        case .defaultView:
+            DefaultSheetView(
+                busStops: $busStopsManager.busStops,
+                searchText: $searchText,
+                selectionDetent: $presentationDetent,
+                defaultPosition: $defaultPosition,
+                selectedSheet: $selectedSheet,
+                showDefaultSheet: $showDefaultSheet,
+                showStopDetailSheet: $showStopDetailSheet,
+                showRouteDetailSheet: $showRouteDetailSheet,
+                selectedBusStop: $selectedBusStop,
+                selectedBusNumber: $selectedBusNumber,
+                onCancel: resetSheet
+            )
+            .environmentObject(locationManager)
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents(
+                        [.fraction(0.10), .fraction(0.40), .medium, .fraction(0.99)],
+                        selection: $presentationDetent
+                    )
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+                    .interactiveDismissDisabled()
+            }
+
+        case .busStopDetailView:
+            BusStopDetailView(
+                currentBusStop: $selectedBusStop,
+                showRouteDetailSheet: $showRouteDetailSheet,
+                showStopDetailSheet: $showStopDetailSheet,
+                selectedBusNumber: $selectedBusNumber,
+                selectedBusName: $selectedBusName,
+                selectedSheet: $selectedSheet
+            )
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents([.fraction(0.35), .medium, .fraction(0.99)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+            }
+
+        case .routeDetailView:
+            BusRouteView(
+                viewModel: BusRouteViewModel(
+                    name: selectedBusName,
+                    busNumber: selectedBusNumber,
+                    currentStopName: UserDefaults.standard.string(forKey: "userStopName") ?? ""
+                ),
+                currentBusStop: $selectedBusStop,
+                showRouteDetailSheet: $showRouteDetailSheet,
+                selectedSheet: $selectedSheet
+            )
+            .if(!isIpad) { view in
+                view
+                    .presentationDetents([.fraction(0.99)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled)
+            }
+        }
+    }
+}
+
+// MARK: - Helper Methods
+extension MapView {
+    func updateUserLocationIfNeeded(_ newLocation: CLLocation) {
+        let distance = newLocation.distance(from: CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude))
+        if distance > 5 {
+            userLocation = newLocation.coordinate
+        }
+    }
+    
+    func setupInitialLocation() {
+        if let location = locationManager.lastLocation {
+            userLocation = location.coordinate
+        }
+        userHeading = locationManager.debouncedHeading
+    }
+    
+    func handleLocationChange() {
+        if let location = locationManager.lastLocation {
+            userLocation = location.coordinate
+            handleLocationUpdate()
+        }
+        userHeading = locationManager.debouncedHeading
+    }
+
+    func handleStopSelection(_ stop: BusStop) {
+        let result = viewModel.handleTapGesture(
+            on: stop,
+            currentSelection: selectedBusStop
+        )
+
+        selectedBusStop = stop
+        selectedSheet = result.sheetType
+        showDefaultSheet = result.showDefaultSheet
+        presentationDetent = result.detent
+
+        withAnimation(.easeInOut(duration: 0.5)) {
+            defaultPosition = .region(result.region)
+            showStopDetailSheet = result.showDetailSheet
+        }
+    }
+
+    func handleLocationUpdate() {
+        guard let location = locationManager.lastLocation else { return }
+        viewModel.handleLocationUpdate(location: location, allStops: busStopsManager.busStops, locationManager: locationManager)
+    }
+
+    func resetSelection() {
+        if selectedBusStop.id != UUID() {
+            selectedBusStop = BusStop()
+            selectedSheet = .defaultView
+            showStopDetailSheet = false
+            
+            if isIpad {
+                showDefaultSheet = true
+            } else {
+                presentationDetent = .fraction(0.10)
+                showDefaultSheet = true
+            }
+        }
+    }
+
+    func resetSheet() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            isSheetShown = true
+            showDefaultSheet = true
+            showStopDetailSheet = false
+            showRouteDetailSheet = false
+            presentationDetent = .fraction(0.40)
+            selectedSheet = .defaultView
+        }
+    }
+}
+
+// MARK: - Helper Extension
+extension View {
+    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+}
+
+// MARK: - Glass Effect Modifier for iOS 26.0+
+struct GlassEffectModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.glassEffect()
+        } else {
+            content.background(Color(.systemGray5))
+            content.clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+    }
+}

@@ -11,4 +11,3 @@ struct TitleCard: View {
             .padding(.horizontal, 20)
     }
 }
-

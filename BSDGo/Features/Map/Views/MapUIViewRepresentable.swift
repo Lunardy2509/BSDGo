@@ -41,5 +41,5 @@ struct MapUIViewRepresentable: UIViewRepresentable {
         Coordinator()
     }
 
-    class Coordinator: NSObject, MKMapViewDelegate { }
+    final class Coordinator: NSObject, MKMapViewDelegate { }
 }

@@ -7,7 +7,6 @@ struct BusSchedule: Identifiable, Codable {
     let timeOfArrival: String
     let session: Int
     
-
     enum CodingKeys: String, CodingKey { 
         case busStopName = "bus_stop_name" 
         case busNumber = "bus_number" 

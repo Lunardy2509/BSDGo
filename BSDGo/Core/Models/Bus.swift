@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct Bus: Identifiable, Decodable{
+struct Bus: Identifiable, Decodable {
     let id: UUID
     let name: String
     let number: Int
@@ -80,7 +80,12 @@ struct AdaptiveColor {
     
     static func fromHex(light: String, dark: String? = nil) -> AdaptiveColor {
         let lightColor = Color(hex: light) ?? .gray
-        let darkColor = dark != nil ? (Color(hex: dark!) ?? .gray) : lightColor.darker()
+        let darkColor: Color
+        if let darkHex = dark {
+            darkColor = Color(hex: darkHex) ?? .gray
+        } else {
+            darkColor = lightColor.darker()
+        }
         return AdaptiveColor(light: lightColor, dark: darkColor)
     }
 }

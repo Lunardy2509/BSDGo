@@ -1,4 +1,17 @@
 import SwiftUI
+import Foundation
+import UserNotifications
+
+#if os(iOS)
+import UIKit
+#endif
+
+// MARK: - Helper Structures
+struct StopRowContext {
+    let busIndex: Int
+    let userIndex: Int
+    let totalCount: Int
+}
 
 struct BusRouteView: View {
     @StateObject var viewModel: BusRouteViewModel
@@ -12,12 +25,18 @@ struct BusRouteView: View {
     @Environment(\.dismiss) private var dismiss
     
     private var isIpad: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad
+        #if os(iOS)
+        return UIDevice.current.userInterfaceIdiom == .pad
+        #else
+        return false
+        #endif
     }
     
     var body: some View {
         VStack(spacing: 12) {
             headerView
+            
+            alertSection
             
             let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
             
@@ -40,7 +59,7 @@ struct BusRouteView: View {
                     .pickerStyle(MenuPickerStyle())
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(Color(UIColor.secondarySystemBackground))
+                    .background(Color(.secondarySystemBackground))
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
@@ -81,16 +100,18 @@ struct BusRouteView: View {
                     ScrollViewReader { proxy in
                         ScrollView {
                             VStack(alignment: .leading, spacing: 16) {
-                                ForEach(Array(stops.enumerated()), id: \.offset) { idx, stop in
-                                    buildStopRow(
-                                        index: idx,
-                                        stop: stop,
+                            ForEach(Array(stops.enumerated()), id: \.offset) { idx, stop in
+                                buildStopRow(
+                                    index: idx,
+                                    stop: stop,
+                                    context: StopRowContext(
                                         busIndex: busIndex,
                                         userIndex: userIndex,
-                                        totalCount: stops.count,
-                                        scrollProxy: proxy
-                                    )
-                                }
+                                        totalCount: stops.count
+                                    ),
+                                    scrollProxy: proxy
+                                )
+                            }
                             }
                             .padding()
                         }
@@ -116,106 +137,6 @@ struct BusRouteView: View {
             // Use the ViewModel's safe method to update session index
             let sessionsToShow = showAllSessions ? viewModel.allSessions : viewModel.upcomingSessions
             viewModel.updateSessionIndexForArrayChange(newArrayCount: sessionsToShow.count, showingAllSessions: showAllSessions)
-        }
-    }
-    
-    private var headerView: some View {
-        HStack {
-            Text(viewModel.name)
-                .font(.title2.bold())
-            Spacer()
-            dismissButton
-        }
-        .padding(.horizontal)
-        .padding(.top, 30)
-        .padding(.bottom, 10)
-    }
-    
-    private var dismissButton: some View {
-        Button(action: {
-            selectedSheet = .defaultView
-            currentBusStop = BusStop()
-            showRouteDetailSheet = false
-            // Only dismiss on iPhone, on iPad this will just update the sidebar content
-            if !isIpad {
-                dismiss()
-            }
-        }) {
-            Image(systemName: "xmark.circle.fill")
-                .resizable()
-                .frame(width: 24, height: 24)
-                .foregroundColor(.gray)
-        }
-    }
-    
-    @ViewBuilder
-    private func buildStopRow(index idx: Int, stop: BusSchedule, busIndex: Int, userIndex: Int, totalCount: Int, scrollProxy: ScrollViewProxy) -> some View {
-        let status = viewModel.stopStatus(for: stop.timeOfArrival)
-        let isBusHere = idx == busIndex
-        let isUserHere = stop.busStopName == viewModel.currentStopName
-        let isUserArrived = isBusHere && isUserHere
-        
-        if idx > busIndex && idx < userIndex && !viewModel.isExpanded {
-            if idx == busIndex + 1 {
-                HStack {
-                    Button(action: {
-                        withAnimation(.interpolatingSpring(stiffness: 300, damping: 10)) {
-                            viewModel.isExpanded = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            withAnimation {
-                                scrollProxy.scrollTo(busIndex, anchor: .top)
-                            }
-                        }
-                    }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "chevron.down")
-                            Text("\(userIndex - busIndex - 1) stops remaining")
-                        }
-                        .font(.headline)
-                        .foregroundColor(.gray)
-                        .padding(.horizontal, 25)
-                    }
-                    Spacer()
-                }
-            }
-        }
-        
-        if idx == userIndex && viewModel.isExpanded {
-            HStack {
-                Button(action: {
-                    withAnimation(.interpolatingSpring(stiffness: 300, damping: 10)) {
-                        viewModel.isExpanded = false
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        withAnimation {
-                            scrollProxy.scrollTo(busIndex, anchor: .top)
-                        }
-                    }
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "chevron.up")
-                        Text("Hide stops")
-                    }
-                    .font(.headline)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 25)
-                }
-                Spacer()
-            }
-        }
-        
-        if viewModel.isExpanded || !(idx > busIndex && idx < userIndex) {
-            StopRowView(
-                stop: stop,
-                status: status,
-                isBusHere: isBusHere,
-                isUserHere: isUserHere,
-                isUserArrived: isUserArrived,
-                showConnector: idx < totalCount - 1,
-                progress: isBusHere ? viewModel.animationProgress : 0
-            )
-            .id(idx)
         }
     }
 }

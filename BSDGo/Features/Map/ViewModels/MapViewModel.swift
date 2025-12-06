@@ -5,8 +5,18 @@ import UIKit
 import WidgetKit
 
 @MainActor
-class MapViewModel: ObservableObject {
+final class MapViewModel: ObservableObject {
     func generateMapSnapshot(userLocation: CLLocation, stops: [BusStop], size: CGSize, fileName: String) {
+        let options = configureMapOptions(userLocation: userLocation, size: size, fileName: fileName)
+        let snapshotter = MKMapSnapshotter(options: options)
+        
+        snapshotter.start { snapshot, _ in
+            guard let snapshot = snapshot else { return }
+            self.processSnapshot(snapshot, userLocation: userLocation, stops: stops, options: options, fileName: fileName)
+        }
+    }
+    
+    private func configureMapOptions(userLocation: CLLocation, size: CGSize, fileName: String) -> MKMapSnapshotter.Options {
         let options = MKMapSnapshotter.Options()
         
         // Apply offset only for medium widget
@@ -25,55 +35,55 @@ class MapViewModel: ObservableObject {
         )
         options.size = size
         options.scale = UIScreen.main.scale
+        
+        return options
+    }
+    
+    private func processSnapshot(_ snapshot: MKMapSnapshotter.Snapshot, userLocation: CLLocation, stops: [BusStop], options: MKMapSnapshotter.Options, fileName: String) {
+        UIGraphicsBeginImageContextWithOptions(options.size, false, 0)
+        snapshot.image.draw(at: .zero)
 
-        let snapshotter = MKMapSnapshotter(options: options)
-        snapshotter.start { snapshot, error in
-            guard let snapshot = snapshot else {
-                return
+        guard UIGraphicsGetCurrentContext() != nil else { return }
+
+        drawUserAnnotation(snapshot: snapshot, userLocation: userLocation)
+        drawStopAnnotations(snapshot: snapshot, stops: stops)
+        saveSnapshotImage(fileName: fileName)
+    }
+    
+    private func drawUserAnnotation(snapshot: MKMapSnapshotter.Snapshot, userLocation: CLLocation) {
+        let userPoint = snapshot.point(for: userLocation.coordinate)
+        let userImage = UserAnnotationRenderer.generateImage(size: 30)
+        let userRect = CGRect(x: userPoint.x - 15, y: userPoint.y - 15, width: 30, height: 30)
+        userImage.draw(in: userRect)
+    }
+    
+    private func drawStopAnnotations(snapshot: MKMapSnapshotter.Snapshot, stops: [BusStop]) {
+        for stop in stops.prefix(2) {
+            let point = snapshot.point(for: stop.coordinate)
+            let stopIcon = UIImage(systemName: "mappin.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            if let icon = stopIcon {
+                Self.drawStyledPin(
+                    at: point,
+                    icon: icon,
+                    backgroundColor: UIColor(red: 239/255, green: 140/255, blue: 0/255, alpha: 1),
+                    label: stop.name
+                )
             }
+        }
+    }
+    
+    private func saveSnapshotImage(fileName: String) {
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
 
-            UIGraphicsBeginImageContextWithOptions(options.size, false, 0)
-            snapshot.image.draw(at: .zero)
-
-            guard UIGraphicsGetCurrentContext() != nil else {
-                return
-            }
-
-            let userPoint = snapshot.point(for: userLocation.coordinate)
-            let userImage = UserAnnotationRenderer.generateImage(size: 30)
-            let userRect = CGRect(
-                x: userPoint.x - 15,
-                y: userPoint.y - 15,
-                width: 30,
-                height: 30
-            )
-            userImage.draw(in: userRect)
-
-            for stop in stops.prefix(2) {
-                let point = snapshot.point(for: stop.coordinate)
-                let stopIcon = UIImage(systemName: "mappin.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-                if let icon = stopIcon {
-                    Self.drawStyledPin(
-                        at: point,
-                        icon: icon,
-                        backgroundColor: UIColor(red: 239/255, green: 140/255, blue: 0/255, alpha: 1),
-                        label: stop.name
-                    )
-                }
-            }
-
-            let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-
-            if let data = finalImage?.pngData(),
-               let url = FileManager.default
-                   .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.BSDGo")?
-                   .appendingPathComponent(fileName) {
-                do {
-                    try data.write(to: url)
-                } catch {
-                }
-            } else {
+        if let data = finalImage?.pngData(),
+           let url = FileManager.default
+               .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.BSDGo")?
+               .appendingPathComponent(fileName) {
+            do {
+                try data.write(to: url)
+            } catch {
+                // Handle error silently
             }
         }
     }
@@ -102,18 +112,42 @@ class MapViewModel: ObservableObject {
         generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 430, height: 400), fileName: "mapSnapshot_large.png")
     }
     
+    struct AnnotationTapResult {
+        let selectedStop: BusStop
+        let sheetType: SheetType
+        let showDefaultSheet: Bool
+        let detent: PresentationDetent
+    }
     
-    func handleAnnotationTap(on stop: BusStop, currentSelection: BusStop?) -> (BusStop, SheetType, Bool, PresentationDetent) {
+    func handleAnnotationTap(on stop: BusStop, currentSelection: BusStop?) -> AnnotationTapResult {
         if currentSelection?.id == stop.id {
-            return (BusStop(), .defaultView, true, .fraction(0.10))
+            return AnnotationTapResult(
+                selectedStop: BusStop(),
+                sheetType: .defaultView,
+                showDefaultSheet: true,
+                detent: .fraction(0.10)
+            )
         } else {
-            return (stop, .busStopDetailView, false, .medium)
+            return AnnotationTapResult(
+                selectedStop: stop,
+                sheetType: .busStopDetailView,
+                showDefaultSheet: false,
+                detent: .medium
+            )
         }
     }
     
-    func handleTapGesture(on stop: BusStop, currentSelection: BusStop?) -> (MKCoordinateRegion, Bool, Bool, SheetType, PresentationDetent) {
+    struct TapGestureResult {
+        let region: MKCoordinateRegion
+        let showDetailSheet: Bool
+        let showDefaultSheet: Bool
+        let sheetType: SheetType
+        let detent: PresentationDetent
+    }
+    
+    func handleTapGesture(on stop: BusStop, currentSelection: BusStop?) -> TapGestureResult {
         let unwrappedSelection = currentSelection ?? stop
-        let (_, newSheet, newDefaultSheet, newDetent) = handleAnnotationTap(on: stop, currentSelection: unwrappedSelection)
+        let annotationResult = handleAnnotationTap(on: stop, currentSelection: unwrappedSelection)
         
         let newRegion = MKCoordinateRegion(
             center: stop.coordinate,
@@ -121,9 +155,15 @@ class MapViewModel: ObservableObject {
             longitudinalMeters: 1000
         )
         
-        let showDetailSheet = newSheet == .busStopDetailView
+        let showDetailSheet = annotationResult.sheetType == .busStopDetailView
         
-        return (newRegion, showDetailSheet, newDefaultSheet, newSheet, newDetent)
+        return TapGestureResult(
+            region: newRegion,
+            showDetailSheet: showDetailSheet,
+            showDefaultSheet: annotationResult.showDefaultSheet,
+            sheetType: annotationResult.sheetType,
+            detent: annotationResult.detent
+        )
     }
     
     private static func drawStyledPin(

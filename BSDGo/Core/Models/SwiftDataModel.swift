@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-class RecentBusStop {
+final class RecentBusStop {
     @Attribute(.unique) var id: UUID
     var name: String
     var latitude: Double
