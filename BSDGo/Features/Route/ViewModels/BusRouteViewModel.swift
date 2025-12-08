@@ -39,11 +39,10 @@ final class BusRouteViewModel: ObservableObject {
     func updateSessionIndexForArrayChange(newArrayCount: Int, showingAllSessions: Bool) {
         let maxValidIndex = max(newArrayCount - 1, 0)
         if _selectedSessionIndex >= newArrayCount {
-                if newArrayCount == 0 {
-                    _selectedSessionIndex = 0
-                } else {
-                    _selectedSessionIndex = min(max(mainSessionIndex, 0), maxValidIndex)
-                }
+            if newArrayCount == 0 {
+                _selectedSessionIndex = 0
+            } else {
+                _selectedSessionIndex = min(max(mainSessionIndex, 0), maxValidIndex)
             }
         }
     }
@@ -54,15 +53,13 @@ final class BusRouteViewModel: ObservableObject {
     let name: String
     let busNumber: Int
     let currentStopName: String
-    let busSchedule: [BusSchedule]
-    let buses: [Bus]
+    lazy var busSchedule: [BusSchedule] = loadBusSchedules()
+    lazy var buses: [Bus] = loadBuses()
     
     init(name: String, busNumber: Int, currentStopName: String) {
         self.name = name
         self.busNumber = busNumber
         self.currentStopName = currentStopName
-        self.busSchedule = loadBusSchedules()
-        self.buses = loadBuses()
     }
     
     struct SessionInfo {
