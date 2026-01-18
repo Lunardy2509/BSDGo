@@ -121,8 +121,6 @@ extension MapView {
     @ViewBuilder
     var mapStyleButton: some View {
         Button(action: {
-            // Simple toggle between Standard and Satellite for testing
-            // Use the showMapStyleOptions as a toggle state
             showMapStyleOptions.toggle()
             if showMapStyleOptions {
                 mapStyle = .imagery(elevation: .realistic)
@@ -133,9 +131,10 @@ extension MapView {
             Image(systemName: "map")
                 .font(.title2)
                 .foregroundColor(.orange)
-                .frame(width: 45, height: 45)
-                .modifier(GlassEffectModifier())
         })
+        .frame(width: 45, height: 45)
+        .modifier(GlassEffectModifier())
+        .buttonStyle(.plain)
     }
 }
 
@@ -298,8 +297,9 @@ struct GlassEffectModifier: ViewModifier {
         if #available(iOS 26.0, *) {
             content.glassEffect()
         } else {
-            content.background(Color(.systemGray5))
-            content.clipShape(RoundedRectangle(cornerRadius: 8))
+            content
+                .background(.thinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
 }
