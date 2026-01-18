@@ -3,12 +3,16 @@ import WidgetKit
 import CoreLocation
 import Combine
 
+@MainActor
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     @Published var locationStatus: CLAuthorizationStatus?
     @Published var lastLocation: CLLocation?
     @Published var userHeading: CLLocationDirection = 0.0
     @Published var debouncedHeading: CLLocationDirection = 0.0
+    
+    private var cachedBusStops: [BusStop] = []
+    private var lastWidgetUpdateLocation: CLLocation?
     private var cancellables = Set<AnyCancellable>()
     
     override init() {
@@ -19,11 +23,20 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
+        Task.detached {
+            let stops = loadBusStops()
+            await MainActor.run {
+                self.cachedBusStops = stops
+            }
+        }
+        
         $userHeading
-                .removeDuplicates()
-                .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
-                .assign(to: \.debouncedHeading, on: self)
-                .store(in: &cancellables)
+            .removeDuplicates()
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .sink { [weak self] heading in
+                self?.debouncedHeading = heading
+            }
+            .store(in: &cancellables)
     }
     
     var statusString: String {
@@ -40,33 +53,25 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        locationStatus = status
-        print(#function, statusString)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        lastLocation = location
-        print(#function, location)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        userHeading = newHeading.trueHeading >= 0 ? newHeading.trueHeading : newHeading.magneticHeading
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location update failed: \(error.localizedDescription)")
-    }
-
     // MARK: - Handle WidgetModel
-        func updateWidgetWithClosestStops() {
-            // Load stops (ensure this file is in the app bundle)
-            let stops = loadBusStops()
+    func updateWidgetWithClosestStops() {
+        guard let currentLoc = lastLocation else { return }
+        
+        if let lastLoc = lastWidgetUpdateLocation {
+            let distanceMoved = currentLoc.distance(from: lastLoc)
+            // If we haven't moved 50m, stop here. Save resources.
+            if distanceMoved < 50 { return }
+        }
+        
+        let stops = self.cachedBusStops
+        if stops.isEmpty { return }
+        
+        self.lastWidgetUpdateLocation = currentLoc
+        
+        Task.detached(priority: .background) { [weak self] in
+            guard let self = self else { return }
             
-            guard let userLocation = lastLocation else { return }
-            
-            let widgetStops = convertToWidgetModel(from: stops, userLocation: userLocation)
+            let widgetStops = self.convertToWidgetModel(from: stops, userLocation: currentLoc)
             
             // Save to shared UserDefaults
             if let data = try? JSONEncoder().encode(widgetStops) {
@@ -77,21 +82,56 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
                 WidgetCenter.shared.reloadTimelines(ofKind: "FeatureWidget")
             }
         }
-        
-        func convertToWidgetModel(from stops: [BusStop], userLocation: CLLocation) -> [WidgetModel] {
-            return stops
-                .map { stop in
-                    let distance = CLLocation(latitude: stop.coordinate.latitude, longitude: stop.coordinate.longitude)
-                        .distance(from: userLocation)
-                    return (stop, distance)
-                }
-                .sorted { $0.1 < $1.1 }
-                .prefix(5)
-                .map { (stop, distance) in
-                    WidgetModel(
-                        name: stop.name,
-                        distanceText: formatDistance(distance)
-                    )
-                }
+    }
+    
+    nonisolated func convertToWidgetModel(from stops: [BusStop], userLocation: CLLocation) -> [WidgetModel] {
+        return stops
+            .map { stop in
+                let distance = CLLocation(latitude: stop.coordinate.latitude, longitude: stop.coordinate.longitude)
+                    .distance(from: userLocation)
+                return (stop, distance)
+            }
+            .sorted { $0.1 < $1.1 }
+            .prefix(5)
+            .map { (stop, distance) in
+                WidgetModel(
+                    name: stop.name,
+                    distanceText: formatDistance(distance)
+                )
+            }
+    }
+}
+
+// MARK: - Delegate Extension
+extension LocationManager {
+    
+    // nonisolated: Let the system call this from any thread without crashing
+    nonisolated func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        Task { @MainActor in
+            self.locationStatus = status
+            print("Auth status changed:", status)
         }
+    }
+    
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        
+        Task { @MainActor in
+            self.lastLocation = location
+            self.updateWidgetWithClosestStops()
+            print("Location updated:", location)
+        }
+    }
+    
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        let heading = newHeading.trueHeading >= 0 ? newHeading.trueHeading : newHeading.magneticHeading
+        
+        Task { @MainActor in
+            self.userHeading = heading
+        }
+    }
+    
+    nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location update failed: \(error.localizedDescription)")
+    }
 }

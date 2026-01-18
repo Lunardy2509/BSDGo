@@ -135,6 +135,7 @@ extension MapView {
         .frame(width: 45, height: 45)
         .modifier(GlassEffectModifier())
         .buttonStyle(.plain)
+        .environment(\.colorScheme, showMapStyleOptions ? .dark : .light)
     }
 }
 
@@ -295,7 +296,8 @@ extension View {
 struct GlassEffectModifier: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
-            content.glassEffect()
+            content
+                .glassEffect()
         } else {
             content
                 .background(.thinMaterial)
