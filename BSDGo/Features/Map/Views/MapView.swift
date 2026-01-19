@@ -58,6 +58,8 @@ struct MapView: View {
     @State var selectedBus: Bus = Bus()
     @State var selectedBusName: String = ""
     @State var selectedBusNumber: Int = 0
+    
+    @Environment(\.colorScheme) var systemScheme
 
     @Query(sort: \RecentBusStop.timestamp, order: .reverse) var recentSearches: [RecentBusStop]
 

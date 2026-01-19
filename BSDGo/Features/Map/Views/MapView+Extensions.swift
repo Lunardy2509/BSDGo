@@ -134,8 +134,8 @@ extension MapView {
         })
         .frame(width: 45, height: 45)
         .modifier(GlassEffectModifier())
-        .buttonStyle(.plain)
-        .environment(\.colorScheme, showMapStyleOptions ? .dark : .light)
+        .buttonStyle(DefaultButtonStyle())
+        .environment(\.colorScheme, (systemScheme == .dark || showMapStyleOptions) ? .dark : .light)
     }
 }
 
