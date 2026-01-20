@@ -1,19 +1,28 @@
 import SwiftUI
-import SwiftData
 import UserNotifications
+import FirebaseCore
+
+final class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+
+    return true
+  }
+}
 
 @main
 struct BSDGoApp: App {
     
     init() {
-        // Initialize notification manager on app launch
         Task {
             await NotificationManager.shared.requestNotificationPermission()
         }
         
-        // Initialize Live Activity Manager
         _ = LiveActivityManager.shared
     }
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
         WindowGroup {

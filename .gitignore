@@ -78,6 +78,16 @@ DerivedData/
 
 build/
 
+### Node.js ###
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
 
 #####
 # Xcode private settings (window sizes, bookmarks, breakpoints, custom executables, smart groups)
@@ -215,3 +225,5 @@ xcuserdata/
 ####
 # UNKNOWN: recommended by others, but I can't discover what these files are
 #
+BSDGo/Resources/serviceAccountKey.json
+BSDGo/Resources/serviceAccountKey.json

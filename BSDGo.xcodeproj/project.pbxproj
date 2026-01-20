@@ -11,6 +11,10 @@
 		BD103AF32DD5EED50098F994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1038F42DD5AFC80098F994 /* SwiftUI.framework */; };
 		BD39ACC82E3D59BF00FF518C /* BSDGoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */; };
 		BD4419FF2EA015CD00563891 /* BSDGoPushNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD4419F82EA015CD00563891 /* BSDGoPushNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BD86DAF22F1E9AFC007EF7A1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD86DAF12F1E9AFC007EF7A1 /* FirebaseAuth */; };
+		BD86DAF42F1E9AFC007EF7A1 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = BD86DAF32F1E9AFC007EF7A1 /* FirebaseCore */; };
+		BD86DAF62F1E9AFC007EF7A1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BD86DAF52F1E9AFC007EF7A1 /* FirebaseFirestore */; };
+		BD86DAF82F1E9AFC007EF7A1 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BD86DAF72F1E9AFC007EF7A1 /* FirebaseStorage */; };
 		BD9904152E0D05FC0070C495 /* FeatureWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -108,16 +112,6 @@
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
-		BDBE523F2E3E759900C5FD10 /* Exceptions for "Resources" folder in "BSDGo" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Data/Schedule/Schedule_Breeze.json,
-				Data/Schedule/Schedule_Intermoda_Sektor1.3.json,
-				Data/Schedule/Schedule_Vanya.json,
-				Data/stops.csv,
-			);
-			target = 4A685DB32D88083C0053791C /* BSDGo */;
-		};
 		BDBE52452E3E772600C5FD10 /* Exceptions for "Managers" folder in "FeatureWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -166,9 +160,6 @@
 		};
 		BD39AD002E3D5D5C00FF518C /* Resources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BDBE523F2E3E759900C5FD10 /* Exceptions for "Resources" folder in "BSDGo" target */,
-			);
 			name = Resources;
 			path = BSDGo/Resources;
 			sourceTree = "<group>";
@@ -211,6 +202,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD86DAF42F1E9AFC007EF7A1 /* FirebaseCore in Frameworks */,
+				BD86DAF82F1E9AFC007EF7A1 /* FirebaseStorage in Frameworks */,
+				BD86DAF22F1E9AFC007EF7A1 /* FirebaseAuth in Frameworks */,
+				BD86DAF62F1E9AFC007EF7A1 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +308,10 @@
 			);
 			name = BSDGo;
 			packageProductDependencies = (
+				BD86DAF12F1E9AFC007EF7A1 /* FirebaseAuth */,
+				BD86DAF32F1E9AFC007EF7A1 /* FirebaseCore */,
+				BD86DAF52F1E9AFC007EF7A1 /* FirebaseFirestore */,
+				BD86DAF72F1E9AFC007EF7A1 /* FirebaseStorage */,
 			);
 			productName = SwiftRide;
 			productReference = 4A685DB42D88083C0053791C /* BSDGo.app */;
@@ -413,7 +412,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					4A685DB32D88083C0053791C = {
 						CreatedOnToolsVersion = 16.2;
@@ -446,6 +445,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				BD93A0C92E6C10BF00C71E86 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				BD86DAF02F1E9AFC007EF7A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4A685DB52D88083C0053791C /* Products */;
@@ -590,6 +590,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -654,6 +655,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1052,6 +1054,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BD86DAF02F1E9AFC007EF7A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
 		BD93A0C92E6C10BF00C71E86 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint";
@@ -1061,6 +1071,29 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD86DAF12F1E9AFC007EF7A1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD86DAF02F1E9AFC007EF7A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		BD86DAF32F1E9AFC007EF7A1 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD86DAF02F1E9AFC007EF7A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		BD86DAF52F1E9AFC007EF7A1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD86DAF02F1E9AFC007EF7A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		BD86DAF72F1E9AFC007EF7A1 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD86DAF02F1E9AFC007EF7A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A685DAC2D88083C0053791C /* Project object */;
 }

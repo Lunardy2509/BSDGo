@@ -1,0 +1,23 @@
+{
+  "name": "momo",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">   <h1>🚍 BSDGo: BSD Link Companion App</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lunardy2509/swiftride-lun.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lunardy2509/swiftride-lun/issues"
+  },
+  "homepage": "https://github.com/Lunardy2509/swiftride-lun#readme",
+  "dependencies": {
+    "firebase-admin": "^13.6.0"
+  }
+}
