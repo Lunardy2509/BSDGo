@@ -23,12 +23,12 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
-        Task.detached {
-            let stops = loadBusStops()
-            await MainActor.run {
-                self.cachedBusStops = stops
-            }
-        }
+//        Task.detached {
+//            let stops = loadBusStops()
+//            await MainActor.run {
+//                self.cachedBusStops = stops
+//            }
+//        }
         
         $userHeading
             .removeDuplicates()
@@ -50,6 +50,26 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         case .authorizedAlways: return "Authorized Always"
         @unknown default:
             return "Unknown"
+        }
+    }
+    
+    // MARK: - Load Bus Stops
+    func loadBusStops() {
+        // Only fetch if we haven't already
+        guard cachedBusStops.isEmpty else { return }
+        
+        FirestoreManager.shared.fetchStops { [weak self] result in
+            Task { @MainActor in
+                switch result {
+                case .success(let stops):
+                    self?.cachedBusStops = stops
+                    if self?.lastLocation != nil {
+                        self?.updateWidgetWithClosestStops()
+                    }
+                case .failure(let error):
+                    print("LocationManager failed to load stops: \(error)")
+                }
+            }
         }
     }
     

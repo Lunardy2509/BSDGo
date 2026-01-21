@@ -3,6 +3,7 @@ import SwiftUI
 
 struct Bus: Identifiable, Decodable {
     let id: UUID
+    var firestoreID: String?
     let name: String
     let number: Int
     let licensePlate: String
@@ -18,7 +19,7 @@ struct Bus: Identifiable, Decodable {
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: Codnames.self)
-        id = UUID()
+        self.id = UUID()
         name = try container.decode(String.self, forKey: .name)
         number = try container.decode(Int.self, forKey: .number)
         licensePlate = try container.decode(String.self, forKey: .licensePlate)
@@ -107,19 +108,18 @@ extension Color {
         return self.opacity(1.0 - amount)
     }
 }
-
-func loadBuses() -> [Bus] {
-    guard let url = Bundle.main.url(forResource: "Bus", withExtension: "json") else {
-        print("Bus.json not found")
-        return []
-    }
-    
-    do {
-        let data = try Data(contentsOf: url)
-        let buses = try JSONDecoder().decode([Bus].self, from: data)
-        return buses
-    } catch {
-        print("Error reading Bus.json: \(error)")
-        return[]
-    }
-}
+// func loadBuses() -> [Bus] {
+//    guard let url = Bundle.main.url(forResource: "Bus", withExtension: "json") else {
+//        print("Bus.json not found")
+//        return []
+//    }
+//    
+//    do {
+//        let data = try Data(contentsOf: url)
+//        let buses = try JSONDecoder().decode([Bus].self, from: data)
+//        return buses
+//    } catch {
+//        print("Error reading Bus.json: \(error)")
+//        return[]
+//    }
+// }

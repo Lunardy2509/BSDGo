@@ -101,7 +101,7 @@ struct BusRouteView: View {
                     ScrollViewReader { proxy in
                         ScrollView {
                             VStack(alignment: .leading, spacing: 16) {
-                            ForEach(Array(stops.enumerated()), id: \.offset) { idx, stop in
+                            ForEach(Array(stops.enumerated()), id: \.element.id) { idx, stop in
                                 buildStopRow(
                                     index: idx,
                                     stop: stop,
@@ -110,7 +110,8 @@ struct BusRouteView: View {
                                         userIndex: userIndex,
                                         totalCount: stops.count
                                     ),
-                                    scrollProxy: proxy
+                                    scrollProxy: proxy,
+                                    stops: stops
                                 )
                             }
                             }

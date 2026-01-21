@@ -4,6 +4,12 @@ import UserNotifications
 
 @MainActor
 final class BusRouteViewModel: ObservableObject {
+    
+    // Load Data Models
+    @Published var buses: [Bus] = []
+    @Published var busSchedules: [BusSchedule] = []
+    @Published var isLoading = true
+    
     @Published var isExpanded: Bool = false
     @Published private var _selectedSessionIndex: Int = 0
     
@@ -53,13 +59,15 @@ final class BusRouteViewModel: ObservableObject {
     let name: String
     let busNumber: Int
     let currentStopName: String
-    lazy var busSchedule: [BusSchedule] = loadBusSchedules()
-    lazy var buses: [Bus] = loadBuses()
+//    lazy var busSchedules: [BusSchedule] = loadBusSchedules()
+//    lazy var buses: [Bus] = loadBuses()
     
     init(name: String, busNumber: Int, currentStopName: String) {
         self.name = name
         self.busNumber = busNumber
         self.currentStopName = currentStopName
+        
+        loadData()
     }
     
     struct SessionInfo {
@@ -76,7 +84,7 @@ final class BusRouteViewModel: ObservableObject {
         formatter.dateFormat = "HH:mm"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         
-        return Dictionary(grouping: busSchedule.filter { $0.busNumber == busNumber }, by: { $0.session })
+        return Dictionary(grouping: busSchedules.filter { $0.busNumber == busNumber }, by: { $0.session })
             .compactMap { session, stops in
                 let sorted = stops.sorted { $0.timeOfArrival < $1.timeOfArrival }
                 let dates = sorted.compactMap { stop -> Date? in
@@ -96,7 +104,7 @@ final class BusRouteViewModel: ObservableObject {
     }
     
     var allSessions: [(session: Int, stops: [BusSchedule])] {
-        Dictionary(grouping: busSchedule.filter { $0.busNumber == busNumber }, by: { $0.session })
+        Dictionary(grouping: busSchedules.filter { $0.busNumber == busNumber }, by: { $0.session })
             .map { (session, stops) in
                 (session, stops.sorted { $0.timeOfArrival < $1.timeOfArrival })
             }
@@ -110,6 +118,31 @@ final class BusRouteViewModel: ObservableObject {
     var mainSessionIndex: Int {
         let now = Date()
         return sessionInfo.firstIndex(where: { now >= $0.firstDate && now <= $0.lastDate }) ?? 0
+    }
+    
+    func loadData() {
+        self.isLoading = true
+        let group = DispatchGroup()
+        
+        group.enter()
+        FirestoreManager.shared.fetchBuses { [weak self] result in
+            if case .success(let data) = result {
+                DispatchQueue.main.async { self?.buses = data }
+            }
+            group.leave()
+        }
+        
+        group.enter()
+        FirestoreManager.shared.fetchSchedules { [weak self] result in
+            if case .success(let data) = result {
+                DispatchQueue.main.async { self?.busSchedules = data }
+            }
+            group.leave()
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.isLoading = false
+        }
     }
     
     func stopStatus(for timeString: String) -> StopStatus {

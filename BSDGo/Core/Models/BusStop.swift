@@ -1,9 +1,11 @@
 import Foundation
 import CoreLocation
 import SwiftUI
+import FirebaseFirestore
 
 struct BusStop: Identifiable, Decodable {
     let id: UUID
+    var firestoreID: String?
     var name: String
     let coordinate: CLLocationCoordinate2D
     let color: Color?
@@ -33,23 +35,6 @@ struct BusStop: Identifiable, Decodable {
     }
 }
 
-func loadBusStops() -> [BusStop] {
-    guard let url = Bundle.main.url(forResource: "Stops", withExtension: "json") else {
-        print("Bus Stop JSON file not found")
-            return []
-    }
-
-    do {
-        let data = try Data(contentsOf: url)
-        let decoder = JSONDecoder()
-        let stops = try decoder.decode([BusStop].self, from: data)
-        return stops
-    } catch {
-        print("Error decoding Bus Stop JSON: \(error)")
-            return []
-    }
-}
-
 extension BusStop {
     init(id: UUID, name: String, coordinate: CLLocationCoordinate2D, color: Color? = nil, distanceFromUser: CLLocationDistance? = nil) {
         self.id = id
@@ -59,3 +44,19 @@ extension BusStop {
         self.distanceFromUser = distanceFromUser
     }
 }
+// func loadBusStops() -> [BusStop] {
+//    guard let url = Bundle.main.url(forResource: "Stops", withExtension: "json") else {
+//        print("Bus Stop JSON file not found")
+//            return []
+//    }
+//
+//    do {
+//        let data = try Data(contentsOf: url)
+//        let decoder = JSONDecoder()
+//        let stops = try decoder.decode([BusStop].self, from: data)
+//        return stops
+//    } catch {
+//        print("Error decoding Bus Stop JSON: \(error)")
+//            return []
+//    }
+// }

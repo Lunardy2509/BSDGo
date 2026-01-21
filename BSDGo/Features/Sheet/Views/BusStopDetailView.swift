@@ -8,9 +8,9 @@ struct BusStopDetailView: View {
     @Binding var selectedBusNumber: Int
     @Binding var selectedBusName: String
     @Binding var selectedSheet: SheetType
-
+    
     @Environment(\.dismiss) private var dismiss
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -34,9 +34,9 @@ struct BusStopDetailView: View {
                 .font(.title3.bold())
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
-
+            
             ScrollView {
-                BusCard(
+                BusCardView(
                     currentBusStop: $currentBusStop,
                     showRouteDetailSheet: $showRouteDetailSheet,
                     selectedBusNumber: $selectedBusNumber,

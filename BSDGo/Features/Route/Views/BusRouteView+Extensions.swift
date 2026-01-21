@@ -13,14 +13,20 @@ extension BusRouteView {
         index idx: Int,
         stop: BusSchedule,
         context: StopRowContext,
-        scrollProxy: ScrollViewProxy
+        scrollProxy: ScrollViewProxy,
+        stops: [BusSchedule]
     ) -> some View {
         let status = viewModel.stopStatus(for: stop.timeOfArrival)
         let isBusHere = idx == context.busIndex
         let isUserHere = stop.busStopName == viewModel.currentStopName
         let isUserArrived = isBusHere && isUserHere
         
-        buildExpandCollapseButtons(idx: idx, context: context, scrollProxy: scrollProxy)
+        buildExpandCollapseButtons(
+            idx: idx,
+            context: context,
+            scrollProxy: scrollProxy,
+            stops: stops
+        )
         
         if viewModel.isExpanded || !(idx > context.busIndex && idx < context.userIndex) {
             StopRowView(
@@ -32,7 +38,7 @@ extension BusRouteView {
                 showConnector: idx < context.totalCount - 1,
                 progress: isBusHere ? viewModel.animationProgress : 0
             )
-            .id(idx)
+            .id(stop.id)
         }
     }
     
@@ -40,21 +46,25 @@ extension BusRouteView {
     func buildExpandCollapseButtons(
         idx: Int,
         context: StopRowContext,
-        scrollProxy: ScrollViewProxy
+        scrollProxy: ScrollViewProxy,
+        stops: [BusSchedule]
     ) -> some View {
         if idx > context.busIndex && idx < context.userIndex && !viewModel.isExpanded {
             if idx == context.busIndex + 1 {
-                buildExpandButton(context: context, scrollProxy: scrollProxy)
+                let targetStopID = stops[context.busIndex].id
+                buildExpandButton(targetID: targetStopID, context: context, scrollProxy: scrollProxy)
             }
         }
         
         if idx == context.userIndex && viewModel.isExpanded {
-            buildCollapseButton(busIndex: context.busIndex, scrollProxy: scrollProxy)
+            let targetStopID = stops[context.busIndex].id
+            buildCollapseButton(targetID: targetStopID, scrollProxy: scrollProxy)
         }
     }
     
     @ViewBuilder
     func buildExpandButton(
+        targetID: AnyHashable,
         context: StopRowContext,
         scrollProxy: ScrollViewProxy
     ) -> some View {
@@ -65,7 +75,7 @@ extension BusRouteView {
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     withAnimation {
-                        scrollProxy.scrollTo(context.busIndex, anchor: .top)
+                        scrollProxy.scrollTo(targetID, anchor: .top)
                     }
                 }
             }, label: {
@@ -83,7 +93,7 @@ extension BusRouteView {
     
     @ViewBuilder
     func buildCollapseButton(
-        busIndex: Int,
+        targetID: AnyHashable,
         scrollProxy: ScrollViewProxy
     ) -> some View {
         HStack {
@@ -93,7 +103,7 @@ extension BusRouteView {
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     withAnimation {
-                        scrollProxy.scrollTo(busIndex, anchor: .top)
+                        scrollProxy.scrollTo(targetID, anchor: .top)
                     }
                 }
             }, label: {

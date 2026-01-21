@@ -1,7 +1,9 @@
-import Foundation 
+import Foundation
+import FirebaseFirestore
 
 struct BusSchedule: Identifiable, Codable { 
     let id: UUID
+    var firestoreID: String?
     let busStopName: String
     let busNumber: Int
     let timeOfArrival: String
@@ -22,20 +24,19 @@ struct BusSchedule: Identifiable, Codable {
         timeOfArrival = try container.decode(String.self, forKey: .timeOfArrival)
         session = try container.decode(Int.self, forKey: .session)
     }
-} 
-
-func loadBusSchedules() -> [BusSchedule] {
-   guard let url = Bundle.main.url(forResource: "Schedule", withExtension: "json") else { 
-       print("Bus Schedule JSON file not found")
-       return [] 
-   } 
-
-   do {
-       let data = try Data(contentsOf: url)
-       let busSchedules = try JSONDecoder().decode([BusSchedule].self, from: data)
-       return busSchedules
-   } catch { 
-       print("Error decoding Bus Schedule JSON: \(error)")
-       return [] 
-   }
-} 
+}
+// func loadBusSchedules() -> [BusSchedule] {
+//   guard let url = Bundle.main.url(forResource: "Schedule", withExtension: "json") else {
+//       print("Bus Schedule JSON file not found")
+//       return [] 
+//   } 
+//
+//   do {
+//       let data = try Data(contentsOf: url)
+//       let busSchedules = try JSONDecoder().decode([BusSchedule].self, from: data)
+//       return busSchedules
+//   } catch { 
+//       print("Error decoding Bus Schedule JSON: \(error)")
+//       return [] 
+//   }
+// }

@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct SplashView: View {
-    @State private var isActive = false
+    @StateObject private var viewModel = SplashViewModel()
+    @StateObject private var locationManager = LocationManager()
+    
     @State private var scaleUp = false
     @State private var glow = false
-    
-    @StateObject private var locationManager = LocationManager()
     
     let appIcon = Image("BSDGo Icon")
 
     var body: some View {
-        if isActive {
+        if viewModel.isActive {
             MapView()
                 .environmentObject(locationManager)
         } else {
@@ -44,12 +44,8 @@ struct SplashView: View {
                 scaleUp = true
                 glow = true
 
-                // Transition delay
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    withAnimation {
-                        isActive = true
-                    }
-                }
+                viewModel.checkAuthentication()
+                locationManager.loadBusStops()
             }
         }
     }
