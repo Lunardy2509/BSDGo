@@ -6,13 +6,30 @@ import WidgetKit
 
 @MainActor
 final class MapViewModel: ObservableObject {
-    func generateMapSnapshot(userLocation: CLLocation, stops: [BusStop], size: CGSize, fileName: String) {
+    private var isGeneratingSnapshots = false
+    private var lastSnapshotTime: Date?
+    
+    func generateMapSnapshot(userLocation: CLLocation, stops: [BusStop], size: CGSize, fileName: String, completion: (() -> Void)? = nil) {
         let options = configureMapOptions(userLocation: userLocation, size: size, fileName: fileName)
         let snapshotter = MKMapSnapshotter(options: options)
         
-        snapshotter.start { snapshot, _ in
-            guard let snapshot = snapshot else { return }
-            self.processSnapshot(snapshot, userLocation: userLocation, stops: stops, options: options, fileName: fileName)
+        snapshotter.start { [weak self] snapshot, error in
+            
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Snapshot failed: \(error.localizedDescription)")
+                    completion?()
+                    return
+                }
+                
+                if let snapshot = snapshot {
+                    self.processSnapshot(snapshot, userLocation: userLocation, stops: stops, options: options, fileName: fileName)
+                }
+                
+                completion?()
+            }
         }
     }
     
@@ -95,21 +112,52 @@ final class MapViewModel: ObservableObject {
     }
 
     func handleLocationUpdate(location: CLLocation, allStops: [BusStop], locationManager: LocationManager) {
-        // Trigger the widget to reload its timeline
-        WidgetCenter.shared.reloadAllTimelines()
         
+        // 1. Calculate and save closest stops immediately
         let widgetModel = locationManager.convertToWidgetModel(from: allStops, userLocation: location)
-        let closestStops = getClosestStops(from: widgetModel, using: allStops)
-        
-        // Save closestStops (WidgetModel) to App Group
         if let data = try? JSONEncoder().encode(widgetModel) {
             let defaults = UserDefaults(suiteName: "group.com.lunardy.BSDGo")
             defaults?.set(data, forKey: "closestStops")
         }
         
-        // Save snapshot images
-        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 350, height: 210), fileName: "mapSnapshot_medium.png")
-        generateMapSnapshot(userLocation: location, stops: closestStops, size: CGSize(width: 430, height: 400), fileName: "mapSnapshot_large.png")
+        // 2. CHECK: Is the GPU busy?
+        if isGeneratingSnapshots {
+            print("⚠️ Skipping snapshot: GPU is busy.")
+            return
+        }
+        
+        // 3. CHECK: Is it too soon? (15 second Throttle)
+        if let lastTime = lastSnapshotTime, Date().timeIntervalSince(lastTime) < 15 {
+            return
+        }
+        
+        // 4. Start the Sequence
+        isGeneratingSnapshots = true
+        lastSnapshotTime = Date()
+        
+        let closestStops = getClosestStops(from: widgetModel, using: allStops)
+        
+        // Step A: Medium Widget
+        generateMapSnapshot(
+            userLocation: location,
+            stops: closestStops,
+            size: CGSize(width: 350, height: 210),
+            fileName: "mapSnapshot_medium.png"
+        ) { [weak self] in
+            
+            // Step B: Large Widget (Only starts after Medium finishes)
+            self?.generateMapSnapshot(
+                userLocation: location,
+                stops: closestStops,
+                size: CGSize(width: 430, height: 400),
+                fileName: "mapSnapshot_large.png"
+            ) { [weak self] in
+                
+                // Step C: Finish
+                WidgetCenter.shared.reloadAllTimelines()
+                self?.isGeneratingSnapshots = false
+            }
+        }
     }
     
     struct AnnotationTapResult {

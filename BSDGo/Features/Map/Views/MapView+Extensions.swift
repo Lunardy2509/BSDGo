@@ -185,6 +185,7 @@ extension MapView {
                     .presentationDetents([.fraction(0.35), .medium, .fraction(0.99)])
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled)
+                    .interactiveDismissDisabled()
             }
 
         case .routeDetailView:
@@ -203,6 +204,7 @@ extension MapView {
                     .presentationDetents([.fraction(0.99)])
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled)
+                    .interactiveDismissDisabled()
             }
         }
     }

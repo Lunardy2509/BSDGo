@@ -88,7 +88,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         
         self.lastWidgetUpdateLocation = currentLoc
         
-        Task.detached(priority: .background) { [weak self] in
+        Task { [weak self] in
             guard let self = self else { return }
             
             let widgetStops = self.convertToWidgetModel(from: stops, userLocation: currentLoc)

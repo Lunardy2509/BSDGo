@@ -28,7 +28,6 @@ final class FirestoreManager {
             return
         }
         
-        // Fetch from Network
         db.collection("buses").getDocuments { [weak self] snapshot, error in
             if let error = error {
                 completion(.failure(error))
@@ -107,22 +106,6 @@ final class FirestoreManager {
             
             self?.cachedStops = stops
             completion(.success(stops))
-        }
-    }
-    
-    // Call this in the App Delegate or Root View .onAppear to load EVERYTHING once
-    func preloadAllData(completion: @escaping () -> Void) {
-        let group = DispatchGroup()
-        
-        group.enter()
-        fetchBuses { _ in group.leave() }
-            
-        fetchSchedules { _ in group.leave() }
-        
-        fetchStops { _ in group.leave() }
-        
-        group.notify(queue: .main) {
-            completion()
         }
     }
 }

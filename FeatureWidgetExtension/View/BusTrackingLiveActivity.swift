@@ -3,31 +3,7 @@ import WidgetKit
 import UIKit
 import CoreLocation
 import UserNotifications
-
 import ActivityKit
-
-// MARK: - Helper Functions
-private func colorFromHex(_ hex: String) -> Color {
-    let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-    var int: UInt64 = 0
-    Scanner(string: hex).scanHexInt64(&int)
-    let red, green, blue: UInt64
-    switch hex.count {
-    case 3: // RGB (12-bit)
-        (red, green, blue) = ((int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-    case 6: // RGB (24-bit)
-        (red, green, blue) = (int >> 16, int >> 8 & 0xFF, int & 0xFF)
-    default:
-        (red, green, blue) = (255, 165, 0) // Orange fallback
-    }
-    return Color(
-        .sRGB,
-        red: Double(red) / 255,
-        green: Double(green) / 255,
-        blue: Double(blue) / 255,
-        opacity: 1
-    )
-}
 
 // MARK: - Live Activity Widget
 struct BusTrackingLiveActivity: Widget {
@@ -41,7 +17,7 @@ struct BusTrackingLiveActivity: Widget {
                 // Expanded UI
                 DynamicIslandExpandedRegion(.leading) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Image(systemName: "bus.fill")
+                        Image(systemName: "bus")
                             .foregroundColor(.orange)
                             .font(.title2)
                         Text("Bus \(context.attributes.busNumber)")
@@ -56,7 +32,7 @@ struct BusTrackingLiveActivity: Widget {
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(.green)
-                        Text("arrival")
+                        Text("Arrival")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }
@@ -86,25 +62,26 @@ struct BusTrackingLiveActivity: Widget {
                     .padding(.horizontal, 8)
                 }
             } compactLeading: {
-                Image(systemName: "bus.fill")
-                    .foregroundColor(.orange)
-                    .font(.system(size: 16, weight: .medium))
+                BusIcon()
+                    .scaleEffect(0.5)
+                    .foregroundStyle(.orange)
+                    .frame(width: 20, height: 20)
             } compactTrailing: {
                 Text(context.state.arrivalTimeDisplay)
                     .font(.caption2)
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             } minimal: {
-                Image(systemName: "bus.fill")
-                    .foregroundColor(.orange)
-                    .font(.system(size: 14))
+                BusIcon()
+                    .scaleEffect(0.5)
+                    .foregroundStyle(.orange)
+                    .frame(width: 20, height: 20)
             }
         }
     }
 }
 
 // MARK: - Lock Screen View
-@available(iOS 16.1, *)
 struct BusTrackingLockScreenView: View {
     let context: ActivityViewContext<BusTrackingModel>
     
@@ -126,7 +103,7 @@ struct BusTrackingLockScreenView: View {
                 // Arrival time section
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("You will arrive at")
+                        Text("Your Bus will arrive at")
                             .font(.subheadline)
                             .foregroundColor(.primary)
                         
@@ -177,18 +154,10 @@ struct BusTrackingLockScreenView: View {
                                 Spacer()
                                     .frame(width: max(0, CGFloat(context.state.currentProgress) * geometry.size.width - 12))
                                 
-                                Circle()
-                                    .fill(.white)
+                                BusIcon()
+                                    .scaleEffect(0.5)
+                                    .foregroundStyle(.orange)
                                     .frame(width: 20, height: 20)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(.gray.opacity(0.3), lineWidth: 1)
-                                    )
-                                    .overlay(
-                                        Image(systemName: "bus.fill")
-                                            .font(.system(size: 10))
-                                            .foregroundColor(.orange)
-                                    )
                                     .animation(.easeInOut(duration: 0.5), value: context.state.currentProgress)
                                 
                                 Spacer()
@@ -216,21 +185,27 @@ struct BusTrackingLockScreenView: View {
     }
 }
 
-// MARK: - Bus Icon View
-struct BusIconView: View {
-    let busColor: String
-    let size: CGFloat
-    
-    init(busColor: String, size: CGFloat = 28) {
-        self.busColor = busColor
-        self.size = size
+// MARK: - Helper Functions
+private func colorFromHex(_ hex: String) -> Color {
+    let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+    var int: UInt64 = 0
+    Scanner(string: hex).scanHexInt64(&int)
+    let red, green, blue: UInt64
+    switch hex.count {
+    case 3: // RGB (12-bit)
+        (red, green, blue) = ((int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+    case 6: // RGB (24-bit)
+        (red, green, blue) = (int >> 16, int >> 8 & 0xFF, int & 0xFF)
+    default:
+        (red, green, blue) = (255, 165, 0) // Orange fallback
     }
-    
-    var body: some View {
-        Image(systemName: "bus.fill")
-            .foregroundColor(colorFromHex(busColor))
-            .font(.system(size: size))
-    }
+    return Color(
+        .sRGB,
+        red: Double(red) / 255,
+        green: Double(green) / 255,
+        blue: Double(blue) / 255,
+        opacity: 1
+    )
 }
 
 // MARK: - Custom Progress View Style

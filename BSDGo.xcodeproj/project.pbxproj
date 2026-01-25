@@ -81,6 +81,7 @@
 		BD103AF12DD5EED50098F994 /* FeatureWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeatureWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD39AC762E3D59BF00FF518C /* BSDGoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BSDGoApp.swift; path = BSDGo/BSDGoApp.swift; sourceTree = "<group>"; };
 		BD4419F82EA015CD00563891 /* BSDGoPushNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BSDGoPushNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDB6139A2F25016A00350972 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = BSDGo/Info.plist; sourceTree = "<group>"; };
 		BDD7533E2F20AD280056F60D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BDD753412F20AD480056F60D /* LiveActivity-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LiveActivity-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +99,7 @@
 			membershipExceptions = (
 				Assets.xcassets,
 				Info.plist,
+				Model/BusTrackingAttributes.swift,
 			);
 			target = BD103AF02DD5EED50098F994 /* FeatureWidgetExtension */;
 		};
@@ -111,7 +113,9 @@
 		BDBE523C2E3E746D00C5FD10 /* Exceptions for "FeatureWidgetExtension" folder in "BSDGo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Model/BusTrackingAttributes.swift,
 				Model/WidgetModel.swift,
+				View/BusTrackingLiveActivity.swift,
 			);
 			target = 4A685DB32D88083C0053791C /* BSDGo */;
 		};
@@ -136,6 +140,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Components/Annotation/UserAnnotation.swift,
+				Components/Icon/BusIcon.swift,
 				Enums/SheetType.swift,
 				Enums/StopStatus.swift,
 			);
@@ -261,6 +266,7 @@
 		4A685DAB2D88083C0053791C = {
 			isa = PBXGroup;
 			children = (
+				BDB6139A2F25016A00350972 /* Info.plist */,
 				BDD753412F20AD480056F60D /* LiveActivity-Info.plist */,
 				BDD7533E2F20AD280056F60D /* GoogleService-Info.plist */,
 				BDC7E86D2EA29797009DF245 /* BSDGoTests */,
@@ -747,9 +753,11 @@
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BSDGo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BSDGo;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -789,9 +797,11 @@
 				DEVELOPMENT_TEAM = 84KMF7PD4V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BSDGo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BSDGo;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -23,6 +23,17 @@ final class LiveActivityManager: ObservableObject {
     
     private let notificationManager = NotificationManager.shared
     
+    // MARK: - Tracking State
+    private var initialDistance: CLLocationDistance?
+    private var averageTripSpeed: CLLocationSpeed?
+    
+    // MARK: - Throttling State
+    private var lastUpdateTime: Date?
+    private var lastPublishedStatus: BusTrackingModel.ContentState.BusStatus?
+    private var lastPublishedProgress: Double = 0.0
+    
+    private var currentUpdateTask: Task<Void, Never>?
+    
     private init() {
         checkLiveActivitySupport()
     }
@@ -32,6 +43,12 @@ final class LiveActivityManager: ObservableObject {
     }
     
     func startBusTracking(config: BusTrackingConfig) {
+        initialDistance = nil
+        averageTripSpeed = nil
+        lastUpdateTime = nil
+        lastPublishedStatus = nil
+        lastPublishedProgress = 0.0
+        
         #if canImport(ActivityKit)
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
         
@@ -89,13 +106,19 @@ final class LiveActivityManager: ObservableObject {
             isOnTheWay: remainingTime > 0
         )
         
-        Task {
+        currentUpdateTask?.cancel()
+        
+        currentUpdateTask = Task {
+            try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
+            if Task.isCancelled { return }
             await activity.update(.init(state: updatedState, staleDate: nil))
         }
     }
     
     func endBusTracking() {
         guard let activity = currentActivity else { return }
+        
+        currentActivity = nil
         
         let finalState = BusTrackingModel.ContentState(
             estimatedArrival: activity.content.state.estimatedArrival,
@@ -107,7 +130,6 @@ final class LiveActivityManager: ObservableObject {
         
         Task {
             await activity.end(.init(state: finalState, staleDate: nil), dismissalPolicy: .immediate)
-            currentActivity = nil
             print("🏁 Live Activity ended")
         }
     }
@@ -122,35 +144,77 @@ final class LiveActivityManager: ObservableObject {
         }
     }
     
-    var hasActiveActivity: Bool {
-        return currentActivity != nil
-    }
-    
-    // MARK: - Location-Based Integration
-    
-    /// Update live activity based on user location relative to destination
+    // MARK: - Safe, Throttled Location Updates
     func updateLocationBasedProgress(userLocation: CLLocation, destinationCoordinate: CLLocationCoordinate2D) {
-        guard hasActiveActivity else { return }
+        guard let activity = currentActivity else { return }
         
         let destinationLocation = CLLocation(
             latitude: destinationCoordinate.latitude,
             longitude: destinationCoordinate.longitude
         )
-        let distance = userLocation.distance(from: destinationLocation)
         
-        // Calculate progress based on proximity (closer = higher progress)
-        let maxDistance: CLLocationDistance = 2000 // 2km max distance for progress calculation
-        let progress = max(0.0, min(1.0, (maxDistance - distance) / maxDistance))
+        // 1. Calculate Distances
+        let currentDistance = userLocation.distance(from: destinationLocation)
         
-        // Calculate remaining time based on distance (rough estimation)
-        let estimatedSpeed: CLLocationDistance = 10 // 10 m/s average bus speed
-        let remainingTime = max(0, distance / estimatedSpeed)
+        // Initialize Baseline if needed
+        if initialDistance == nil {
+            initialDistance = currentDistance
+            let scheduledDuration = activity.content.state.remainingTime
+            if scheduledDuration > 0 {
+                averageTripSpeed = currentDistance / scheduledDuration
+            } else {
+                averageTripSpeed = 10
+            }
+        }
         
-        updateBusProgress(progress: progress, remainingTime: remainingTime)
+        guard let startDist = initialDistance,
+              let speed = averageTripSpeed,
+              startDist > 0 else { return }
         
-        // Check for arrival
-        if distance <= 50 { // Within 50 meters = arrived
-            endBusTracking()
+        // 2. Calculate New State
+        let rawProgress = (startDist - currentDistance) / startDist
+        let clampedProgress = min(max(rawProgress, 0.0), 1.0)
+        let newRemainingTime = currentDistance / speed
+        
+        // Determine Status
+        var newStatus: BusTrackingModel.ContentState.BusStatus = .onTheWay
+        if currentDistance <= 50 {
+            newStatus = .arrived
+        } else if currentDistance <= 200 {
+            newStatus = .approaching
+        } else if currentDistance <= 500 {
+            newStatus = .arriving
+        }
+        
+        // 3. THROTTLING LOGIC (The Fix for the Crash)
+        let now = Date()
+        let timeSinceLastUpdate = now.timeIntervalSince(lastUpdateTime ?? .distantPast)
+        let progressChange = abs(clampedProgress - lastPublishedProgress)
+        
+        let isStatusChange = newStatus != lastPublishedStatus
+        let isArrival = newStatus == .arrived
+        let isSignificantChange = progressChange > 0.02 && timeSinceLastUpdate > 2.0
+        let isHeartbeat = timeSinceLastUpdate > 15.0
+        
+        if lastUpdateTime == nil || isStatusChange || isArrival || isSignificantChange || isHeartbeat {
+            
+            // Update State
+            lastUpdateTime = now
+            lastPublishedStatus = newStatus
+            lastPublishedProgress = clampedProgress
+            
+            print("🚀 Updating Live Activity: \(Int(clampedProgress * 100))% - \(newStatus.rawValue)")
+            
+            updateBusProgress(
+                progress: clampedProgress,
+                remainingTime: newRemainingTime,
+                status: newStatus
+            )
+            
+            // End immediately if arrived
+            if isArrival {
+                endBusTracking()
+            }
         }
     }
     
