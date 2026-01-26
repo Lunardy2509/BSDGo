@@ -23,13 +23,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
-//        Task.detached {
-//            let stops = loadBusStops()
-//            await MainActor.run {
-//                self.cachedBusStops = stops
-//            }
-//        }
-        
         $userHeading
             .removeDuplicates()
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
@@ -55,7 +48,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     
     // MARK: - Load Bus Stops
     func loadBusStops() {
-        // Only fetch if we haven't already
         guard cachedBusStops.isEmpty else { return }
         
         FirestoreManager.shared.fetchStops { [weak self] result in
@@ -88,23 +80,24 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         
         self.lastWidgetUpdateLocation = currentLoc
         
-        Task { [weak self] in
-            guard let self = self else { return }
+        // Capturing 'stops' and 'currentLoc' ensures thread safety without accessing 'self' dangerously.
+        Task.detached(priority: .userInitiated) { [stops, currentLoc] in
+            // 1. Heavy Calculation
+            let widgetStops = LocationManager.convertToWidgetModel(from: stops, userLocation: currentLoc)
             
-            let widgetStops = self.convertToWidgetModel(from: stops, userLocation: currentLoc)
-            
-            // Save to shared UserDefaults
+            // 2. I/O Operations
             if let data = try? JSONEncoder().encode(widgetStops) {
                 let sharedDefaults = UserDefaults(suiteName: "group.com.lunardy.BSDGo")
                 sharedDefaults?.set(data, forKey: "closestStops")
                 
-                // Trigger widget reload
+                // 3. Trigger reload
                 WidgetCenter.shared.reloadTimelines(ofKind: "FeatureWidget")
             }
         }
     }
     
-    nonisolated func convertToWidgetModel(from stops: [BusStop], userLocation: CLLocation) -> [WidgetModel] {
+    // Made static so it can be called easily from detached tasks without instance dependency
+    nonisolated static func convertToWidgetModel(from stops: [BusStop], userLocation: CLLocation) -> [WidgetModel] {
         return stops
             .map { stop in
                 let distance = CLLocation(latitude: stop.coordinate.latitude, longitude: stop.coordinate.longitude)
@@ -120,12 +113,25 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
                 )
             }
     }
+    
+    // Helper specifically for this class if not defined elsewhere, ensuring it is nonisolated
+    nonisolated static func formatDistance(_ distance: CLLocationDistance) -> String {
+        if distance < 1000 {
+            return String(format: "%.0f m", distance)
+        } else {
+            return String(format: "%.1f km", distance / 1000)
+        }
+    }
+    
+    // Instance method wrapper to satisfy interface if needed, calling static version
+    nonisolated func convertToWidgetModel(from stops: [BusStop], userLocation: CLLocation) -> [WidgetModel] {
+        return Self.convertToWidgetModel(from: stops, userLocation: userLocation)
+    }
 }
 
 // MARK: - Delegate Extension
 extension LocationManager {
     
-    // nonisolated: Let the system call this from any thread without crashing
     nonisolated func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         Task { @MainActor in
             self.locationStatus = status

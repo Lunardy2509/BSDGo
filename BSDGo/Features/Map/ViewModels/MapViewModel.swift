@@ -25,10 +25,16 @@ final class MapViewModel: ObservableObject {
                 }
                 
                 if let snapshot = snapshot {
-                    self.processSnapshot(snapshot, userLocation: userLocation, stops: stops, options: options, fileName: fileName)
+                    let finalImage = self.renderSnapshotImage(snapshot, userLocation: userLocation, stops: stops, size: size)
+                    Task.detached(priority: .background) {
+                        await self.saveSnapshotImage(image: finalImage, fileName: fileName)
+                        await MainActor.run {
+                            completion?()
+                        }
+                    }
+                } else {
+                    completion?()
                 }
-                
-                completion?()
             }
         }
     }
@@ -56,15 +62,29 @@ final class MapViewModel: ObservableObject {
         return options
     }
     
-    private func processSnapshot(_ snapshot: MKMapSnapshotter.Snapshot, userLocation: CLLocation, stops: [BusStop], options: MKMapSnapshotter.Options, fileName: String) {
-        UIGraphicsBeginImageContextWithOptions(options.size, false, 0)
-        snapshot.image.draw(at: .zero)
-
-        guard UIGraphicsGetCurrentContext() != nil else { return }
-
-        drawUserAnnotation(snapshot: snapshot, userLocation: userLocation)
-        drawStopAnnotations(snapshot: snapshot, stops: stops)
-        saveSnapshotImage(fileName: fileName)
+//    private func processSnapshot(_ snapshot: MKMapSnapshotter.Snapshot, userLocation: CLLocation, stops: [BusStop], options: MKMapSnapshotter.Options, fileName: String) {
+//        UIGraphicsBeginImageContextWithOptions(options.size, false, 0)
+//        snapshot.image.draw(at: .zero)
+//
+//        guard UIGraphicsGetCurrentContext() != nil else { return }
+//
+//        drawUserAnnotation(snapshot: snapshot, userLocation: userLocation)
+//        drawStopAnnotations(snapshot: snapshot, stops: stops)
+//    }
+//    
+    private func renderSnapshotImage(_ snapshot: MKMapSnapshotter.Snapshot, userLocation: CLLocation, stops: [BusStop], size: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        
+        return renderer.image { _ in
+            // 1. Draw Map
+            snapshot.image.draw(at: .zero)
+            
+            // 2. Draw User
+            drawUserAnnotation(snapshot: snapshot, userLocation: userLocation)
+            
+            // 3. Draw Stops
+            drawStopAnnotations(snapshot: snapshot, stops: stops)
+        }
     }
     
     private func drawUserAnnotation(snapshot: MKMapSnapshotter.Snapshot, userLocation: CLLocation) {
@@ -89,19 +109,16 @@ final class MapViewModel: ObservableObject {
         }
     }
     
-    private func saveSnapshotImage(fileName: String) {
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        if let data = finalImage?.pngData(),
-           let url = FileManager.default
-               .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.BSDGo")?
-               .appendingPathComponent(fileName) {
-            do {
-                try data.write(to: url)
-            } catch {
-                // Handle error silently
-            }
+    nonisolated private func saveSnapshotImage(image: UIImage, fileName: String) async {
+        guard let data = image.pngData(),
+              let url = FileManager.default
+            .containerURL(forSecurityApplicationGroupIdentifier: "group.com.lunardy.BSDGo")?
+            .appendingPathComponent(fileName) else { return }
+        
+        do {
+            try data.write(to: url, options: .atomic)
+        } catch {
+            print("Failed to save snapshot: \(error)")
         }
     }
 
